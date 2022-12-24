@@ -1,5 +1,6 @@
 package kr.jenna.plmography;
 
+import kr.jenna.plmography.utils.TmdbApiUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class PlmographyApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(PlmographyApplication.class, args);
     }
@@ -29,4 +29,8 @@ public class PlmographyApplication {
         };
     }
 
+    @Bean
+    public TmdbApiUtil tmdbApiUtil() {
+        return new TmdbApiUtil();
+    }
 }
