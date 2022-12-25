@@ -38,7 +38,7 @@ public class ContentDto {
         return korTitle;
     }
 
-    public String getEndTitle() {
+    public String getEngTitle() {
         return engTitle;
     }
 
@@ -70,7 +70,7 @@ public class ContentDto {
     @Override
     public boolean equals(Object other) {
         ContentDto otherContentDto = (ContentDto) other;
-        
+
         return Objects.equals(id, otherContentDto.id) &&
                 Objects.equals(imageUrl, otherContentDto.imageUrl) &&
                 Objects.equals(korTitle, otherContentDto.korTitle) &&

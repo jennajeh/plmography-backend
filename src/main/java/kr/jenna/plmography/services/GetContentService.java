@@ -16,7 +16,6 @@ public class GetContentService {
         this.contentRepository = contentRepository;
     }
 
-
     public ContentDto detail(Long contentId) {
         Content content = contentRepository.findById(contentId)
                 .orElseThrow(() -> new ContentNotFound(contentId));
