@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.repositories.ContentRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,10 @@ import java.time.LocalDateTime;
 @Transactional
 public class GetApiService {
     private final ContentRepository contentRepository;
-    private final String KEY = "750fc7b483b1da64b9c19bf813de37ac";
+
+    @Value("${tmdb.api-key}")
+    private String KEY;
+
     LocalDateTime dateTime = LocalDateTime.now();
 
     public GetApiService(ContentRepository contentRepository) {
@@ -66,7 +70,9 @@ public class GetApiService {
                             .description(contents.get("overview").toString().replaceAll(match, ""))
                             .korTitle(contents.get("title").toString().replaceAll(match, ""))
                             .engTitle(contents.get("original_title").toString().replaceAll(match, ""))
-                            .releaseDate(contents.get("release_date").toString().replaceAll(match, ""))
+                            .releaseDate(contents.get("release_date")
+                                    == null ? ""
+                                    : contents.get("release_date").toString().replaceAll(match, ""))
                             .genres(contents.get("genre_ids").toString().replaceAll(match, ""))
                             .imageUrl(imageUrl + contents.get("poster_path").toString().replaceAll(match, ""))
                             .createdAt(dateTime)

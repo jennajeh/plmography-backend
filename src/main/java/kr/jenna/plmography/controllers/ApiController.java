@@ -1,6 +1,7 @@
 package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.services.GetApiService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,9 @@ import java.net.URL;
 @RequestMapping("/api")
 public class ApiController {
     private GetApiService getApiService;
-    private final String KEY = "750fc7b483b1da64b9c19bf813de37ac";
+
+    @Value("${tmdb.api-key}")
+    private String KEY;
 
     public ApiController(GetApiService getApiService) {
         this.getApiService = getApiService;
@@ -31,7 +34,7 @@ public class ApiController {
         String result = "";
 
         try {
-            for (int i = 1; i <= getPages(); i += 1) {
+            for (int i = 1; i <= 500; i += 1) {
                 String apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=" + KEY
                         + "&language=ko&page=" + i;
 
