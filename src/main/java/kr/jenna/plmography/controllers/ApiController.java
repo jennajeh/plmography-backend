@@ -18,24 +18,19 @@ public class ApiController {
     private GetApiService getApiService;
 
     @Value("${tmdb.api-key}")
-    private String KEY;
+    private String apiKey;
 
     public ApiController(GetApiService getApiService) {
         this.getApiService = getApiService;
     }
 
-    @GetMapping("/getPages")
-    public int getPages() {
-        return getApiService.getApiPages();
-    }
-
-    @GetMapping("/saveApi")
+    @GetMapping("/savePopularMovie")
     public String saveApi() throws IOException {
         String result = "";
 
         try {
-            for (int i = 1; i <= 500; i += 1) {
-                String apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=" + KEY
+            for (int i = 1; i <= 5; i += 1) {
+                String apiURL = "https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey
                         + "&language=ko&page=" + i;
 
                 URL url = new URL(apiURL);
