@@ -64,7 +64,6 @@ public class S3Uploader {
         if (convertFile.createNewFile()) {
             try (FileOutputStream fileOutputStream = new FileOutputStream(convertFile)) {
                 fileOutputStream.write(file.getBytes());
-                fileOutputStream.close();
             }
             return Optional.of(convertFile);
         }
