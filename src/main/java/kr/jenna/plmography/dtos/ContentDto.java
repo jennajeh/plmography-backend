@@ -4,32 +4,29 @@ import java.util.Objects;
 
 public class ContentDto {
     private Long id;
-    private String movie_id;
-    private String genre_id;
+    private String tmdbContentId;
+    private String tmdbGenreId;
     private String imageUrl;
     private String korTitle;
     private String engTitle;
     private String releaseDate;
     private String popularity;
-    private String trailerUrl;
     private String description;
 
     public ContentDto() {
     }
 
-    public ContentDto(Long id, String movie_id, String genre_id,
+    public ContentDto(Long id, String tmdbContentId, String tmdbGenreId,
                       String imageUrl, String korTitle, String engTitle,
-                      String releaseDate, String popularity,
-                      String trailerUrl, String description) {
+                      String releaseDate, String popularity, String description) {
         this.id = id;
-        this.movie_id = movie_id;
-        this.genre_id = genre_id;
+        this.tmdbContentId = tmdbContentId;
+        this.tmdbGenreId = tmdbGenreId;
         this.imageUrl = imageUrl;
         this.korTitle = korTitle;
         this.engTitle = engTitle;
         this.releaseDate = releaseDate;
         this.popularity = popularity;
-        this.trailerUrl = trailerUrl;
         this.description = description;
     }
 
@@ -37,12 +34,12 @@ public class ContentDto {
         return id;
     }
 
-    public String getMovie_id() {
-        return movie_id;
+    public String getTmdbContentId() {
+        return tmdbContentId;
     }
 
-    public String getGenre_id() {
-        return genre_id;
+    public String getTmdbGenreId() {
+        return tmdbGenreId;
     }
 
     public String getImageUrl() {
@@ -65,10 +62,6 @@ public class ContentDto {
         return popularity;
     }
 
-    public String getTrailerUrl() {
-        return trailerUrl;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -78,21 +71,20 @@ public class ContentDto {
         ContentDto otherDto = (ContentDto) other;
 
         return Objects.equals(id, otherDto.id)
-                && Objects.equals(movie_id, otherDto.movie_id)
-                && Objects.equals(genre_id, otherDto.genre_id)
+                && Objects.equals(tmdbContentId, otherDto.tmdbContentId)
+                && Objects.equals(tmdbGenreId, otherDto.tmdbGenreId)
                 && Objects.equals(imageUrl, otherDto.imageUrl)
                 && Objects.equals(korTitle, otherDto.korTitle)
                 && Objects.equals(engTitle, otherDto.engTitle)
                 && Objects.equals(releaseDate, otherDto.releaseDate)
                 && Objects.equals(popularity, otherDto.popularity)
-                && Objects.equals(trailerUrl, otherDto.trailerUrl)
                 && Objects.equals(description, otherDto.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, movie_id, genre_id,
+        return Objects.hash(id, tmdbContentId, tmdbGenreId,
                 imageUrl, korTitle, engTitle, releaseDate,
-                popularity, trailerUrl, description);
+                popularity, description);
     }
 }

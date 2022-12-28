@@ -47,9 +47,9 @@ public class ContentController {
         return new ContentsDto(contentDtos, pagesDto);
     }
 
-    @GetMapping("/{contentId}")
-    public ContentDto detail(@PathVariable Long contentId) {
-        return getContentService.detail(contentId);
+    @GetMapping("/{id}")
+    public ContentDto detail(@PathVariable Long id) {
+        return getContentService.detail(id);
     }
 
     @ExceptionHandler(ContentNotFound.class)

@@ -1,6 +1,5 @@
 package kr.jenna.plmography;
 
-import kr.jenna.plmography.utils.TmdbApiUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -27,10 +26,5 @@ public class PlmographyApplication {
                 registry.addMapping("/**").allowedOrigins("*");
             }
         };
-    }
-
-    @Bean
-    public TmdbApiUtil tmdbApiUtil() {
-        return new TmdbApiUtil();
     }
 }
