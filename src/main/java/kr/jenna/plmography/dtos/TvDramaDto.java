@@ -2,31 +2,35 @@ package kr.jenna.plmography.dtos;
 
 import java.util.Objects;
 
-public class ContentDto {
+public class TvDramaDto {
     private Long id;
-    private String tmdbContentId;
+    private String tmdbTvId;
     private String tmdbGenreId;
     private String imageUrl;
     private String korTitle;
     private String engTitle;
     private String releaseDate;
     private String popularity;
+    private String platform;
     private String description;
 
-    public ContentDto() {
+    public TvDramaDto() {
     }
 
-    public ContentDto(Long id, String tmdbContentId, String tmdbGenreId,
-                      String imageUrl, String korTitle, String engTitle,
-                      String releaseDate, String popularity, String description) {
+    public TvDramaDto(Long id, String tmdbTvId,
+                      String tmdbGenreId, String imageUrl,
+                      String korTitle, String engTitle,
+                      String releaseDate, String popularity,
+                      String platform, String description) {
         this.id = id;
-        this.tmdbContentId = tmdbContentId;
+        this.tmdbTvId = tmdbTvId;
         this.tmdbGenreId = tmdbGenreId;
         this.imageUrl = imageUrl;
         this.korTitle = korTitle;
         this.engTitle = engTitle;
         this.releaseDate = releaseDate;
         this.popularity = popularity;
+        this.platform = platform;
         this.description = description;
     }
 
@@ -34,8 +38,8 @@ public class ContentDto {
         return id;
     }
 
-    public String getTmdbContentId() {
-        return tmdbContentId;
+    public String getTmdbTvId() {
+        return tmdbTvId;
     }
 
     public String getTmdbGenreId() {
@@ -62,29 +66,34 @@ public class ContentDto {
         return popularity;
     }
 
+    public String getPlatform() {
+        return platform;
+    }
+
     public String getDescription() {
         return description;
     }
 
     @Override
     public boolean equals(Object other) {
-        ContentDto otherDto = (ContentDto) other;
+        TvDramaDto otherDto = (TvDramaDto) other;
 
         return Objects.equals(id, otherDto.id)
-                && Objects.equals(tmdbContentId, otherDto.tmdbContentId)
+                && Objects.equals(tmdbTvId, otherDto.tmdbTvId)
                 && Objects.equals(tmdbGenreId, otherDto.tmdbGenreId)
                 && Objects.equals(imageUrl, otherDto.imageUrl)
                 && Objects.equals(korTitle, otherDto.korTitle)
                 && Objects.equals(engTitle, otherDto.engTitle)
                 && Objects.equals(releaseDate, otherDto.releaseDate)
                 && Objects.equals(popularity, otherDto.popularity)
+                && Objects.equals(platform, otherDto.platform)
                 && Objects.equals(description, otherDto.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tmdbContentId, tmdbGenreId,
+        return Objects.hash(id, tmdbTvId, tmdbGenreId,
                 imageUrl, korTitle, engTitle, releaseDate,
-                popularity, description);
+                popularity, platform, description);
     }
 }

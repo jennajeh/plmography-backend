@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum DramaGenre {
+public enum TvDramaGenre {
     Action_Adventure(10759, "Action"), Animation(16, "Animation"),
     Comedy(35, "Comedy"), Crime(80, "Crime"),
     Documentary(99, "Documentary"), Drama(18, "Drama"),

@@ -1,6 +1,6 @@
 package kr.jenna.plmography.services;
 
-import kr.jenna.plmography.repositories.ContentRepository;
+import kr.jenna.plmography.repositories.MovieRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 @Service
 @Transactional
 public class GetApiService {
-    private final ContentRepository contentRepository;
+    private final MovieRepository movieRepository;
     LocalDateTime dateTime = LocalDateTime.now();
 
-    public GetApiService(ContentRepository contentRepository) {
-        this.contentRepository = contentRepository;
+    public GetApiService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
     }
 
 //    public String savePopularMovie(String result) throws IOException {
@@ -28,8 +28,8 @@ public class GetApiService {
 //            String imageUrl = "https://image.tmdb.org/t/p/original";
 //            String match = "[\"]";
 //
-//            contentRepository.save(
-//                    Content.builder()
+//            movieRepository.save(
+//                    Movie.builder()
 //                            .movieId(contents.get("id").toString().replaceAll(match, ""))
 //                            .genreId(contents.get("genre_ids").toString().replaceAll(match, ""))
 //                            .imageUrl(imageUrl + contents.get("poster_path").toString().replaceAll(match, ""))
