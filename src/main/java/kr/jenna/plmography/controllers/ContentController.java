@@ -1,12 +1,12 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.MovieDto;
-import kr.jenna.plmography.dtos.MoviesDto;
+import kr.jenna.plmography.dtos.ContentDto;
+import kr.jenna.plmography.dtos.ContentsDto;
 import kr.jenna.plmography.dtos.PagesDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
-import kr.jenna.plmography.models.Movie;
-import kr.jenna.plmography.services.GetMovieService;
-import kr.jenna.plmography.services.GetMoviesService;
+import kr.jenna.plmography.models.Content;
+import kr.jenna.plmography.services.GetContentService;
+import kr.jenna.plmography.services.GetContentsService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,35 +21,35 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/movies")
-public class MovieController {
-    private GetMovieService getMovieService;
-    private GetMoviesService getMoviesService;
+@RequestMapping("/contents")
+public class ContentController {
+    private GetContentService getContentService;
+    private GetContentsService getContentsService;
 
-    public MovieController(GetMovieService getMovieService, GetMoviesService getMoviesService) {
-        this.getMovieService = getMovieService;
-        this.getMoviesService = getMoviesService;
+    public ContentController(GetContentService getContentService, GetContentsService getContentsService) {
+        this.getContentService = getContentService;
+        this.getContentsService = getContentsService;
     }
 
     @GetMapping
-    public MoviesDto list(
+    public ContentsDto list(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "8") Integer size
     ) {
-        Page<Movie> movies = getMoviesService.list(page, size);
+        Page<Content> contents = getContentsService.list(page, size);
 
-        List<MovieDto> movieDtos = movies.stream()
-                .map(movie -> movie.toMovieDto())
+        List<ContentDto> contentDtos = contents.stream()
+                .map(content -> content.toContentDto())
                 .collect(Collectors.toList());
 
-        PagesDto pagesDto = new PagesDto(movies.getTotalPages());
+        PagesDto pagesDto = new PagesDto(contents.getTotalPages());
 
-        return new MoviesDto(movieDtos, pagesDto);
+        return new ContentsDto(contentDtos, pagesDto);
     }
 
     @GetMapping("/{id}")
-    public MovieDto detail(@PathVariable Long id) {
-        return getMovieService.detail(id);
+    public ContentDto detail(@PathVariable Long id) {
+        return getContentService.detail(id);
     }
 
     @ExceptionHandler(ContentNotFound.class)

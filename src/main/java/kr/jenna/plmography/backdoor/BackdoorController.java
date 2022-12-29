@@ -1,9 +1,7 @@
 package kr.jenna.plmography.backdoor;
 
-import kr.jenna.plmography.models.Movie;
-import kr.jenna.plmography.models.TvDrama;
-import kr.jenna.plmography.repositories.MovieRepository;
-import kr.jenna.plmography.repositories.TvDramaRepository;
+import kr.jenna.plmography.models.Content;
+import kr.jenna.plmography.repositories.ContentRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,8 +23,7 @@ import java.util.Map;
 public class BackdoorController {
     private final RestTemplate restTemplate;
     private JdbcTemplate jdbcTemplate;
-    private final MovieRepository movieRepository;
-    private final TvDramaRepository tvDramaRepository;
+    private final ContentRepository contentRepository;
 
     @Value("${tmdb.api-key}")
     private String apiKey;
@@ -36,18 +33,15 @@ public class BackdoorController {
     private HttpEntity<?> entity = new HttpEntity<>(headers);
 
     public BackdoorController(RestTemplate restTemplate,
-                              JdbcTemplate jdbcTemplate, MovieRepository movieRepository, TvDramaRepository tvDramaRepository) {
+                              JdbcTemplate jdbcTemplate, ContentRepository contentRepository) {
         this.restTemplate = restTemplate;
         this.jdbcTemplate = jdbcTemplate;
-        this.movieRepository = movieRepository;
-        this.tvDramaRepository = tvDramaRepository;
+        this.contentRepository = contentRepository;
     }
 
     @GetMapping("/reset-database")
     public String resetDatabase() {
-        jdbcTemplate.execute("DELETE FROM movie");
-        jdbcTemplate.execute("DELETE FROM tv_drama");
-        jdbcTemplate.execute("DELETE FROM performer");
+        jdbcTemplate.execute("DELETE FROM content");
 
         return "Reset completed!";
     }
@@ -66,9 +60,9 @@ public class BackdoorController {
                 String imageUrl = "https://image.tmdb.org/t/p/original";
                 String match = "[\"]";
 
-                movieRepository.save(
-                        Movie.builder()
-                                .tmdbMovieId(data.get("id").toString().replaceAll(match, ""))
+                contentRepository.save(
+                        Content.builder()
+                                .tmdbId(data.get("id").toString().replaceAll(match, ""))
                                 .tmdbGenreId(data.get("genre_ids").toString().replaceAll(match, ""))
                                 .imageUrl(imageUrl + data.get("poster_path").toString().replaceAll(match, ""))
                                 .korTitle(data.get("title").toString().replaceAll(match, ""))
@@ -101,9 +95,9 @@ public class BackdoorController {
                 String imageUrl = "https://image.tmdb.org/t/p/original";
                 String match = "[\"]";
 
-                tvDramaRepository.save(
-                        TvDrama.builder()
-                                .tmdbTvId(data.get("id").toString().replaceAll(match, ""))
+                contentRepository.save(
+                        Content.builder()
+                                .tmdbId(data.get("id").toString().replaceAll(match, ""))
                                 .tmdbGenreId(data.get("genre_ids").toString().replaceAll(match, ""))
                                 .imageUrl(imageUrl + data.get("poster_path").toString().replaceAll(match, ""))
                                 .korTitle(data.get("name").toString().replaceAll(match, ""))
@@ -122,12 +116,16 @@ public class BackdoorController {
         return "TvDrama completely saved!";
     }
 
-    @GetMapping("/setup-movie-platform")
-    public String setupMoviePlatform() throws IOException {
-        jdbcTemplate.update("UPDATE movie SET platform='[netflix, wavve, watcha, disney]' WHERE id <= 100");
-        jdbcTemplate.update("UPDATE tv_drama SET platform='[netflix, wavve, watcha, disney]' WHERE id <= 100");
-        jdbcTemplate.update("UPDATE movie SET platform='[wavve, tving, apple]' WHERE id > 100");
-        jdbcTemplate.update("UPDATE tv_drama SET platform='[wavve, tving, apple]' WHERE id > 100");
+    @GetMapping("/setup-platform-type")
+    public String setupPlatformAndType() throws IOException {
+        jdbcTemplate.update("UPDATE content SET platform='[netflix, wavve, watcha, disney]' WHERE id <= 50");
+        jdbcTemplate.update("UPDATE content SET platform='[wavve, tving, apple]' WHERE id > 50 AND id <= 100");
+        jdbcTemplate.update("UPDATE content SET platform='[netflix, watcha]' WHERE id > 100 AND id <= 150");
+        jdbcTemplate.update("UPDATE content SET platform='[disney, apple]' WHERE id > 150 AND id <= 200");
+        jdbcTemplate.update("UPDATE content SET platform='[netflix, wavve, watcha, disney]' WHERE id > 200");
+
+        jdbcTemplate.update("UPDATE content SET type='movie' WHERE id <= 200");
+        jdbcTemplate.update("UPDATE content SET type='drama' WHERE id > 200");
 
         return "Platform completely saved!";
     }

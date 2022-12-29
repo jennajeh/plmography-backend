@@ -1,9 +1,9 @@
 package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.exceptions.ContentNotFound;
-import kr.jenna.plmography.models.Movie;
-import kr.jenna.plmography.services.GetMovieService;
-import kr.jenna.plmography.services.GetMoviesService;
+import kr.jenna.plmography.models.Content;
+import kr.jenna.plmography.services.GetContentService;
+import kr.jenna.plmography.services.GetContentsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,27 +23,27 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(MovieController.class)
+@WebMvcTest(ContentController.class)
 @ActiveProfiles("test")
-class MovieControllerTest {
+class ContentControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private GetMovieService getMovieService;
+    private GetContentService getContentService;
 
     @MockBean
-    private GetMoviesService getMoviesService;
+    private GetContentsService getContentsService;
 
     @Test
     void list() throws Exception {
         Integer page = 1;
         Integer size = 8;
 
-        Movie movie = mock(Movie.class);
+        Content content = mock(Content.class);
 
-        given(getMoviesService.list(page, size))
-                .willReturn(new PageImpl<>(List.of(movie)));
+        given(getContentsService.list(page, size))
+                .willReturn(new PageImpl<>(List.of(content)));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/contents?page=1&size=8"))
                 .andExpect(status().isOk())
@@ -54,13 +54,13 @@ class MovieControllerTest {
                         containsString("\"contents\":[")
                 ));
 
-        verify(getMoviesService).list(page, size);
+        verify(getContentsService).list(page, size);
     }
 
     @Test
     void contentDetail() throws Exception {
-        given(getMovieService.detail(any()))
-                .willReturn(Movie.fake().toMovieDto());
+        given(getContentService.detail(any()))
+                .willReturn(Content.fake().toContentDto());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/contents/1"))
                 .andExpect(status().isOk())
@@ -71,7 +71,7 @@ class MovieControllerTest {
 
     @Test
     void contentDetailNotFound() throws Exception {
-        given(getMovieService.detail(any()))
+        given(getContentService.detail(any()))
                 .willThrow(ContentNotFound.class);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/contents/1"))

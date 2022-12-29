@@ -3,8 +3,9 @@ package kr.jenna.plmography.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import kr.jenna.plmography.dtos.TvDramaDto;
+import kr.jenna.plmography.dtos.ContentDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +15,12 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
-public class TvDrama {
+public class Content {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tmdbTvId;
+    private String tmdbId;
 
     private String tmdbGenreId;
 
@@ -33,6 +34,8 @@ public class TvDrama {
 
     private String popularity;
 
+    private String type;
+
     private String platform;
 
     @Column(length = 4000)
@@ -41,12 +44,12 @@ public class TvDrama {
     private LocalDateTime createdAt;
 
     @Builder
-    public TvDrama(Long id, String tmdbTvId, String tmdbGenreId,
+    public Content(Long id, String tmdbId, String tmdbGenreId,
                    String imageUrl, String korTitle, String engTitle,
-                   String releaseDate, String popularity, String platform, String description,
+                   String releaseDate, String popularity, String platform, String type, String description,
                    LocalDateTime createdAt) {
         this.id = id;
-        this.tmdbTvId = tmdbTvId;
+        this.tmdbId = tmdbId;
         this.tmdbGenreId = tmdbGenreId;
         this.imageUrl = imageUrl;
         this.korTitle = korTitle;
@@ -54,17 +57,18 @@ public class TvDrama {
         this.releaseDate = releaseDate;
         this.popularity = popularity;
         this.platform = platform;
+        this.type = type;
         this.description = description;
         this.createdAt = createdAt;
     }
 
-    public static TvDrama fake() {
-        return new TvDrama(1L, "1", "1", "imageUrl", "웬즈데이", "Wednesday", "2022-12-23",
-                "3000", "넷플릭스", "미스테리", LocalDateTime.now());
+    public static Content fake() {
+        return new Content(1L, "1", "1", "imageUrl", "아바타", "Avatar", "2022-12-23",
+                "3000", "netflix", "movie", "판타지 영화", LocalDateTime.now());
     }
 
-    public TvDramaDto toTvDramaDto() {
-        return new TvDramaDto(id, tmdbTvId, tmdbGenreId, imageUrl, korTitle,
-                engTitle, releaseDate, popularity, platform, description);
+    public ContentDto toContentDto() {
+        return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
+                engTitle, releaseDate, popularity, platform, type, description);
     }
 }
