@@ -41,7 +41,14 @@ public class BackdoorController {
 
     @GetMapping("/reset-database")
     public String resetDatabase() {
-        jdbcTemplate.execute("DELETE FROM content");
+        jdbcTemplate.execute("DROP TABLE content;");
+
+        jdbcTemplate.execute("CREATE TABLE content ("
+                + "id BIGINT AUTO_INCREMENT, tmdb_id VARCHAR, tmdb_genre_id VARCHAR,"
+                + "image_url VARCHAR, kor_title VARCHAR, eng_title VARCHAR,"
+                + "release_date VARCHAR, popularity VARCHAR, type VARCHAR,"
+                + "platform VARCHAR, description VARCHAR(4000), "
+                + "created_at VARCHAR);");
 
         return "Reset completed!";
     }
