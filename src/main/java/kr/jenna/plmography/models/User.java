@@ -75,6 +75,11 @@ public class User {
         this.profileImage = profileImage;
     }
 
+    public static User fake() {
+        return new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"), new Nickname("전제나")
+                , new Gender("여성"), new BirthYear(1994), new ProfileImage("profile"));
+    }
+
     public void changePassword(Password password, PasswordEncoder passwordEncoder) {
         this.password = new Password(password, passwordEncoder);
     }

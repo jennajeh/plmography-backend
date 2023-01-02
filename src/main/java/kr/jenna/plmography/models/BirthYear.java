@@ -12,9 +12,9 @@ import java.util.Objects;
 @Getter
 public class BirthYear {
     @Column(name = "birth_year")
-    private String value;
+    private Integer value;
 
-    public BirthYear(String value) {
+    public BirthYear(Integer value) {
         this.value = value;
     }
 
