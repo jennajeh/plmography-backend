@@ -10,7 +10,7 @@ class ContentTest {
     void creation() {
         Content content = Content.fake();
 
-        assertThat(content.getTmdbMovieId()).isEqualTo("1");
+        assertThat(content.getTmdbId()).isEqualTo("1");
         assertThat(content.getKorTitle()).isEqualTo("아바타");
         assertThat(content.getEngTitle()).isEqualTo("Avatar");
         assertThat(content.getDescription()).isEqualTo("판타지 영화");

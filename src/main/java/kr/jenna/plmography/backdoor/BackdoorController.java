@@ -20,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@SuppressWarnings("unchecked")
 public class BackdoorController {
     private final RestTemplate restTemplate;
     private JdbcTemplate jdbcTemplate;

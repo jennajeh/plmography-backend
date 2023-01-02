@@ -14,5 +14,5 @@ public enum TvDramaGenre {
     War(10768, "War"), Western(37, "Western");
 
     private final int value;
-    private final String GenreName;
+    private final String genreName;
 }

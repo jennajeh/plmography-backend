@@ -15,5 +15,6 @@ public enum MovieGenre {
     Thriller(53, "Thriller"), War(10752, "War"), Western(37, "Western");
 
     private final int value;
-    private final String GenreName;
+
+    private final String genreName;
 }

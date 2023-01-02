@@ -11,5 +11,5 @@ public enum AllGenre {
     Family("Family"), Mystery("Mystery"),
     ScienceFiction("ScienceFiction"), War("War"), Western("Western");
 
-    private final String GenreName;
+    private final String genreName;
 }
