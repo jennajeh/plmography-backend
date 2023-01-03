@@ -63,21 +63,19 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public User(Long id, Email email, Password password,
-                Nickname nickname, Gender gender, BirthYear birthYear,
-                ProfileImage profileImage) {
-        this.id = id;
+    public User(Email email, Password password,
+                Nickname nickname, Gender gender, BirthYear birthYear) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.gender = gender;
         this.birthYear = birthYear;
-        this.profileImage = profileImage;
+        this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=" + nickname);
     }
 
     public static User fake() {
-        return new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"), new Nickname("전제나")
-                , new Gender("여성"), new BirthYear(1994), new ProfileImage("profile"));
+        return new User(new Email("jenna@gmail.com"), new Password("Test123!"),
+                new Nickname("전제나"), new Gender("여성"), new BirthYear(1994));
     }
 
     public void changePassword(Password password, PasswordEncoder passwordEncoder) {
