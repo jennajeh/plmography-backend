@@ -43,7 +43,7 @@ public class CreateUserService {
 
         User user = new User(email, password, nickname, gender, birthYear);
 
-        user.changePassword(password, passwordEncoder);
+        user.encodePassword(password, passwordEncoder);
 
         userRepository.save(user);
 

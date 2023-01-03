@@ -80,7 +80,7 @@ public class User {
                 new Nickname("전제나"), new Gender("여성"), new BirthYear(1994));
     }
 
-    public void changePassword(Password password, PasswordEncoder passwordEncoder) {
+    public void encodePassword(Password password, PasswordEncoder passwordEncoder) {
         this.password = new Password(password, passwordEncoder);
     }
 
@@ -88,12 +88,16 @@ public class User {
         return passwordEncoder.matches(password.getValue(), this.password.getValue());
     }
 
-    public void changeNickname(String nickname) {
-        this.nickname = new Nickname(nickname);
-    }
+    public void update(Password password, Nickname nickname, ProfileImage profileImage) {
+        if (password.getValue().equals("")
+                || nickname.getValue().equals("")
+                || profileImage.getValue().equals("")) {
+            return;
+        }
 
-    public void changeProfileImage(String profileImage) {
-        this.profileImage = new ProfileImage(profileImage);
+        this.password = new Password(password.getValue());
+        this.nickname = new Nickname(nickname.getValue());
+        this.profileImage = new ProfileImage(profileImage.getValue());
     }
 
     public UserCreationDto toCreateDto() {
@@ -105,6 +109,7 @@ public class User {
         return new UserDto(this.getId(),
                 this.email.getValue(),
                 this.nickname.getValue(),
+                this.password.getValue(),
                 this.gender.getValue(),
                 this.birthYear.getValue(),
                 this.profileImage.getValue());

@@ -26,7 +26,7 @@ class UserTest {
 
         User user = new User();
 
-        user.changePassword(new Password("Test123!"), passwordEncoder);
+        user.encodePassword(new Password("Test123!"), passwordEncoder);
 
         assertThat(user.authenticate(new Password("Test123!"), passwordEncoder)).isTrue();
         assertThrows(InvalidPassword.class, () -> {
@@ -35,24 +35,18 @@ class UserTest {
     }
 
     @Test
-    void changeNickname() {
+    void update() {
         User user = User.fake();
 
         String nickname = "강보니";
+        String password = "Asdf123!";
+        String profileImage = "new profile";
 
-        user.changeNickname(nickname);
+        user.update(new Password(password),
+                new Nickname(nickname), new ProfileImage(profileImage));
 
         assertThat(user.getNickname()).isEqualTo(new Nickname("강보니"));
-    }
-
-    @Test
-    void changeProfileImage() {
-        User user = User.fake();
-
-        String profile = "change image";
-
-        user.changeProfileImage(profile);
-
-        assertThat(user.getProfileImage()).isEqualTo(new ProfileImage("change image"));
+        assertThat(user.getPassword()).isEqualTo(new Password("Asdf123!"));
+        assertThat(user.getProfileImage()).isEqualTo(new ProfileImage("new profile"));
     }
 }

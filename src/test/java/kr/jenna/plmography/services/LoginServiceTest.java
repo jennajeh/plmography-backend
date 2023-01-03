@@ -35,7 +35,7 @@ class LoginServiceTest {
         Password password = new Password("Test123!");
 
         User user = User.fake();
-        user.changePassword(password, passwordEncoder);
+        user.encodePassword(password, passwordEncoder);
 
         given(userRepository.findByEmail(email)).willReturn(Optional.of(user));
 
@@ -57,7 +57,7 @@ class LoginServiceTest {
         Password password = new Password("Test123!");
 
         User user = User.fake();
-        user.changePassword(new Password("tEsT123!"), passwordEncoder);
+        user.encodePassword(new Password("tEsT123!"), passwordEncoder);
 
         given(userRepository.findByEmail(email)).willReturn(Optional.of(user));
 

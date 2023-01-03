@@ -5,6 +5,7 @@ import kr.jenna.plmography.models.Email;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.services.CreateUserService;
 import kr.jenna.plmography.services.GetUserService;
+import kr.jenna.plmography.services.UpdateUserService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,9 @@ class UserControllerTest {
 
     @MockBean
     private GetUserService getUserService;
+
+    @MockBean
+    private UpdateUserService updateUserService;
 
     @SpyBean
     private JwtUtil jwtUtil;

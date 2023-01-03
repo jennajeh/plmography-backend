@@ -8,9 +8,12 @@ import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.services.CreateUserService;
 import kr.jenna.plmography.services.GetUserService;
+import kr.jenna.plmography.services.UpdateUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,10 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private CreateUserService createUserService;
     private GetUserService getUserService;
+    private UpdateUserService updateUserService;
 
-    public UserController(CreateUserService createUserService, GetUserService getUserService) {
+    public UserController(CreateUserService createUserService, GetUserService getUserService, UpdateUserService updateUserService) {
         this.createUserService = createUserService;
         this.getUserService = getUserService;
+        this.updateUserService = updateUserService;
     }
 
     @PostMapping
@@ -44,6 +49,15 @@ public class UserController {
         User user = getUserService.detail(userId);
 
         return user.toUserDto();
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(
+            @RequestBody UserDto userDto,
+            @PathVariable Long userId
+    ) {
+        updateUserService.update(userId, userDto);
     }
 
     @ExceptionHandler(SignupFailed.class)
