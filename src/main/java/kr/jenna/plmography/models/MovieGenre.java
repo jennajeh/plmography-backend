@@ -3,6 +3,11 @@ package kr.jenna.plmography.models;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @AllArgsConstructor
 @Getter
 public enum MovieGenre {
@@ -17,4 +22,12 @@ public enum MovieGenre {
     private final int value;
 
     private final String genreName;
+
+    private static final Map<Integer, String> GENRE_MAP =
+            Collections.unmodifiableMap(Stream.of(values())
+                    .collect(Collectors.toMap(MovieGenre::getValue, MovieGenre::name)));
+
+    public static MovieGenre of(final int value) {
+        return MovieGenre.valueOf(GENRE_MAP.get(value));
+    }
 }

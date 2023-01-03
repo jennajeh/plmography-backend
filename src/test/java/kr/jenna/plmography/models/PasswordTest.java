@@ -11,42 +11,42 @@ class PasswordTest {
     @Test
     void creation() {
         assertDoesNotThrow(() -> {
-            new Password("Abcdef1!");
+            new Password("Test123!");
         });
     }
 
     @Test
     void shortPassword() {
         assertThrows(InvalidPassword.class, () -> {
-            new Password("Abcde1!");
+            new Password("Test1!");
         });
     }
 
     @Test
     void passwordWithoutLowerCase() {
         assertThrows(InvalidPassword.class, () -> {
-            new Password("ABCDEF1!");
+            new Password("TEST123!");
         });
     }
 
     @Test
     void passwordWithoutUpperCase() {
         assertThrows(InvalidPassword.class, () -> {
-            new Password("abcdef1!");
+            new Password("test123!");
         });
     }
 
     @Test
     void passwordWithoutNumber() {
         assertThrows(InvalidPassword.class, () -> {
-            new Password("Abcdefg!");
+            new Password("Testxxx!");
         });
     }
 
     @Test
     void passwordWithoutSpecialCharacter() {
         assertThrows(InvalidPassword.class, () -> {
-            new Password("Abcdefg1");
+            new Password("Testxxx1");
         });
     }
 }
