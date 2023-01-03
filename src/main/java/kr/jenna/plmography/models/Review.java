@@ -41,10 +41,19 @@ public class Review {
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
-        this.isDeleted = !isDeleted;
+        this.isDeleted = false;
     }
 
     public static Review fake() {
-        return new Review(1L, new UserId(1L), new ContentId(1L), 4L, new ReviewBody("영화가 재미있어요"), false);
+        return new Review(1L, new UserId(1L), new ContentId(1L),
+                4L, new ReviewBody("영화가 재미있어요"), false);
+    }
+
+    public void modify(String body) {
+        this.reviewBody = new ReviewBody(body);
+    }
+
+    public void delete() {
+        this.isDeleted = true;
     }
 }

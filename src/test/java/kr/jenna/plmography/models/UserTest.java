@@ -12,7 +12,8 @@ class UserTest {
 
     @Test
     void creation() {
-        User user = User.fake();
+        User user = new User(new Email("jenna@gmail.com"), new Password("Test123!"),
+                new Nickname("전제나"), new Gender("여성"), new BirthYear(1994));
 
         assertThat(user.getEmail()).isEqualTo(new Email("jenna@gmail.com"));
         assertThat(user.getNickname()).isEqualTo(new Nickname("전제나"));
