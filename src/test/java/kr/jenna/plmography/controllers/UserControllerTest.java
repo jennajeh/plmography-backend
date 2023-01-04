@@ -1,11 +1,12 @@
 package kr.jenna.plmography.controllers;
 
+import kr.jenna.plmography.dtos.UserCountDto;
 import kr.jenna.plmography.exceptions.EmailAlreadyExist;
 import kr.jenna.plmography.models.Email;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.services.CreateUserService;
 import kr.jenna.plmography.services.GetUserService;
-import kr.jenna.plmography.services.UpdateUserService;
+import kr.jenna.plmography.services.PatchUserService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class UserControllerTest {
     private GetUserService getUserService;
 
     @MockBean
-    private UpdateUserService updateUserService;
+    private PatchUserService patchUserService;
 
     @SpyBean
     private JwtUtil jwtUtil;
@@ -171,5 +172,18 @@ class UserControllerTest {
                                 + ", \"passwordCheck\":\"TESTasdf1\""
                                 + "}"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void userCountWithExistingEmailAndNickname() throws Exception {
+        given(getUserService.count(any(), any()))
+                .willReturn(new UserCountDto(1, 1));
+
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                        "/users?countOnly=true&email=\"exist@email.com\"&nickname=\"exist\""))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"countEmail\":1")
+                ));
     }
 }

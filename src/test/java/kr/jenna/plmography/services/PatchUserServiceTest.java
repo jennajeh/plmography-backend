@@ -17,16 +17,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-class UpdateUserServiceTest {
+class PatchUserServiceTest {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private UpdateUserService updateUserService;
+    private PatchUserService patchUserService;
 
     @BeforeEach
     void setup() {
         userRepository = mock(UserRepository.class);
         passwordEncoder = new Argon2PasswordEncoder(16, 32, 1, 1 << 14, 2);
-        updateUserService = new UpdateUserService(userRepository, passwordEncoder);
+        patchUserService = new PatchUserService(userRepository, passwordEncoder);
     }
 
     @Test
@@ -42,7 +42,7 @@ class UpdateUserServiceTest {
                 "jenna@gmail.com", "강보니", "Asdf123!",
                 "여성", 1994, "new image");
 
-        updateUserService.update(userId, userDto);
+        patchUserService.update(userId, userDto);
 
         assertThat(user.getNickname())
                 .isEqualTo(new Nickname(userDto.getNickname()));

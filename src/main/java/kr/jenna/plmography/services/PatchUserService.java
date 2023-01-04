@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class UpdateUserService {
+public class PatchUserService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
-    public UpdateUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public PatchUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }

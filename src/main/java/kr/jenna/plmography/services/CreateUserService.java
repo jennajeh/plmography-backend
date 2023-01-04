@@ -2,6 +2,7 @@ package kr.jenna.plmography.services;
 
 import kr.jenna.plmography.dtos.UserRegistrationDto;
 import kr.jenna.plmography.exceptions.EmailAlreadyExist;
+import kr.jenna.plmography.exceptions.NicknameAlreadyExist;
 import kr.jenna.plmography.exceptions.PasswordNotMatch;
 import kr.jenna.plmography.models.BirthYear;
 import kr.jenna.plmography.models.Email;
@@ -35,6 +36,10 @@ public class CreateUserService {
 
         if (userRepository.existsByEmail(email)) {
             throw new EmailAlreadyExist(email);
+        }
+
+        if (userRepository.existsByNickname(nickname)) {
+            throw new NicknameAlreadyExist();
         }
 
         if (!password.getValue().equals(passwordCheck.getValue())) {

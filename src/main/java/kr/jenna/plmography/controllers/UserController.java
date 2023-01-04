@@ -1,14 +1,18 @@
 package kr.jenna.plmography.controllers;
 
+import kr.jenna.plmography.dtos.UserCountDto;
 import kr.jenna.plmography.dtos.UserCreationDto;
 import kr.jenna.plmography.dtos.UserDto;
 import kr.jenna.plmography.dtos.UserRegistrationDto;
+import kr.jenna.plmography.exceptions.NicknameAlreadyExist;
 import kr.jenna.plmography.exceptions.SignupFailed;
 import kr.jenna.plmography.exceptions.UserNotFound;
+import kr.jenna.plmography.models.Email;
+import kr.jenna.plmography.models.Nickname;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.services.CreateUserService;
 import kr.jenna.plmography.services.GetUserService;
-import kr.jenna.plmography.services.UpdateUserService;
+import kr.jenna.plmography.services.PatchUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,12 +31,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private CreateUserService createUserService;
     private GetUserService getUserService;
-    private UpdateUserService updateUserService;
+    private PatchUserService patchUserService;
 
-    public UserController(CreateUserService createUserService, GetUserService getUserService, UpdateUserService updateUserService) {
+    public UserController(CreateUserService createUserService, GetUserService getUserService, PatchUserService patchUserService) {
         this.createUserService = createUserService;
         this.getUserService = getUserService;
-        this.updateUserService = updateUserService;
+        this.patchUserService = patchUserService;
     }
 
     @PostMapping
@@ -51,13 +56,28 @@ public class UserController {
         return user.toUserDto();
     }
 
+    @GetMapping
+    public UserCountDto count(@RequestParam boolean countOnly, String email, String nickname) {
+        if (countOnly) {
+            return getUserService.count(new Email(email), new Nickname(nickname));
+        }
+
+        return null;
+    }
+
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(
             @RequestBody UserDto userDto,
             @PathVariable Long userId
     ) {
-        updateUserService.update(userId, userDto);
+        patchUserService.update(userId, userDto);
+    }
+
+    @ExceptionHandler(NicknameAlreadyExist.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String nicknameAlreadyExist() {
+        return "Nickname already exist!";
     }
 
     @ExceptionHandler(SignupFailed.class)
