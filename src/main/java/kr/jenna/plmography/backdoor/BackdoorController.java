@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,12 +20,13 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/backdoor")
 @SuppressWarnings("unchecked")
 public class BackdoorController {
     private final RestTemplate restTemplate;
     private JdbcTemplate jdbcTemplate;
     private final ContentRepository contentRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Value("${tmdb.api-key}")
     private String apiKey;
@@ -34,15 +36,16 @@ public class BackdoorController {
     private HttpEntity<?> entity = new HttpEntity<>(headers);
 
     public BackdoorController(RestTemplate restTemplate,
-                              JdbcTemplate jdbcTemplate, ContentRepository contentRepository) {
+                              JdbcTemplate jdbcTemplate, ContentRepository contentRepository, PasswordEncoder passwordEncoder) {
         this.restTemplate = restTemplate;
         this.jdbcTemplate = jdbcTemplate;
         this.contentRepository = contentRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/reset-database")
-    public String resetDatabase() {
-        jdbcTemplate.execute("DELETE FROM content");
+    @GetMapping("/setup-database")
+    public String setupDatabase() {
+        LocalDateTime now = LocalDateTime.now();
         jdbcTemplate.execute("DELETE FROM users");
         jdbcTemplate.execute("DELETE FROM user_follower_ids");
         jdbcTemplate.execute("DELETE FROM user_following_ids");
@@ -52,7 +55,46 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM user_favorite_contents");
         jdbcTemplate.execute("DELETE FROM review");
 
-        return "Reset completed!";
+        jdbcTemplate.update("INSERT INTO users(" +
+                        "  id, email, password, nickname," +
+                        "  gender, birth_year, profile_image, created_at, updated_at)" +
+                        " VALUES(1, 'jenna@gmail.com', ?, '전제나', '여성', 1990, "
+                        + "'https://source.boringavatars.com/beam/120/?nickname=jenna', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
+        );
+
+        jdbcTemplate.update("INSERT INTO review("
+                + "  id, user_id, content_id, is_deleted,"
+                + "  review_body, star_rate, created_at)"
+                + " VALUES(1, 1, 411, ?, '영화가 재미있어요!', 5L, ?)", false, now
+        );
+
+        jdbcTemplate.update("INSERT INTO review("
+                + "  id, user_id, content_id, is_deleted,"
+                + "  review_body, star_rate, created_at)"
+                + " VALUES(2, 2, 76600, ?, '재미와 감동이 두배', 4L, ?)", false, now
+        );
+
+        jdbcTemplate.update("INSERT INTO review("
+                + "  id, user_id, content_id, is_deleted,"
+                + "  review_body, star_rate, created_at)"
+                + " VALUES(3, 3, 1399, ?, '지금까지의 서막은 완벽하다. 정주행 재생버튼 누른 이후로 쉬지 않고 다 봤다. "
+                + "이제 3월에 공개될 파트2가 관건이다. 용두사미일지 용두용미일지.', 4L, ?)", false, now
+        );
+
+        jdbcTemplate.update("INSERT INTO review("
+                + "  id, user_id, content_id, is_deleted,"
+                + "  review_body, star_rate, created_at)"
+                + " VALUES(4, 4, 456, ?, '심슨 가족이랑 이웃하고 싶다', 4L, ?)", false, now
+        );
+
+        jdbcTemplate.update("INSERT INTO review("
+                + "  id, user_id, content_id, is_deleted,"
+                + "  review_body, star_rate, created_at)"
+                + " VALUES(5, 5, 4057, ?, '이거 안본사람과 겸상하지 않겠다 일단 시즌1까지는', 4L, ?)", false, now
+        );
+
+        return "Setup database completed!";
     }
 
     @GetMapping("/setup-content")

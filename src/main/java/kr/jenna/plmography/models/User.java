@@ -65,6 +65,9 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @CreationTimestamp
+    private LocalDateTime updatedAt;
+
     public User(Email email, Password password,
                 Nickname nickname, Gender gender, BirthYear birthYear) {
         this.email = email;
