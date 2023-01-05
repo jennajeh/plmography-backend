@@ -2,14 +2,11 @@ package kr.jenna.plmography.services;
 
 import kr.jenna.plmography.dtos.UserDto;
 import kr.jenna.plmography.models.Nickname;
-import kr.jenna.plmography.models.Password;
 import kr.jenna.plmography.models.ProfileImage;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -19,14 +16,12 @@ import static org.mockito.Mockito.mock;
 
 class PatchUserServiceTest {
     private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
     private PatchUserService patchUserService;
 
     @BeforeEach
     void setup() {
         userRepository = mock(UserRepository.class);
-        passwordEncoder = new Argon2PasswordEncoder(16, 32, 1, 1 << 14, 2);
-        patchUserService = new PatchUserService(userRepository, passwordEncoder);
+        patchUserService = new PatchUserService(userRepository);
     }
 
     @Test
@@ -46,8 +41,6 @@ class PatchUserServiceTest {
 
         assertThat(user.getNickname())
                 .isEqualTo(new Nickname(userDto.getNickname()));
-        assertThat(user.getPassword())
-                .isEqualTo(new Password(userDto.getPassword()));
         assertThat(user.getProfileImage())
                 .isEqualTo(new ProfileImage(userDto.getProfileImage()));
     }

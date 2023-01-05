@@ -88,16 +88,14 @@ public class User {
         return passwordEncoder.matches(password.getValue(), this.password.getValue());
     }
 
-    public void update(Password password, Nickname nickname, ProfileImage profileImage) {
-        if (password.getValue().equals("")
-                || nickname.getValue().equals("")
-                || profileImage.getValue().equals("")) {
+    public void update(Nickname nickname, ProfileImage profileImage) {
+        this.nickname = nickname;
+
+        if (profileImage.getValue().equals("")) {
             return;
         }
 
-        this.password = new Password(password.getValue());
-        this.nickname = new Nickname(nickname.getValue());
-        this.profileImage = new ProfileImage(profileImage.getValue());
+        this.profileImage = profileImage;
     }
 
     public UserCreationDto toCreateDto() {

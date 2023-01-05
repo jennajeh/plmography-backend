@@ -42,11 +42,9 @@ class UserTest {
         String password = "Asdf123!";
         String profileImage = "new profile";
 
-        user.update(new Password(password),
-                new Nickname(nickname), new ProfileImage(profileImage));
+        user.update(new Nickname(nickname), new ProfileImage(profileImage));
 
         assertThat(user.getNickname()).isEqualTo(new Nickname("강보니"));
-        assertThat(user.getPassword()).isEqualTo(new Password("Asdf123!"));
         assertThat(user.getProfileImage()).isEqualTo(new ProfileImage("new profile"));
     }
 }

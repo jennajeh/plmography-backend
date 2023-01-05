@@ -42,6 +42,21 @@ public class BackdoorController {
 
     @GetMapping("/reset-database")
     public String resetDatabase() {
+        jdbcTemplate.execute("DELETE FROM content");
+        jdbcTemplate.execute("DELETE FROM users");
+        jdbcTemplate.execute("DELETE FROM user_follower_ids");
+        jdbcTemplate.execute("DELETE FROM user_following_ids");
+        jdbcTemplate.execute("DELETE FROM user_bookmark_contents");
+        jdbcTemplate.execute("DELETE FROM user_bookmark_themes");
+        jdbcTemplate.execute("DELETE FROM user_watched_list");
+        jdbcTemplate.execute("DELETE FROM user_favorite_contents");
+        jdbcTemplate.execute("DELETE FROM review");
+
+        return "Reset completed!";
+    }
+
+    @GetMapping("/setup-content")
+    public String setupContent() {
         jdbcTemplate.execute("DROP TABLE content;");
 
         jdbcTemplate.execute("CREATE TABLE content ("
