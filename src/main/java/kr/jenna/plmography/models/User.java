@@ -68,6 +68,18 @@ public class User {
     @CreationTimestamp
     private LocalDateTime updatedAt;
 
+    public User(Long id, Email email, Password password,
+                Nickname nickname, Gender gender, BirthYear birthYear,
+                ProfileImage profileImage) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.birthYear = birthYear;
+        this.profileImage = profileImage;
+    }
+
     public User(Email email, Password password,
                 Nickname nickname, Gender gender, BirthYear birthYear) {
         this.email = email;
@@ -75,7 +87,7 @@ public class User {
         this.nickname = nickname;
         this.gender = gender;
         this.birthYear = birthYear;
-        this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=" + nickname);
+        this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=" + nickname.getValue());
     }
 
     public static User fake() {
@@ -107,7 +119,7 @@ public class User {
     }
 
     public UserDto toUserDto() {
-        return new UserDto(this.getId(),
+        return new UserDto(id,
                 this.email.getValue(),
                 this.nickname.getValue(),
                 this.password.getValue(),

@@ -33,7 +33,9 @@ public class UserController {
     private GetUserService getUserService;
     private PatchUserService patchUserService;
 
-    public UserController(CreateUserService createUserService, GetUserService getUserService, PatchUserService patchUserService) {
+    public UserController(CreateUserService createUserService,
+                          GetUserService getUserService,
+                          PatchUserService patchUserService) {
         this.createUserService = createUserService;
         this.getUserService = getUserService;
         this.patchUserService = patchUserService;

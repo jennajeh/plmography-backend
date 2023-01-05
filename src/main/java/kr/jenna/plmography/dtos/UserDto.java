@@ -1,5 +1,7 @@
 package kr.jenna.plmography.dtos;
 
+import java.util.Objects;
+
 public class UserDto {
     private Long id;
     private String email;
@@ -50,5 +52,30 @@ public class UserDto {
 
     public String getProfileImage() {
         return profileImage;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthYear=" + birthYear +
+                ", profileImage='" + profileImage + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        UserDto userDto = (UserDto) other;
+        return Objects.equals(id, userDto.id)
+                && Objects.equals(email, userDto.email)
+                && Objects.equals(nickname, userDto.nickname)
+                && Objects.equals(password, userDto.password)
+                && Objects.equals(gender, userDto.gender)
+                && Objects.equals(birthYear, userDto.birthYear)
+                && Objects.equals(profileImage, userDto.profileImage);
     }
 }
