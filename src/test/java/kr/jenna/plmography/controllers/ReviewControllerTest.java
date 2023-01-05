@@ -2,6 +2,7 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.services.CreateReviewService;
+import kr.jenna.plmography.services.GetReviewService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ class ReviewControllerTest {
     @MockBean
     private CreateReviewService createReviewService;
 
+    @MockBean
+    private GetReviewService getReviewService;
+
     @SpyBean
     private JwtUtil jwtUtil;
 
@@ -49,5 +53,13 @@ class ReviewControllerTest {
                                 + "\"reviewBody\":\"영화가 재미있어요!\""
                                 + "}"))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void detail() throws Exception {
+        given(getReviewService.detail(any())).willReturn(Review.fake());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/reviews/1"))
+                .andExpect(status().isOk());
     }
 }

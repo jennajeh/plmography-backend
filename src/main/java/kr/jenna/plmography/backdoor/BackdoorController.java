@@ -129,7 +129,9 @@ public class BackdoorController {
                         Content.builder()
                                 .tmdbId(data.get("id").toString().replaceAll(match, ""))
                                 .tmdbGenreId(data.get("genre_ids").toString().replaceAll(match, ""))
-                                .imageUrl(imageUrl + data.get("poster_path").toString().replaceAll(match, ""))
+                                .imageUrl(data.get("poster_path") == null
+                                        ? "" :
+                                        imageUrl + data.get("poster_path").toString().replaceAll(match, ""))
                                 .korTitle(data.get("title").toString().replaceAll(match, ""))
                                 .engTitle(data.get("original_title").toString().replaceAll(match, ""))
                                 .releaseDate(data.get("release_date") == null
