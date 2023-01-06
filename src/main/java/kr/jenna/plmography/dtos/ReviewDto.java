@@ -1,34 +1,41 @@
 package kr.jenna.plmography.dtos;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 public class ReviewDto {
     private Long id;
-    private Long userId;
+    private WriterDto writerDto;
     private Long contentId;
     private Long starRate;
     private String reviewBody;
-    private String createdAt;
+    private Set<LikeUserIdDto> likeUserIds;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public ReviewDto() {
     }
 
-    public ReviewDto(Long id, Long userId, Long contentId,
-                     Long starRate, String reviewBody, String createdAt) {
+    public ReviewDto(Long id, WriterDto writerDto,
+                     Long contentId, Long starRate,
+                     String reviewBody, Set<LikeUserIdDto> likeUserIds,
+                     LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.userId = userId;
+        this.writerDto = writerDto;
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
+        this.likeUserIds = likeUserIds;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public WriterDto getWriterDto() {
+        return writerDto;
     }
 
     public Long getContentId() {
@@ -43,30 +50,23 @@ public class ReviewDto {
         return reviewBody;
     }
 
-    public String getCreatedAt() {
+    public Set<LikeUserIdDto> getLikeUserIds() {
+        return likeUserIds;
+    }
+
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    @Override
-    public String toString() {
-        return "ReviewDto{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", contentId=" + contentId +
-                ", starRate=" + starRate +
-                ", reviewBody='" + reviewBody + '\'' +
-                ", createdAt='" + createdAt + '\'' +
-                '}';
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        ReviewDto otherReviewDto = (ReviewDto) other;
-        return Objects.equals(id, otherReviewDto.id)
-                && Objects.equals(userId, otherReviewDto.userId)
-                && Objects.equals(contentId, otherReviewDto.contentId)
-                && Objects.equals(starRate, otherReviewDto.starRate)
-                && Objects.equals(reviewBody, otherReviewDto.reviewBody)
-                && Objects.equals(createdAt, otherReviewDto.createdAt);
+    public static ReviewDto fake() {
+        return new ReviewDto(
+                1L,
+                new WriterDto(1L, "jenna", "https://source.boringavatars.com/beam/120/?nickname=jenna"),
+                1L, 3L, "강추!", Set.of(new LikeUserIdDto(2L)),
+                LocalDateTime.now(), LocalDateTime.now());
     }
 }

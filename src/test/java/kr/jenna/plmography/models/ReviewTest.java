@@ -1,7 +1,6 @@
 package kr.jenna.plmography.models;
 
 import kr.jenna.plmography.dtos.ReviewCreationDto;
-import kr.jenna.plmography.dtos.ReviewDto;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,14 +36,17 @@ class ReviewTest {
     }
 
     @Test
-    void toReviewDto() {
+    void toggleLike() {
         Review review = Review.fake();
+        LikeUserId likeUserId = new LikeUserId(1L);
 
-        ReviewDto reviewDto = review.toReviewDto();
+        review.toggleLike(likeUserId);
 
-        assertThat(reviewDto).isNotNull();
-        assertThat(review.getReviewBody().getValue())
-                .isEqualTo(reviewDto.getReviewBody());
+        assertThat(review.getLikeUserIds()).hasSize(1);
+
+        review.toggleLike(likeUserId);
+
+        assertThat(review.getLikeUserIds()).hasSize(0);
     }
 
     @Test

@@ -1,15 +1,16 @@
 package kr.jenna.plmography.models;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.ReviewCreationDto;
-import kr.jenna.plmography.dtos.ReviewDto;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Review {
@@ -28,25 +29,20 @@ public class Review {
     @Embedded
     private ReviewBody reviewBody;
 
+    @ElementCollection
+    private Set<LikeUserId> likeUserIds;
+
     private Boolean isDeleted;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @CreationTimestamp
+    private LocalDateTime updatedAt;
+
     public Review() {
     }
 
-    public Review(Long id, UserId userId, ContentId contentId,
-                  Long starRate, ReviewBody reviewBody,
-                  LocalDateTime createdAt) {
-        this.id = id;
-        this.userId = userId;
-        this.contentId = contentId;
-        this.starRate = starRate;
-        this.reviewBody = reviewBody;
-        this.isDeleted = false;
-        this.createdAt = createdAt;
-    }
 
     public Review(Long id, UserId userId, ContentId contentId,
                   Long starRate, ReviewBody reviewBody) {
@@ -55,6 +51,7 @@ public class Review {
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
+        this.likeUserIds = new HashSet<>();
         this.isDeleted = false;
     }
 
@@ -78,6 +75,10 @@ public class Review {
         return reviewBody;
     }
 
+    public Set<LikeUserId> getLikeUserIds() {
+        return likeUserIds;
+    }
+
     public Boolean getDeleted() {
         return isDeleted;
     }
@@ -86,9 +87,13 @@ public class Review {
         return createdAt;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     public static Review fake() {
         return new Review(1L, new UserId(1L), new ContentId(1L),
-                4L, new ReviewBody("영화가 재미있어요"), LocalDateTime.now());
+                4L, new ReviewBody("영화가 재미있어요"));
     }
 
     public void update(ReviewBody reviewBody) {
@@ -99,10 +104,14 @@ public class Review {
         this.isDeleted = true;
     }
 
-    public ReviewDto toReviewDto() {
-        return new ReviewDto(id, userId.getValue(), contentId.getValue(),
-                starRate, reviewBody.getValue(),
-                createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    public void toggleLike(LikeUserId likeUserId) {
+        if (likeUserIds.contains(likeUserId)) {
+            likeUserIds.remove(likeUserId);
+
+            return;
+        }
+
+        likeUserIds.add(likeUserId);
     }
 
     public ReviewCreationDto toCreateDto() {

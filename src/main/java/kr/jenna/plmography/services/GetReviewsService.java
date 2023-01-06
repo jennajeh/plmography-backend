@@ -3,8 +3,13 @@ package kr.jenna.plmography.services;
 import kr.jenna.plmography.dtos.PagesDto;
 import kr.jenna.plmography.dtos.ReviewDto;
 import kr.jenna.plmography.dtos.ReviewsDto;
+import kr.jenna.plmography.dtos.WriterDto;
+import kr.jenna.plmography.exceptions.UserNotFound;
+import kr.jenna.plmography.models.LikeUserId;
 import kr.jenna.plmography.models.Review;
+import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.ReviewRepository;
+import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,9 +24,13 @@ import java.util.stream.Collectors;
 @Transactional
 public class GetReviewsService {
     private final ReviewRepository reviewRepository;
+    private UserRepository userRepository;
 
-    public GetReviewsService(ReviewRepository reviewRepository) {
+
+    public GetReviewsService(ReviewRepository reviewRepository,
+                             UserRepository userRepository) {
         this.reviewRepository = reviewRepository;
+        this.userRepository = userRepository;
     }
 
     public ReviewsDto reviews(Long userId, Integer page, Integer size) {
@@ -33,12 +41,26 @@ public class GetReviewsService {
         Page<Review> reviews = reviewRepository.findAllByUserId(userId, pageable);
 
         List<ReviewDto> reviewDtos = reviews.stream()
-                .map(review -> new ReviewDto(
-                        review.getId(), review.getUserId().getValue(),
-                        review.getContentId().getValue(), review.getStarRate(),
-                        review.getReviewBody().getValue(), review.getCreatedAt()
-                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))))
-                .collect(Collectors.toList());
+                .map(review -> {
+                            User user = userRepository.findById(review.getUserId().getValue())
+                                    .orElseThrow(() -> new UserNotFound(review.getUserId().getValue()));
+
+                            return new ReviewDto(
+                                    review.getId(),
+                                    new WriterDto(
+                                            user.getId(),
+                                            user.getNickname().getValue(),
+                                            user.getProfileImage().getValue()),
+                                    review.getContentId().getValue(),
+                                    review.getStarRate(),
+                                    review.getReviewBody().getValue(),
+                                    review.getLikeUserIds().stream().map(LikeUserId::toDto).collect(Collectors.toSet()),
+                                    review.getCreatedAt(),
+                                    review.getUpdatedAt()
+
+                            );
+                        }
+                ).collect(Collectors.toList());
 
         PagesDto pagesDto = new PagesDto(reviews.getTotalPages());
 

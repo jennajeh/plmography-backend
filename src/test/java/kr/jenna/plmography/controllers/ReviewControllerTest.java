@@ -21,8 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
@@ -57,13 +55,10 @@ class ReviewControllerTest {
     private JwtUtil jwtUtil;
 
     private String token;
-    private ReviewDto reviewDto;
 
     @BeforeEach
     void setup() {
         token = jwtUtil.encode(1L);
-        reviewDto = new ReviewDto(1L, 1L, 1L, 4L, "꿀잼",
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     @Test
@@ -86,7 +81,7 @@ class ReviewControllerTest {
         Integer size = 3;
 
         given(getReviewsService.reviews(1L, page, size))
-                .willReturn(new ReviewsDto(List.of(reviewDto), new PagesDto(1)));
+                .willReturn(new ReviewsDto(List.of(ReviewDto.fake()), new PagesDto(1)));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/reviews?&page=1&size=3")
                         .header("Authorization", "Bearer " + token))
@@ -103,7 +98,7 @@ class ReviewControllerTest {
 
     @Test
     void detail() throws Exception {
-        given(getReviewService.detail(any())).willReturn(Review.fake());
+        given(getReviewService.detail(any())).willReturn(ReviewDto.fake());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/reviews/1"))
                 .andExpect(status().isOk());

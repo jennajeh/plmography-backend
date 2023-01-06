@@ -67,11 +67,9 @@ public class ReviewController {
         return getReviewsService.reviews(userId, page, size);
     }
 
-    @GetMapping("/{userId}")
-    public ReviewDto detail(@PathVariable Long userId) {
-        Review review = getReviewService.detail(userId);
-
-        return review.toReviewDto();
+    @GetMapping("/{reviewId}")
+    public ReviewDto detail(@PathVariable Long reviewId) {
+        return getReviewService.detail(reviewId);
     }
 
     @PatchMapping("/{reviewId}")
