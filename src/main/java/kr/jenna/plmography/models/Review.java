@@ -91,7 +91,7 @@ public class Review {
                 4L, new ReviewBody("영화가 재미있어요"), LocalDateTime.now());
     }
 
-    public void modify(ReviewBody reviewBody) {
+    public void update(ReviewBody reviewBody) {
         this.reviewBody = reviewBody;
     }
 

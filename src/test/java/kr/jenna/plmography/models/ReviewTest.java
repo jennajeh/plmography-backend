@@ -22,9 +22,18 @@ class ReviewTest {
 
         String body = "완전 강추!!";
 
-        review.modify(new ReviewBody(body));
+        review.update(new ReviewBody(body));
 
         assertThat(review.getReviewBody()).isEqualTo(new ReviewBody(body));
+    }
+
+    @Test
+    void delete() {
+        Review review = Review.fake();
+
+        review.delete();
+
+        assertThat(review.getDeleted()).isTrue();
     }
 
     @Test
