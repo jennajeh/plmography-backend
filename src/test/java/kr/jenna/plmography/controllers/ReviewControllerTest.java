@@ -63,7 +63,7 @@ class ReviewControllerTest {
 
     @Test
     void create() throws Exception {
-        given(createReviewService.create(any()))
+        given(createReviewService.create(any(), any()))
                 .willReturn(Review.fake());
 
         mockMvc.perform(MockMvcRequestBuilders.post("/reviews")

@@ -30,7 +30,7 @@ class CreateReviewServiceTest {
         ReviewRegistrationDto reviewRegistrationDto = new ReviewRegistrationDto(
                 1L, 1L, 1L, 4L, "영화가 재미있어요!");
 
-        Review review = createReviewService.create(reviewRegistrationDto);
+        Review review = createReviewService.create(1L, reviewRegistrationDto);
 
         assertThat(review).isNotNull();
 

@@ -44,9 +44,8 @@ public class Review {
     }
 
 
-    public Review(Long id, UserId userId, ContentId contentId,
+    public Review(UserId userId, ContentId contentId,
                   Long starRate, ReviewBody reviewBody) {
-        this.id = id;
         this.userId = userId;
         this.contentId = contentId;
         this.starRate = starRate;
@@ -92,7 +91,7 @@ public class Review {
     }
 
     public static Review fake() {
-        return new Review(1L, new UserId(1L), new ContentId(1L),
+        return new Review(new UserId(1L), new ContentId(1L),
                 4L, new ReviewBody("영화가 재미있어요"));
     }
 

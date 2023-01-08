@@ -50,9 +50,10 @@ public class ReviewController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ReviewCreationDto create(
+            @RequestAttribute Long userId,
             @RequestBody ReviewRegistrationDto reviewRegistrationDto) {
 
-        Review review = createReviewService.create(reviewRegistrationDto);
+        Review review = createReviewService.create(userId, reviewRegistrationDto);
 
         return review.toCreateDto();
     }

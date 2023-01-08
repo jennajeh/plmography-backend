@@ -7,4 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/comments")
 public class CommentController {
 
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public CommentCreationDto create() {
+//
+//    }
 }

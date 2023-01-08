@@ -22,11 +22,11 @@ class PatchReviewServiceTest {
         given(reviewRepository.getReferenceById(any(Long.class))).willReturn(review);
 
         ReviewRegistrationDto reviewRegistrationDto =
-                new ReviewRegistrationDto(review.getId(), review.getUserId().getValue(),
+                new ReviewRegistrationDto(1L, review.getUserId().getValue(),
                         review.getContentId().getValue(), review.getStarRate(),
                         "살짝 아쉽네요");
 
-        patchReviewService.update(reviewRegistrationDto, review.getId());
+        patchReviewService.update(reviewRegistrationDto, 1L);
 
         assertThat(Review.fake().getReviewBody().getValue())
                 .isNotEqualTo(reviewRegistrationDto.getReviewBody());
@@ -34,5 +34,4 @@ class PatchReviewServiceTest {
                 .isEqualTo(reviewRegistrationDto.getReviewBody());
 
     }
-
 }

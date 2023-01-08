@@ -9,7 +9,7 @@ class ReviewTest {
 
     @Test
     void creation() {
-        Review review = new Review(1L, new UserId(1L), new ContentId(1L),
+        Review review = new Review(new UserId(1L), new ContentId(1L),
                 4L, new ReviewBody("영화가 재미있어요"));
 
         assertThat(review.getReviewBody()).isEqualTo(new ReviewBody("영화가 재미있어요"));
