@@ -5,6 +5,7 @@ import kr.jenna.plmography.dtos.CommentsDto;
 import kr.jenna.plmography.dtos.PagesDto;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.services.CreateCommentService;
+import kr.jenna.plmography.services.DeleteCommentService;
 import kr.jenna.plmography.services.GetCommentService;
 import kr.jenna.plmography.services.GetCommentsService;
 import kr.jenna.plmography.services.PatchCommentService;
@@ -47,6 +48,9 @@ class CommentControllerTest {
 
     @MockBean
     private PatchCommentService patchCommentService;
+
+    @MockBean
+    private DeleteCommentService deleteCommentService;
 
     @SpyBean
     private JwtUtil jwtUtil;
@@ -115,5 +119,13 @@ class CommentControllerTest {
                                 + "\"commentBody\":\"modify body\""
                                 + "}"))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void delete() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/comments/1"))
+                .andExpect(status().isNoContent());
+
+        verify(deleteCommentService).delete(1L);
     }
 }

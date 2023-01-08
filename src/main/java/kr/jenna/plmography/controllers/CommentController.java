@@ -8,10 +8,12 @@ import kr.jenna.plmography.exceptions.CommentNotFound;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.services.CreateCommentService;
+import kr.jenna.plmography.services.DeleteCommentService;
 import kr.jenna.plmography.services.GetCommentService;
 import kr.jenna.plmography.services.GetCommentsService;
 import kr.jenna.plmography.services.PatchCommentService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,15 +33,17 @@ public class CommentController {
     private GetCommentsService getCommentsService;
     private GetCommentService getCommentService;
     private PatchCommentService patchCommentService;
+    private DeleteCommentService deleteCommentService;
 
     public CommentController(CreateCommentService createCommentService,
                              GetCommentsService getCommentsService,
                              GetCommentService getCommentService,
-                             PatchCommentService patchCommentService) {
+                             PatchCommentService patchCommentService, DeleteCommentService deleteCommentService) {
         this.createCommentService = createCommentService;
         this.getCommentsService = getCommentsService;
         this.getCommentService = getCommentService;
         this.patchCommentService = patchCommentService;
+        this.deleteCommentService = deleteCommentService;
     }
 
     @PostMapping
@@ -74,6 +78,12 @@ public class CommentController {
             @PathVariable Long commentId
     ) {
         patchCommentService.update(commentId, commentDto.getCommentBody());
+    }
+
+    @DeleteMapping("/{commentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long commentId) {
+        deleteCommentService.delete(commentId);
     }
 
     @ExceptionHandler(UserNotFound.class)
