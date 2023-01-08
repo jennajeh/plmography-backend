@@ -26,7 +26,7 @@ class PatchReviewServiceTest {
                         review.getContentId().getValue(), review.getStarRate(),
                         "살짝 아쉽네요");
 
-        patchReviewService.update(reviewRegistrationDto, 1L);
+        patchReviewService.update(reviewRegistrationDto.getReviewBody(), 1L);
 
         assertThat(Review.fake().getReviewBody().getValue())
                 .isNotEqualTo(reviewRegistrationDto.getReviewBody());

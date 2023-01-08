@@ -1,5 +1,6 @@
 package kr.jenna.plmography.dtos;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CommentDto {
@@ -8,13 +9,13 @@ public class CommentDto {
     private Long postId;
     private String commentBody;
     private boolean isDeleted;
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     public CommentDto() {
     }
 
     public CommentDto(Long id, Long userId, Long postId,
-                      String commentBody, boolean isDeleted, String createdAt) {
+                      String commentBody, boolean isDeleted, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.postId = postId;
@@ -43,7 +44,7 @@ public class CommentDto {
         return isDeleted;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 

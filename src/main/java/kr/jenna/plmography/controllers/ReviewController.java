@@ -78,7 +78,7 @@ public class ReviewController {
             @RequestBody ReviewRegistrationDto reviewRegistrationDto,
             @PathVariable Long reviewId
     ) {
-        patchReviewService.update(reviewRegistrationDto, reviewId);
+        patchReviewService.update(reviewRegistrationDto.getReviewBody(), reviewId);
     }
 
     @DeleteMapping("/{reviewId}")
@@ -98,5 +98,4 @@ public class ReviewController {
     public String reviewNotFound() {
         return "Review not found!";
     }
-
 }

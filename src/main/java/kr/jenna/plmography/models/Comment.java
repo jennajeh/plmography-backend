@@ -4,11 +4,11 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import kr.jenna.plmography.dtos.CommentCreationDto;
 import kr.jenna.plmography.dtos.CommentDto;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Comment {
@@ -80,7 +80,7 @@ public class Comment {
 
     public CommentDto toCommentDto() {
         return new CommentDto(id, userId.getValue(), postId.getValue(), commentBody.getValue(),
-                isDeleted, createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                isDeleted, createdAt);
     }
 
     public void modify(CommentBody commentBody) {
@@ -89,5 +89,9 @@ public class Comment {
 
     public void delete() {
         this.isDeleted = true;
+    }
+
+    public CommentCreationDto toCreateDto() {
+        return new CommentCreationDto(id);
     }
 }

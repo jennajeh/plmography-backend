@@ -1,14 +1,13 @@
 package kr.jenna.plmography.controllers;
 
+import kr.jenna.plmography.dtos.CommentDto;
+import kr.jenna.plmography.dtos.CommentsDto;
 import kr.jenna.plmography.dtos.PagesDto;
-import kr.jenna.plmography.dtos.ReviewDto;
-import kr.jenna.plmography.dtos.ReviewsDto;
-import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.services.CreateReviewService;
-import kr.jenna.plmography.services.DeleteReviewService;
-import kr.jenna.plmography.services.GetReviewService;
-import kr.jenna.plmography.services.GetReviewsService;
-import kr.jenna.plmography.services.PatchReviewService;
+import kr.jenna.plmography.models.Comment;
+import kr.jenna.plmography.services.CreateCommentService;
+import kr.jenna.plmography.services.GetCommentService;
+import kr.jenna.plmography.services.GetCommentsService;
+import kr.jenna.plmography.services.PatchCommentService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
@@ -30,26 +30,23 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ReviewController.class)
+@WebMvcTest(CommentController.class)
 @ActiveProfiles("test")
-class ReviewControllerTest {
+class CommentControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private CreateReviewService createReviewService;
+    private CreateCommentService createCommentService;
 
     @MockBean
-    private GetReviewService getReviewService;
+    private GetCommentsService getCommentsService;
 
     @MockBean
-    private GetReviewsService getReviewsService;
+    private GetCommentService getCommentService;
 
     @MockBean
-    private PatchReviewService patchReviewService;
-
-    @MockBean
-    private DeleteReviewService deleteReviewService;
+    private PatchCommentService patchCommentService;
 
     @SpyBean
     private JwtUtil jwtUtil;
@@ -63,64 +60,59 @@ class ReviewControllerTest {
 
     @Test
     void create() throws Exception {
-        given(createReviewService.create(any(), any()))
-                .willReturn(Review.fake());
+        given(createCommentService.create(any(), any()))
+                .willReturn(Comment.fake());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/reviews")
+        mockMvc.perform(MockMvcRequestBuilders.post("/comments")
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{"
-                                + "\"reviewBody\":\"영화가 재미있어요!\""
+                                + "\"commentBody\":\"동의합니다!\""
                                 + "}"))
                 .andExpect(status().isCreated());
     }
 
     @Test
-    void reviews() throws Exception {
+    void comments() throws Exception {
         Integer page = 1;
-        Integer size = 3;
+        Integer size = 5;
 
-        given(getReviewsService.reviews(1L, page, size))
-                .willReturn(new ReviewsDto(List.of(ReviewDto.fake()), new PagesDto(1)));
+        CommentDto commentDto = new CommentDto(
+                1L, 1L, 1L, "reply", false, LocalDateTime.now());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/reviews?&page=1&size=3")
+        given(getCommentsService.comments(1L, page, size))
+                .willReturn(new CommentsDto(List.of(commentDto), new PagesDto(1)));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/comments?/page=1&size=5")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"totalPages\"")
                 ))
                 .andExpect(content().string(
-                        containsString("\"reviews\":[")
+                        containsString("\"comments\"")
                 ));
 
-        verify(getReviewsService).reviews(1L, page, size);
+        verify(getCommentsService).comments(1L, page, size);
     }
 
     @Test
     void detail() throws Exception {
-        given(getReviewService.detail(any())).willReturn(ReviewDto.fake());
+        CommentDto commentDto = new CommentDto(
+                1L, 1L, 1L, "강추~", false, LocalDateTime.now());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/reviews/1"))
+        given(getCommentService.detail(any())).willReturn(commentDto);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/comments/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
     void update() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.patch("/reviews/1")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/comments/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{"
-                                + "\"reviewBody\":\"modify body\""
-                                + "}"))
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    void delete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.patch("/reviews/1")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{"
-                                + "\"reviewBody\":\"review body\""
+                                + "\"commentBody\":\"modify body\""
                                 + "}"))
                 .andExpect(status().isNoContent());
     }

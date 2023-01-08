@@ -23,7 +23,7 @@ public class CreateReviewService {
         this.reviewRepository = reviewRepository;
         this.userRepository = userRepository;
     }
-    
+
     public Review create(Long userId, ReviewRegistrationDto reviewRegistrationDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFound(userId));
@@ -31,7 +31,6 @@ public class CreateReviewService {
         Long contendId = reviewRegistrationDto.getContentId();
         Long starRate = reviewRegistrationDto.getStarRate();
         String reviewBody = reviewRegistrationDto.getReviewBody();
-
 
         Review review = new Review(new UserId(user.getId()), new ContentId(contendId),
                 starRate, new ReviewBody(reviewBody));

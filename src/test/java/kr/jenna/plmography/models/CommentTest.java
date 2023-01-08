@@ -1,5 +1,6 @@
 package kr.jenna.plmography.models;
 
+import kr.jenna.plmography.dtos.CommentCreationDto;
 import kr.jenna.plmography.dtos.CommentDto;
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +47,15 @@ class CommentTest {
         assertThat(commentDto).isNotNull();
         assertThat(commentDto.getCommentBody())
                 .isEqualTo(comment.getCommentBody().getValue());
+    }
+
+    @Test
+    void toCreationDto() {
+        Comment comment = Comment.fake();
+
+        CommentCreationDto commentCreationDto = comment.toCreateDto();
+
+        assertThat(commentCreationDto).isNotNull();
+        assertThat(commentCreationDto.getId()).isEqualTo(comment.getId());
     }
 }

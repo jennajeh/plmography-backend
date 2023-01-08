@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class GetReviewsService {
     private final ReviewRepository reviewRepository;
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     public GetReviewsService(ReviewRepository reviewRepository,

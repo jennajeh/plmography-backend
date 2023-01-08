@@ -1,6 +1,5 @@
 package kr.jenna.plmography.services;
 
-import kr.jenna.plmography.dtos.ReviewRegistrationDto;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.ReviewBody;
 import kr.jenna.plmography.repositories.ReviewRepository;
@@ -16,10 +15,10 @@ public class PatchReviewService {
         this.reviewRepository = reviewRepository;
     }
 
-    public void update(ReviewRegistrationDto reviewRegistrationDto,
+    public void update(String reviewBody,
                        Long reviewId) {
         Review review = reviewRepository.getReferenceById(reviewId);
 
-        review.update(new ReviewBody(reviewRegistrationDto.getReviewBody()));
+        review.update(new ReviewBody(reviewBody));
     }
 }

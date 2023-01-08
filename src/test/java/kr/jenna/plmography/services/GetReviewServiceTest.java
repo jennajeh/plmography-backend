@@ -27,5 +27,6 @@ class GetReviewServiceTest {
         ReviewDto reviewDto = getReviewService.detail(1L);
 
         assertThat(reviewDto).isNotNull();
+        assertThat(reviewDto.getReviewBody()).isEqualTo("영화가 재미있어요");
     }
 }
