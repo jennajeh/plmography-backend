@@ -1,6 +1,6 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.ContentDto;
+import kr.jenna.plmography.dtos.Content.ContentDto;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

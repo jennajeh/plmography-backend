@@ -2,8 +2,8 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
-import kr.jenna.plmography.services.GetContentService;
-import kr.jenna.plmography.services.GetContentsService;
+import kr.jenna.plmography.services.Content.GetContentService;
+import kr.jenna.plmography.services.Content.GetContentsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

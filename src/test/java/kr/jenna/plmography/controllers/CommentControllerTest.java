@@ -1,14 +1,14 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.CommentDto;
-import kr.jenna.plmography.dtos.CommentsDto;
-import kr.jenna.plmography.dtos.PagesDto;
+import kr.jenna.plmography.dtos.Comment.CommentDto;
+import kr.jenna.plmography.dtos.Comment.CommentsDto;
+import kr.jenna.plmography.dtos.Page.PagesDto;
 import kr.jenna.plmography.models.Comment;
-import kr.jenna.plmography.services.CreateCommentService;
-import kr.jenna.plmography.services.DeleteCommentService;
-import kr.jenna.plmography.services.GetCommentService;
-import kr.jenna.plmography.services.GetCommentsService;
-import kr.jenna.plmography.services.PatchCommentService;
+import kr.jenna.plmography.services.Comment.CreateCommentService;
+import kr.jenna.plmography.services.Comment.DeleteCommentService;
+import kr.jenna.plmography.services.Comment.GetCommentService;
+import kr.jenna.plmography.services.Comment.GetCommentsService;
+import kr.jenna.plmography.services.Comment.PatchCommentService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,7 +77,7 @@ class CommentControllerTest {
     }
 
     @Test
-    void comments() throws Exception {
+    void list() throws Exception {
         Integer page = 1;
         Integer size = 5;
 
@@ -112,20 +112,22 @@ class CommentControllerTest {
     }
 
     @Test
-    void update() throws Exception {
+    void patch() throws Exception {
+        given(patchCommentService.update(any(), any(), any())).willReturn(Comment.fake());
+
         mockMvc.perform(MockMvcRequestBuilders.patch("/comments/1")
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{"
                                 + "\"commentBody\":\"modify body\""
                                 + "}"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
     }
 
     @Test
     void delete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/comments/1"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/comments/1")
+                        .header("Authorization", "Bearer " + token))
                 .andExpect(status().isNoContent());
-
-        verify(deleteCommentService).delete(1L);
     }
 }

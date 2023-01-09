@@ -1,10 +1,11 @@
 package kr.jenna.plmography.services;
 
-import kr.jenna.plmography.dtos.UserRegistrationDto;
+import kr.jenna.plmography.dtos.User.UserRegistrationDto;
 import kr.jenna.plmography.exceptions.EmailAlreadyExist;
-import kr.jenna.plmography.models.Email;
 import kr.jenna.plmography.models.User;
+import kr.jenna.plmography.models.VO.Email;
 import kr.jenna.plmography.repositories.UserRepository;
+import kr.jenna.plmography.services.User.CreateUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;

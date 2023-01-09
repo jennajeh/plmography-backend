@@ -5,7 +5,13 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import kr.jenna.plmography.dtos.ReviewCreationDto;
+import kr.jenna.plmography.dtos.Review.ReviewCreationDto;
+import kr.jenna.plmography.dtos.Review.ReviewDto;
+import kr.jenna.plmography.dtos.Review.ReviewModificationDto;
+import kr.jenna.plmography.models.VO.ContentId;
+import kr.jenna.plmography.models.VO.LikeUserId;
+import kr.jenna.plmography.models.VO.ReviewBody;
+import kr.jenna.plmography.models.VO.UserId;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -95,12 +101,16 @@ public class Review {
                 4L, new ReviewBody("영화가 재미있어요"));
     }
 
-    public void update(ReviewBody reviewBody) {
-        this.reviewBody = reviewBody;
+    public void update(ReviewDto reviewDto) {
+        this.reviewBody = new ReviewBody(reviewDto.getReviewBody());
     }
 
     public void delete() {
         this.isDeleted = true;
+    }
+
+    public boolean isWriter(Long userId) {
+        return this.userId.getValue() == userId;
     }
 
     public void toggleLike(LikeUserId likeUserId) {
@@ -115,5 +125,9 @@ public class Review {
 
     public ReviewCreationDto toCreateDto() {
         return new ReviewCreationDto(id);
+    }
+
+    public ReviewModificationDto toReviewModificationDto() {
+        return new ReviewModificationDto(id);
     }
 }

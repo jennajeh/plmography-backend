@@ -1,18 +1,18 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.UserCountDto;
-import kr.jenna.plmography.dtos.UserCreationDto;
-import kr.jenna.plmography.dtos.UserDto;
-import kr.jenna.plmography.dtos.UserRegistrationDto;
+import kr.jenna.plmography.dtos.User.UserCountDto;
+import kr.jenna.plmography.dtos.User.UserCreationDto;
+import kr.jenna.plmography.dtos.User.UserDto;
+import kr.jenna.plmography.dtos.User.UserRegistrationDto;
 import kr.jenna.plmography.exceptions.NicknameAlreadyExist;
 import kr.jenna.plmography.exceptions.SignupFailed;
 import kr.jenna.plmography.exceptions.UserNotFound;
-import kr.jenna.plmography.models.Email;
-import kr.jenna.plmography.models.Nickname;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.services.CreateUserService;
-import kr.jenna.plmography.services.GetUserService;
-import kr.jenna.plmography.services.PatchUserService;
+import kr.jenna.plmography.models.VO.Email;
+import kr.jenna.plmography.models.VO.Nickname;
+import kr.jenna.plmography.services.User.CreateUserService;
+import kr.jenna.plmography.services.User.GetUserService;
+import kr.jenna.plmography.services.User.PatchUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;

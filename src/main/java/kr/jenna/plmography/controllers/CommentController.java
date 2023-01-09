@@ -1,17 +1,19 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.CommentCreationDto;
-import kr.jenna.plmography.dtos.CommentDto;
-import kr.jenna.plmography.dtos.CommentRegistrationDto;
-import kr.jenna.plmography.dtos.CommentsDto;
+import kr.jenna.plmography.dtos.Comment.CommentCreationDto;
+import kr.jenna.plmography.dtos.Comment.CommentDto;
+import kr.jenna.plmography.dtos.Comment.CommentModificationDto;
+import kr.jenna.plmography.dtos.Comment.CommentRegistrationDto;
+import kr.jenna.plmography.dtos.Comment.CommentsDto;
 import kr.jenna.plmography.exceptions.CommentNotFound;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Comment;
-import kr.jenna.plmography.services.CreateCommentService;
-import kr.jenna.plmography.services.DeleteCommentService;
-import kr.jenna.plmography.services.GetCommentService;
-import kr.jenna.plmography.services.GetCommentsService;
-import kr.jenna.plmography.services.PatchCommentService;
+import kr.jenna.plmography.models.VO.CommentId;
+import kr.jenna.plmography.services.Comment.CreateCommentService;
+import kr.jenna.plmography.services.Comment.DeleteCommentService;
+import kr.jenna.plmography.services.Comment.GetCommentService;
+import kr.jenna.plmography.services.Comment.GetCommentsService;
+import kr.jenna.plmography.services.Comment.PatchCommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -61,29 +63,37 @@ public class CommentController {
     public CommentsDto list(
             @RequestAttribute Long userId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
-            @RequestParam(required = false, defaultValue = "1") Integer size
+            @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
         return getCommentsService.comments(userId, page, size);
     }
 
-    @GetMapping("/{commentId}")
-    public CommentDto detail(@PathVariable Long commentId) {
-        return getCommentService.detail(commentId);
+    @GetMapping("/{id}")
+    public CommentDto detail(@PathVariable Long id) {
+        return getCommentService.detail(id);
     }
 
-    @PatchMapping("/{commentId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patch(
-            @RequestBody CommentDto commentDto,
-            @PathVariable Long commentId
+    @PatchMapping("/{id}")
+    public CommentModificationDto patch(
+            @RequestAttribute Long userId,
+            @PathVariable Long id,
+            @RequestBody CommentDto commentDto
     ) {
-        patchCommentService.update(commentId, commentDto.getCommentBody());
+        CommentId commentId = new CommentId(id);
+
+        Comment comment = patchCommentService.update(userId, commentId, commentDto);
+
+        return comment.commentModificationDto();
     }
 
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long commentId) {
-        deleteCommentService.delete(commentId);
+    public void delete(
+            @RequestAttribute Long userId,
+            @PathVariable Long id
+    ) {
+        CommentId commentId = new CommentId(id);
+        deleteCommentService.delete(userId, commentId);
     }
 
     @ExceptionHandler(UserNotFound.class)

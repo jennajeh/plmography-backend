@@ -1,10 +1,11 @@
 package kr.jenna.plmography.services;
 
 import kr.jenna.plmography.exceptions.LoginFailed;
-import kr.jenna.plmography.models.Email;
-import kr.jenna.plmography.models.Password;
 import kr.jenna.plmography.models.User;
+import kr.jenna.plmography.models.VO.Email;
+import kr.jenna.plmography.models.VO.Password;
 import kr.jenna.plmography.repositories.UserRepository;
+import kr.jenna.plmography.services.User.LoginService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;

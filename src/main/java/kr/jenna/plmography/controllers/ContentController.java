@@ -1,12 +1,12 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.ContentDto;
-import kr.jenna.plmography.dtos.ContentsDto;
-import kr.jenna.plmography.dtos.PagesDto;
+import kr.jenna.plmography.dtos.Content.ContentDto;
+import kr.jenna.plmography.dtos.Content.ContentsDto;
+import kr.jenna.plmography.dtos.Page.PagesDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
-import kr.jenna.plmography.services.GetContentService;
-import kr.jenna.plmography.services.GetContentsService;
+import kr.jenna.plmography.services.Content.GetContentService;
+import kr.jenna.plmography.services.Content.GetContentsService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,12 +1,12 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.UserCountDto;
+import kr.jenna.plmography.dtos.User.UserCountDto;
 import kr.jenna.plmography.exceptions.EmailAlreadyExist;
-import kr.jenna.plmography.models.Email;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.services.CreateUserService;
-import kr.jenna.plmography.services.GetUserService;
-import kr.jenna.plmography.services.PatchUserService;
+import kr.jenna.plmography.models.VO.Email;
+import kr.jenna.plmography.services.User.CreateUserService;
+import kr.jenna.plmography.services.User.GetUserService;
+import kr.jenna.plmography.services.User.PatchUserService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

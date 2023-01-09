@@ -1,6 +1,11 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.ReviewCreationDto;
+import kr.jenna.plmography.dtos.Review.ReviewCreationDto;
+import kr.jenna.plmography.dtos.Review.ReviewDto;
+import kr.jenna.plmography.models.VO.ContentId;
+import kr.jenna.plmography.models.VO.LikeUserId;
+import kr.jenna.plmography.models.VO.ReviewBody;
+import kr.jenna.plmography.models.VO.UserId;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,11 +24,12 @@ class ReviewTest {
     void modify() {
         Review review = Review.fake();
 
-        String body = "완전 강추!!";
+        ReviewDto reviewDto = ReviewDto.fake();
 
-        review.update(new ReviewBody(body));
+        review.update(reviewDto);
 
-        assertThat(review.getReviewBody()).isEqualTo(new ReviewBody(body));
+        assertThat(review.getReviewBody().getValue())
+                .isEqualTo(reviewDto.getReviewBody());
     }
 
     @Test
@@ -57,5 +63,13 @@ class ReviewTest {
 
         assertThat(reviewCreationDto).isNotNull();
         assertThat(review.getId()).isEqualTo(reviewCreationDto.getId());
+    }
+
+    @Test
+    void isWriter() {
+        Review review = Review.fake();
+
+        assertThat(review.isWriter(1L)).isTrue();
+        assertThat(review.isWriter(2L)).isFalse();
     }
 }

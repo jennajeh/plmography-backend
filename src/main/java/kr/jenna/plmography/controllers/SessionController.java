@@ -1,12 +1,12 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.LoginRequestDto;
-import kr.jenna.plmography.dtos.LoginResultDto;
+import kr.jenna.plmography.dtos.Login.LoginRequestDto;
+import kr.jenna.plmography.dtos.Login.LoginResultDto;
 import kr.jenna.plmography.exceptions.LoginFailed;
-import kr.jenna.plmography.models.Email;
-import kr.jenna.plmography.models.Password;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.services.LoginService;
+import kr.jenna.plmography.models.VO.Email;
+import kr.jenna.plmography.models.VO.Password;
+import kr.jenna.plmography.services.User.LoginService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -4,7 +4,13 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import kr.jenna.plmography.dtos.RecommentDto;
+import kr.jenna.plmography.dtos.Recomment.RecommentCreationDto;
+import kr.jenna.plmography.dtos.Recomment.RecommentDto;
+import kr.jenna.plmography.dtos.Recomment.RecommentModificationDto;
+import kr.jenna.plmography.models.VO.CommentId;
+import kr.jenna.plmography.models.VO.PostId;
+import kr.jenna.plmography.models.VO.RecommentBody;
+import kr.jenna.plmography.models.VO.UserId;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -95,7 +101,19 @@ public class Recomment {
                 createdAt);
     }
 
-    public void modify(RecommentBody recommentBody) {
-        this.recommentBody = recommentBody;
+    public void modify(RecommentDto recommentDto) {
+        this.recommentBody = new RecommentBody(recommentDto.getRecommentBody());
+    }
+
+    public RecommentCreationDto toCreateDto() {
+        return new RecommentCreationDto(id);
+    }
+
+    public RecommentModificationDto toRecommentModificationDto() {
+        return new RecommentModificationDto(id);
+    }
+
+    public boolean isWriter(Long userId) {
+        return this.userId.getValue() == userId;
     }
 }

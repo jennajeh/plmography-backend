@@ -1,17 +1,22 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.ReviewCreationDto;
-import kr.jenna.plmography.dtos.ReviewDto;
-import kr.jenna.plmography.dtos.ReviewRegistrationDto;
-import kr.jenna.plmography.dtos.ReviewsDto;
+import kr.jenna.plmography.dtos.Review.ReviewCreationDto;
+import kr.jenna.plmography.dtos.Review.ReviewDto;
+import kr.jenna.plmography.dtos.Review.ReviewModificationDto;
+import kr.jenna.plmography.dtos.Review.ReviewRegistrationDto;
+import kr.jenna.plmography.dtos.Review.ReviewsDto;
+import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.exceptions.ReviewNotFound;
+import kr.jenna.plmography.exceptions.UnmatchedPostId;
+import kr.jenna.plmography.exceptions.UnmodifiableReview;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.services.CreateReviewService;
-import kr.jenna.plmography.services.DeleteReviewService;
-import kr.jenna.plmography.services.GetReviewService;
-import kr.jenna.plmography.services.GetReviewsService;
-import kr.jenna.plmography.services.PatchReviewService;
+import kr.jenna.plmography.models.VO.PostId;
+import kr.jenna.plmography.services.Review.CreateReviewService;
+import kr.jenna.plmography.services.Review.DeleteReviewService;
+import kr.jenna.plmography.services.Review.GetReviewService;
+import kr.jenna.plmography.services.Review.GetReviewsService;
+import kr.jenna.plmography.services.Review.PatchReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -67,24 +72,33 @@ public class ReviewController {
         return getReviewsService.reviews(userId, page, size);
     }
 
-    @GetMapping("/{reviewId}")
-    public ReviewDto detail(@PathVariable Long reviewId) {
-        return getReviewService.detail(reviewId);
+    @GetMapping("/{id}")
+    public ReviewDto detail(@PathVariable Long id) {
+        return getReviewService.detail(id);
     }
 
-    @PatchMapping("/{reviewId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void patch(
-            @RequestBody ReviewRegistrationDto reviewRegistrationDto,
-            @PathVariable Long reviewId
+    @PatchMapping("/{id}")
+    public ReviewModificationDto patch(
+            @RequestAttribute Long userId,
+            @PathVariable Long id,
+            @RequestBody ReviewDto reviewDto
     ) {
-        patchReviewService.update(reviewRegistrationDto.getReviewBody(), reviewId);
+        PostId postId = new PostId(id);
+
+        Review review = patchReviewService.update(userId, postId, reviewDto);
+
+        return review.toReviewModificationDto();
     }
 
-    @DeleteMapping("/{reviewId}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long reviewId) {
-        deleteReviewService.delete(reviewId);
+    public void delete(
+            @RequestAttribute Long userId,
+            @PathVariable Long id
+    ) {
+        PostId postId = new PostId(id);
+
+        deleteReviewService.delete(userId, postId);
     }
 
     @ExceptionHandler(UserNotFound.class)
@@ -93,9 +107,27 @@ public class ReviewController {
         return "User not found!";
     }
 
+    @ExceptionHandler(InvalidUser.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String InvalidUser() {
+        return "Invalid user!";
+    }
+
     @ExceptionHandler(ReviewNotFound.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String reviewNotFound() {
         return "Review not found!";
+    }
+
+    @ExceptionHandler(UnmodifiableReview.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String unmodifiableReview() {
+        return "Unmodifiable review!";
+    }
+
+    @ExceptionHandler(UnmatchedPostId.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String unmatchedPostId() {
+        return "Unmatched postId!";
     }
 }

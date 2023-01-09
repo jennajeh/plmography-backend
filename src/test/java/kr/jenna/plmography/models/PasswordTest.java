@@ -1,6 +1,7 @@
 package kr.jenna.plmography.models;
 
 import kr.jenna.plmography.exceptions.InvalidPassword;
+import kr.jenna.plmography.models.VO.Password;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

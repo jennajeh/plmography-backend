@@ -2,7 +2,7 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.exceptions.LoginFailed;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.services.LoginService;
+import kr.jenna.plmography.services.User.LoginService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

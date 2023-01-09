@@ -1,6 +1,6 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.services.S3Uploader;
+import kr.jenna.plmography.utils.S3Uploader;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;

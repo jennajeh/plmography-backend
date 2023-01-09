@@ -1,10 +1,11 @@
 package kr.jenna.plmography.services;
 
-import kr.jenna.plmography.dtos.CommentDto;
+import kr.jenna.plmography.dtos.Comment.CommentDto;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
+import kr.jenna.plmography.services.Comment.GetCommentService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

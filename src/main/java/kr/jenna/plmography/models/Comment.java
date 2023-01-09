@@ -4,8 +4,12 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import kr.jenna.plmography.dtos.CommentCreationDto;
-import kr.jenna.plmography.dtos.CommentDto;
+import kr.jenna.plmography.dtos.Comment.CommentCreationDto;
+import kr.jenna.plmography.dtos.Comment.CommentDto;
+import kr.jenna.plmography.dtos.Comment.CommentModificationDto;
+import kr.jenna.plmography.models.VO.CommentBody;
+import kr.jenna.plmography.models.VO.PostId;
+import kr.jenna.plmography.models.VO.UserId;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -83,15 +87,23 @@ public class Comment {
                 isDeleted, createdAt);
     }
 
-    public void modify(CommentBody commentBody) {
-        this.commentBody = commentBody;
+    public void modify(CommentDto commentDto) {
+        this.commentBody = new CommentBody(commentDto.getCommentBody());
     }
 
     public void delete() {
         this.isDeleted = true;
     }
 
+    public boolean isWriter(Long userId) {
+        return this.userId.getValue() == userId;
+    }
+
     public CommentCreationDto toCreateDto() {
         return new CommentCreationDto(id);
+    }
+
+    public CommentModificationDto commentModificationDto() {
+        return new CommentModificationDto(id);
     }
 }

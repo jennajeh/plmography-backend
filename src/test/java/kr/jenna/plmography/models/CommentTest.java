@@ -1,7 +1,10 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.CommentCreationDto;
-import kr.jenna.plmography.dtos.CommentDto;
+import kr.jenna.plmography.dtos.Comment.CommentCreationDto;
+import kr.jenna.plmography.dtos.Comment.CommentDto;
+import kr.jenna.plmography.models.VO.CommentBody;
+import kr.jenna.plmography.models.VO.PostId;
+import kr.jenna.plmography.models.VO.UserId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -22,11 +25,11 @@ class CommentTest {
     void modify() {
         Comment comment = Comment.fake();
 
-        String body = "동의합니다~";
+        CommentDto commentDto = CommentDto.fake();
 
-        comment.modify(new CommentBody(body));
+        comment.modify(commentDto);
 
-        assertThat(comment.getCommentBody()).isEqualTo(new CommentBody(body));
+        assertThat(comment.getCommentBody().getValue()).isEqualTo(commentDto.getCommentBody());
     }
 
     @Test
@@ -57,5 +60,13 @@ class CommentTest {
 
         assertThat(commentCreationDto).isNotNull();
         assertThat(commentCreationDto.getId()).isEqualTo(comment.getId());
+    }
+
+    @Test
+    void isWriter() {
+        Comment comment = Comment.fake();
+
+        assertThat(comment.isWriter(1L)).isTrue();
+        assertThat(comment.isWriter(2L)).isFalse();
     }
 }

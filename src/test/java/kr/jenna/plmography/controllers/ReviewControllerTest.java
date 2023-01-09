@@ -1,14 +1,14 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.PagesDto;
-import kr.jenna.plmography.dtos.ReviewDto;
-import kr.jenna.plmography.dtos.ReviewsDto;
+import kr.jenna.plmography.dtos.Page.PagesDto;
+import kr.jenna.plmography.dtos.Review.ReviewDto;
+import kr.jenna.plmography.dtos.Review.ReviewsDto;
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.services.CreateReviewService;
-import kr.jenna.plmography.services.DeleteReviewService;
-import kr.jenna.plmography.services.GetReviewService;
-import kr.jenna.plmography.services.GetReviewsService;
-import kr.jenna.plmography.services.PatchReviewService;
+import kr.jenna.plmography.services.Review.CreateReviewService;
+import kr.jenna.plmography.services.Review.DeleteReviewService;
+import kr.jenna.plmography.services.Review.GetReviewService;
+import kr.jenna.plmography.services.Review.GetReviewsService;
+import kr.jenna.plmography.services.Review.PatchReviewService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -106,22 +106,21 @@ class ReviewControllerTest {
 
     @Test
     void update() throws Exception {
+        given(patchReviewService.update(any(), any(), any())).willReturn(Review.fake());
+
         mockMvc.perform(MockMvcRequestBuilders.patch("/reviews/1")
+                        .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{"
                                 + "\"reviewBody\":\"modify body\""
                                 + "}"))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
     }
 
     @Test
     void delete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.patch("/reviews/1")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{"
-                                + "\"reviewBody\":\"review body\""
-                                + "}"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/reviews/1")
+                        .header("Authorization", "Bearer " + token))
                 .andExpect(status().isNoContent());
     }
 }

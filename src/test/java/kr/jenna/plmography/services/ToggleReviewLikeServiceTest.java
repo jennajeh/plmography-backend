@@ -1,9 +1,10 @@
 package kr.jenna.plmography.services;
 
-import kr.jenna.plmography.models.LikeUserId;
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.models.ReviewId;
+import kr.jenna.plmography.models.VO.LikeUserId;
+import kr.jenna.plmography.models.VO.ReviewId;
 import kr.jenna.plmography.repositories.ReviewRepository;
+import kr.jenna.plmography.services.Review.ToggleReviewLikeService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

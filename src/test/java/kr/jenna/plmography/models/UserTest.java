@@ -1,8 +1,14 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.UserCreationDto;
-import kr.jenna.plmography.dtos.UserDto;
+import kr.jenna.plmography.dtos.User.UserCreationDto;
+import kr.jenna.plmography.dtos.User.UserDto;
 import kr.jenna.plmography.exceptions.InvalidPassword;
+import kr.jenna.plmography.models.VO.BirthYear;
+import kr.jenna.plmography.models.VO.Email;
+import kr.jenna.plmography.models.VO.Gender;
+import kr.jenna.plmography.models.VO.Nickname;
+import kr.jenna.plmography.models.VO.Password;
+import kr.jenna.plmography.models.VO.ProfileImage;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

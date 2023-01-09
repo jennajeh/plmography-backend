@@ -1,8 +1,13 @@
 package kr.jenna.plmography.services;
 
+import kr.jenna.plmography.dtos.Comment.CommentDto;
 import kr.jenna.plmography.models.Comment;
+import kr.jenna.plmography.models.VO.CommentId;
 import kr.jenna.plmography.repositories.CommentRepository;
+import kr.jenna.plmography.services.Comment.PatchCommentService;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,14 +21,16 @@ class PatchCommentServiceTest {
         CommentRepository commentRepository = mock(CommentRepository.class);
         PatchCommentService patchCommentService = new PatchCommentService(commentRepository);
 
-        Comment comment = Comment.fake();
+        given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(Comment.fake()));
 
-        given(commentRepository.getReferenceById(any(Long.class)))
-                .willReturn(comment);
+        CommentId commentId = new CommentId(1L);
+        CommentDto commentDto = CommentDto.fake();
 
-        patchCommentService.update(comment.getId(), "놀랍네요!!!");
+        Comment comment = patchCommentService.update(1L, commentId, commentDto);
 
-        assertThat(Comment.fake().getCommentBody()).isNotEqualTo("놀랍네요!!!");
-        assertThat(comment.getCommentBody().getValue()).isEqualTo("놀랍네요!!!");
+        assertThat(Comment.fake().getCommentBody().getValue())
+                .isNotEqualTo(commentDto.getCommentBody());
+
+        assertThat(comment.getCommentBody().getValue()).isEqualTo(commentDto.getCommentBody());
     }
 }

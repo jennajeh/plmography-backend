@@ -1,10 +1,11 @@
 package kr.jenna.plmography.services;
 
-import kr.jenna.plmography.dtos.ReviewDto;
+import kr.jenna.plmography.dtos.Review.ReviewDto;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import kr.jenna.plmography.repositories.UserRepository;
+import kr.jenna.plmography.services.Review.GetReviewService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
