@@ -18,7 +18,7 @@ public class PatchRecommentService {
         this.recommentRepository = recommentRepository;
     }
 
-    public Recomment update(Long userId, Long recommentId, RecommentDto recommentDto) {
+    public Recomment modify(Long userId, Long recommentId, RecommentDto recommentDto) {
         Recomment recomment = recommentRepository.findById(recommentId)
                 .orElseThrow(() -> new RecommentNotFound());
 

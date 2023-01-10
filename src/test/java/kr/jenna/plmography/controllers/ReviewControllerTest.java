@@ -106,7 +106,7 @@ class ReviewControllerTest {
 
     @Test
     void update() throws Exception {
-        given(patchReviewService.update(any(), any(), any())).willReturn(Review.fake());
+        given(patchReviewService.modify(any(), any(), any())).willReturn(Review.fake());
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/reviews/1")
                         .header("Authorization", "Bearer " + token)

@@ -113,7 +113,7 @@ class CommentControllerTest {
 
     @Test
     void patch() throws Exception {
-        given(patchCommentService.update(any(), any(), any())).willReturn(Comment.fake());
+        given(patchCommentService.modify(any(), any(), any())).willReturn(Comment.fake());
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/comments/1")
                         .header("Authorization", "Bearer " + token)

@@ -106,7 +106,7 @@ class RecommentControllerTest {
 
     @Test
     void patch() throws Exception {
-        given(patchRecommentService.update(any(), any(), any())).willReturn(Recomment.fake());
+        given(patchRecommentService.modify(any(), any(), any())).willReturn(Recomment.fake());
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/recomments/1")
                         .header("Authorization", "Bearer " + token)

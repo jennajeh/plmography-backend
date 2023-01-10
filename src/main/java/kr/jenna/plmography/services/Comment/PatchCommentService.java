@@ -19,7 +19,7 @@ public class PatchCommentService {
         this.commentRepository = commentRepository;
     }
 
-    public Comment update(Long userId, CommentId commentId, CommentDto commentDto) {
+    public Comment modify(Long userId, CommentId commentId, CommentDto commentDto) {
         Comment comment = commentRepository.findById(commentId.getValue())
                 .orElseThrow(() -> new CommentNotFound());
 
