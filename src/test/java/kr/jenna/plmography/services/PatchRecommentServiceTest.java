@@ -25,7 +25,7 @@ class PatchRecommentServiceTest {
 
         RecommentDto recommentDto = RecommentDto.fake();
 
-        Recomment recomment = patchRecommentService.update(1L, 1L, recommentDto);
+        Recomment recomment = patchRecommentService.modify(1L, 1L, recommentDto);
 
         assertThat(Recomment.fake().getRecommentBody())
                 .isNotEqualTo(recommentDto.getRecommentBody());

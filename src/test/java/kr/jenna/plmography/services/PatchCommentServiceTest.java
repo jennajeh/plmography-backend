@@ -26,7 +26,7 @@ class PatchCommentServiceTest {
         CommentId commentId = new CommentId(1L);
         CommentDto commentDto = CommentDto.fake();
 
-        Comment comment = patchCommentService.update(1L, commentId, commentDto);
+        Comment comment = patchCommentService.modify(1L, commentId, commentDto);
 
         assertThat(Comment.fake().getCommentBody().getValue())
                 .isNotEqualTo(commentDto.getCommentBody());

@@ -29,7 +29,7 @@ class CreateReviewServiceTest {
         given(userRepository.findById(any())).willReturn(Optional.of(user));
 
         ReviewRegistrationDto reviewRegistrationDto = new ReviewRegistrationDto(
-                1L, 1L, 1L, 4L, "영화가 재미있어요!");
+                1L, 4L, "영화가 재미있어요!");
 
         Review review = createReviewService.create(1L, reviewRegistrationDto);
 

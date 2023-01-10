@@ -28,11 +28,11 @@ class PatchReviewServiceTest {
         PostId postId = new PostId(1L);
         ReviewDto reviewDto = ReviewDto.fake();
 
-        Review review = patchReviewService.update(1L, postId, reviewDto);
+        Review review = patchReviewService.modify(1L, postId, reviewDto);
 
         assertThat(Review.fake().getReviewBody().getValue())
                 .isNotEqualTo(reviewDto.getReviewBody());
-        
+
         assertThat(review.getReviewBody().getValue())
                 .isEqualTo(reviewDto.getReviewBody());
     }

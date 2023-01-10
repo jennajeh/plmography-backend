@@ -28,12 +28,11 @@ public class CreateReviewService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFound(userId));
 
-        Long contendId = reviewRegistrationDto.getContentId();
+        ContentId contentId = new ContentId(reviewRegistrationDto.getContentId());
         Long starRate = reviewRegistrationDto.getStarRate();
-        String reviewBody = reviewRegistrationDto.getReviewBody();
+        ReviewBody reviewBody = new ReviewBody(reviewRegistrationDto.getReviewBody());
 
-        Review review = new Review(new UserId(user.getId()), new ContentId(contendId),
-                starRate, new ReviewBody(reviewBody));
+        Review review = new Review(new UserId(userId), contentId, starRate, reviewBody);
 
         reviewRepository.save(review);
 

@@ -36,7 +36,7 @@ public class Review {
     private ReviewBody reviewBody;
 
     @ElementCollection
-    private Set<LikeUserId> likeUserIds;
+    private Set<LikeUserId> likeUserIds = new HashSet<>();
 
     private Boolean isDeleted;
 
@@ -49,6 +49,9 @@ public class Review {
     public Review() {
     }
 
+    public Review(Set<LikeUserId> likeUserIds) {
+        this.likeUserIds = likeUserIds;
+    }
 
     public Review(UserId userId, ContentId contentId,
                   Long starRate, ReviewBody reviewBody) {
@@ -56,7 +59,6 @@ public class Review {
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
-        this.likeUserIds = new HashSet<>();
         this.isDeleted = false;
     }
 
@@ -101,7 +103,7 @@ public class Review {
                 4L, new ReviewBody("영화가 재미있어요"));
     }
 
-    public void update(ReviewDto reviewDto) {
+    public void modify(ReviewDto reviewDto) {
         this.reviewBody = new ReviewBody(reviewDto.getReviewBody());
     }
 

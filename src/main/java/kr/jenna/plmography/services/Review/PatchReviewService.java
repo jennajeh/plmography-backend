@@ -23,7 +23,7 @@ public class PatchReviewService {
         this.commentRepository = commentRepository;
     }
 
-    public Review update(Long userId, PostId postId, ReviewDto reviewDto) {
+    public Review modify(Long userId, PostId postId, ReviewDto reviewDto) {
         Review review = reviewRepository.findById(postId.getValue())
                 .orElseThrow(() -> new ReviewNotFound());
 
@@ -35,7 +35,7 @@ public class PatchReviewService {
             throw new UnmatchedPostId();
         }
 
-        review.update(reviewDto);
+        review.modify(reviewDto);
 
         return review;
     }
