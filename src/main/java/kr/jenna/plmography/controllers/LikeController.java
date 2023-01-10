@@ -17,7 +17,7 @@ public class LikeController {
         this.toggleReviewLikeService = toggleReviewLikeService;
     }
 
-    @PatchMapping("reviews/{id}/likeUserIds")
+    @PatchMapping("/reviews/{id}/likeUserIds")
     public LikeUserIdsDto toggleLikeReview(
             @PathVariable Long id,
             @RequestAttribute Long userId

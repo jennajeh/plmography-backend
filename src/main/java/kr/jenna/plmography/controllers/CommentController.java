@@ -74,14 +74,14 @@ public class CommentController {
     }
 
     @PatchMapping("/{id}")
-    public CommentModificationDto patch(
+    public CommentModificationDto modify(
             @RequestAttribute Long userId,
             @PathVariable Long id,
             @RequestBody CommentDto commentDto
     ) {
         CommentId commentId = new CommentId(id);
 
-        Comment comment = patchCommentService.update(userId, commentId, commentDto);
+        Comment comment = patchCommentService.modify(userId, commentId, commentDto);
 
         return comment.commentModificationDto();
     }

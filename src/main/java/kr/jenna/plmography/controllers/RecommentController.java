@@ -64,13 +64,13 @@ public class RecommentController {
     }
 
     @PatchMapping("/recomments/{id}")
-    public RecommentModificationDto patch(
+    public RecommentModificationDto modify(
             @RequestAttribute Long userId,
             @PathVariable Long id,
             @RequestBody RecommentDto recommentDto
     ) {
-        Recomment recomment = patchRecommentService.update(userId, id, recommentDto);
-        
+        Recomment recomment = patchRecommentService.modify(userId, id, recommentDto);
+
         return recomment.toRecommentModificationDto();
     }
 

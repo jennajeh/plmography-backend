@@ -78,14 +78,14 @@ public class ReviewController {
     }
 
     @PatchMapping("/{id}")
-    public ReviewModificationDto patch(
+    public ReviewModificationDto modify(
             @RequestAttribute Long userId,
             @PathVariable Long id,
             @RequestBody ReviewDto reviewDto
     ) {
         PostId postId = new PostId(id);
 
-        Review review = patchReviewService.update(userId, postId, reviewDto);
+        Review review = patchReviewService.modify(userId, postId, reviewDto);
 
         return review.toReviewModificationDto();
     }
