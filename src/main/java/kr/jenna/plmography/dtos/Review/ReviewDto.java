@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class ReviewDto {
     private Long id;
-    private WriterDto writerDto;
+    private WriterDto writer;
     private Long contentId;
     private Long starRate;
     private String reviewBody;
@@ -19,12 +19,12 @@ public class ReviewDto {
     public ReviewDto() {
     }
 
-    public ReviewDto(Long id, WriterDto writerDto,
+    public ReviewDto(Long id, WriterDto writer,
                      Long contentId, Long starRate,
                      String reviewBody, Set<LikeUserIdDto> likeUserIds,
                      LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.writerDto = writerDto;
+        this.writer = writer;
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
@@ -37,8 +37,8 @@ public class ReviewDto {
         return id;
     }
 
-    public WriterDto getWriterDto() {
-        return writerDto;
+    public WriterDto getWriter() {
+        return writer;
     }
 
     public Long getContentId() {
