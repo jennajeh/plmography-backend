@@ -54,6 +54,8 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM user_watched_list");
         jdbcTemplate.execute("DELETE FROM user_favorite_contents");
         jdbcTemplate.execute("DELETE FROM review");
+        jdbcTemplate.execute("DELETE FROM comment");
+        jdbcTemplate.execute("DELETE FROM recomment");
 
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +
@@ -71,47 +73,77 @@ public class BackdoorController {
                 passwordEncoder.encode("Test123!"), now, now
         );
 
-        jdbcTemplate.update("INSERT INTO review("
-                + "  id, user_id, content_id, is_deleted,"
-                + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(1, 1, 411, ?, '영화가 재미있어요!', 5L, ?, ?)", false, now, now
+        jdbcTemplate.update("INSERT INTO users(" +
+                        "  id, email, password, nickname," +
+                        "  gender, birth_year, profile_image, created_at, updated_at)" +
+                        " VALUES(3, 'zzezze@gmail.com', ?, '최재원', '여성', 1990, "
+                        + "'https://source.boringavatars.com/beam/120/?nickname=zzezze', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
+        );
+
+        jdbcTemplate.update("INSERT INTO users(" +
+                        "  id, email, password, nickname," +
+                        "  gender, birth_year, profile_image, created_at, updated_at)" +
+                        " VALUES(4, 'inu@gmail.com', ?, '황인우', '여성', 1990, "
+                        + "'https://source.boringavatars.com/beam/120/?nickname=inu', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
+        );
+
+        jdbcTemplate.update("INSERT INTO users(" +
+                        "  id, email, password, nickname," +
+                        "  gender, birth_year, profile_image, created_at, updated_at)" +
+                        " VALUES(5, 'jo@gmail.com', ?, '조성환', '여성', 1990, "
+                        + "'https://source.boringavatars.com/beam/120/?nickname=jo', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(2, 2, 76600, ?, '재미와 감동이 두배', 4L, ?, ?)", false, now, now
+                + " VALUES(1, 1, 411, ?, '영화가 재미있어요!', 5L, ?, ?)", false, now.minusDays(1), now
+        );
+
+        jdbcTemplate.update("INSERT INTO review("
+                + "  id, user_id, content_id, is_deleted,"
+                + "  review_body, star_rate, created_at, updated_at)"
+                + " VALUES(2, 2, 76600, ?, '재미와 감동이 두배', 4L, ?, ?)", false, now.minusHours(2), now
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
                 + " VALUES(3, 3, 1399, ?, '지금까지의 서막은 완벽하다. 정주행 재생버튼 누른 이후로 쉬지 않고 다 봤다. "
-                + "이제 3월에 공개될 파트2가 관건이다. 용두사미일지 용두용미일지.', 4L, ?, ?)", false, now, now
+                + "이제 3월에 공개될 파트2가 관건이다. 용두사미일지 용두용미일지.', 4L, ?, ?)", false, now.minusMinutes(2), now
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(4, 4, 456, ?, '심슨 가족이랑 이웃하고 싶다', 4L, ?, ?)", false, now, now
+                + " VALUES(4, 4, 456, ?, '심슨 가족이랑 이웃하고 싶다', 4L, ?, ?)", false, now.minusHours(1), now
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(5, 5, 4057, ?, '이거 안본사람과 겸상하지 않겠다 일단 시즌1까지는', 4L, ?, ?)", false, now, now
+                + " VALUES(5, 5, 4057, ?, '이거 안본사람과 겸상하지 않겠다 일단 시즌1까지는', 4L, ?, ?)", false, now.minusDays(3), now
+        );
+
+        jdbcTemplate.update("INSERT INTO review("
+                + "  id, user_id, content_id, is_deleted,"
+                + "  review_body, star_rate, created_at, updated_at)"
+                + " VALUES(6, 2, 4057, ?, '지루해여', 2L, ?, ?)", false, now.minusSeconds(1), now
         );
 
         jdbcTemplate.update("INSERT INTO comment("
                 + "  id, user_id, post_id, comment_body,"
                 + "  is_deleted, created_at)"
-                + " VALUES(1, 1, 1, '저는 별로였음', ?, ?)", false, now
+                + " VALUES(1, 1, 1, '저는 별로였음', ?, ?)", false, now.minusDays(1)
         );
 
         jdbcTemplate.update("INSERT INTO comment("
                 + "  id, user_id, post_id, comment_body,"
                 + "  is_deleted, created_at)"
-                + " VALUES(2, 2, 1, '꿀잼!!!!', ?, ?)", false, now
+                + " VALUES(2, 2, 1, '꿀잼!!!!', ?, ?)", false, now.minusMinutes(1)
         );
 
         jdbcTemplate.update("INSERT INTO recomment("
@@ -123,7 +155,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO recomment("
                 + "  id, comment_id, recomment_body, user_id,"
                 + "  post_id, created_at)"
-                + " VALUES(2, 1, '이렇게 생각하신 이유는 뭔가요?', 2, 2, ?)", now
+                + " VALUES(2, 1, '이렇게 생각하신 이유는 뭔가요?', 2, 2, ?)", now.minusMinutes(6)
         );
 
         return "Setup database completed!";
