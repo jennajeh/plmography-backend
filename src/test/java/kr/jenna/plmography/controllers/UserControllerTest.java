@@ -6,6 +6,7 @@ import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.VO.Email;
 import kr.jenna.plmography.services.User.CreateUserService;
 import kr.jenna.plmography.services.User.GetUserService;
+import kr.jenna.plmography.services.User.GetUsersService;
 import kr.jenna.plmography.services.User.PatchUserService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,6 +41,9 @@ class UserControllerTest {
     private GetUserService getUserService;
 
     @MockBean
+    private GetUsersService getUsersService;
+
+    @MockBean
     private PatchUserService patchUserService;
 
     @SpyBean
@@ -56,6 +62,19 @@ class UserControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users/1")
                         .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"email\"")
+                ));
+    }
+
+    @Test
+    void list() throws Exception {
+        User user = User.fake();
+
+        given(getUsersService.list()).willReturn(List.of(user));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/users"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"email\"")
@@ -180,7 +199,7 @@ class UserControllerTest {
                 .willReturn(new UserCountDto(1, 1));
 
         mockMvc.perform(MockMvcRequestBuilders.get(
-                        "/users?countOnly=true&email=\"exist@email.com\"&nickname=\"exist\""))
+                        "/users/checkDuplicate?countOnly=true&email=\"exist@email.com\"&nickname=\"exist\""))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"countEmail\":1")

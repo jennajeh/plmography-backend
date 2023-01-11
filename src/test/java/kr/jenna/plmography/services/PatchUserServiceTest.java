@@ -35,7 +35,7 @@ class PatchUserServiceTest {
                 .willReturn(Optional.of(user));
 
         UserDto userDto = new UserDto(1L,
-                "jenna@gmail.com", "강보니", "Asdf123!",
+                "jenna@gmail.com", "강보니",
                 "여성", 1994, "new image");
 
         patchUserService.update(userId, userDto);

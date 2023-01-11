@@ -125,8 +125,10 @@ public class Review {
 
     public static List<Review> fakes(long count) {
         List<Review> reviews = new ArrayList<>();
+
         for (long i = 1; i <= count; i += 1) {
             Review review = Review.fake(i);
+
             reviews.add(review);
         }
         return reviews;

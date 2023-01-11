@@ -90,7 +90,7 @@ class ReviewControllerTest {
                         containsString("\"totalPages\"")
                 ))
                 .andExpect(content().string(
-                        containsString("\"review\":[")
+                        containsString("\"reviews\":[")
                 ));
 
         verify(getReviewsService).reviews(page, size);

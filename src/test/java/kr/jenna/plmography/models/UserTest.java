@@ -64,7 +64,7 @@ class UserTest {
         UserDto userDto = user.toUserDto();
 
         assertThat(userDto).isEqualTo(new UserDto(1L, "jenna@gmail.com",
-                "jenna", "Test123!", "여성", 1994, "https://source.boringavatars.com/beam/120/?nickname=jenna"));
+                "jenna", "여성", 1994, "https://source.boringavatars.com/beam/120/?nickname=jenna"));
     }
 
     @Test

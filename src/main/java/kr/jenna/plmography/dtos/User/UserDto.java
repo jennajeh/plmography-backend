@@ -6,7 +6,6 @@ public class UserDto {
     private Long id;
     private String email;
     private String nickname;
-    private String password;
     private String gender;
     private Integer birthYear;
     private String profileImage;
@@ -15,12 +14,11 @@ public class UserDto {
     }
 
     public UserDto(Long id, String email,
-                   String nickname, String password, String gender,
+                   String nickname, String gender,
                    Integer birthYear, String profileImage) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
-        this.password = password;
         this.gender = gender;
         this.birthYear = birthYear;
         this.profileImage = profileImage;
@@ -36,10 +34,6 @@ public class UserDto {
 
     public String getNickname() {
         return nickname;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getGender() {
@@ -60,7 +54,6 @@ public class UserDto {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
                 ", gender='" + gender + '\'' +
                 ", birthYear=" + birthYear +
                 ", profileImage='" + profileImage + '\'' +
@@ -73,7 +66,6 @@ public class UserDto {
         return Objects.equals(id, userDto.id)
                 && Objects.equals(email, userDto.email)
                 && Objects.equals(nickname, userDto.nickname)
-                && Objects.equals(password, userDto.password)
                 && Objects.equals(gender, userDto.gender)
                 && Objects.equals(birthYear, userDto.birthYear)
                 && Objects.equals(profileImage, userDto.profileImage);

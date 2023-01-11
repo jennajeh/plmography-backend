@@ -99,8 +99,34 @@ public class User {
     }
 
     public static User fake() {
-        return new User(new Email("jenna@gmail.com"), new Password("Test123!"),
-                new Nickname("전제나"), new Gender("여성"), new BirthYear(1994));
+        return new User(
+                new Email("jenna@gmail.com"),
+                new Password("Test123!"),
+                new Nickname("전제나"),
+                new Gender("여성"),
+                new BirthYear(1994));
+    }
+
+    public static User fake(long id) {
+        return new User(
+                id,
+                new Email("jenna@gmail.com"),
+                new Password("Test123!"),
+                new Nickname("전제나" + id),
+                new Gender("여성"),
+                new BirthYear(1994));
+    }
+
+    public static List<User> fakes(long count) {
+        List<User> users = new ArrayList<>();
+
+        for (long i = 1; i <= count; i += 1) {
+            User user = User.fake(i);
+
+            users.add(user);
+        }
+
+        return users;
     }
 
     public void encodePassword(Password password, PasswordEncoder passwordEncoder) {
@@ -130,7 +156,6 @@ public class User {
         return new UserDto(id,
                 this.email.getValue(),
                 this.nickname.getValue(),
-                this.password.getValue(),
                 this.gender.getValue(),
                 this.birthYear.getValue(),
                 this.profileImage.getValue());
