@@ -65,11 +65,11 @@ public class ReviewController {
 
     @GetMapping
     public ReviewsDto list(
-            @RequestAttribute Long userId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
-            @RequestParam(required = false, defaultValue = "3") Integer size
+            @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-        return getReviewsService.reviews(userId, page, size);
+
+        return getReviewsService.reviews(page, size);
     }
 
     @GetMapping("/{id}")

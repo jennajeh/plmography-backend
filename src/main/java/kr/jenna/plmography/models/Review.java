@@ -15,7 +15,9 @@ import kr.jenna.plmography.models.VO.UserId;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -51,6 +53,19 @@ public class Review {
 
     public Review(Set<LikeUserId> likeUserIds) {
         this.likeUserIds = likeUserIds;
+    }
+
+    public Review(Long id,
+                  UserId userId,
+                  ContentId contentId,
+                  Long starRate,
+                  ReviewBody reviewBody) {
+        this.id = id;
+        this.userId = userId;
+        this.contentId = contentId;
+        this.starRate = starRate;
+        this.reviewBody = reviewBody;
+        this.isDeleted = false;
     }
 
     public Review(UserId userId, ContentId contentId,
@@ -99,8 +114,22 @@ public class Review {
     }
 
     public static Review fake() {
-        return new Review(new UserId(1L), new ContentId(1L),
+        return new Review(1L, new UserId(1L), new ContentId(1L),
                 4L, new ReviewBody("영화가 재미있어요"));
+    }
+
+    public static Review fake(long id) {
+        return new Review(id, new UserId(id), new ContentId(1L),
+                4L, new ReviewBody("영화가 재미있어요 " + id));
+    }
+
+    public static List<Review> fakes(long count) {
+        List<Review> reviews = new ArrayList<>();
+        for (long i = 1; i <= count; i += 1) {
+            Review review = Review.fake(i);
+            reviews.add(review);
+        }
+        return reviews;
     }
 
     public void modify(ReviewDto reviewDto) {

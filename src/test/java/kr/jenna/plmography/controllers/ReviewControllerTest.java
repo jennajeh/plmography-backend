@@ -80,7 +80,7 @@ class ReviewControllerTest {
         Integer page = 1;
         Integer size = 3;
 
-        given(getReviewsService.reviews(1L, page, size))
+        given(getReviewsService.reviews(page, size))
                 .willReturn(new ReviewsDto(List.of(ReviewDto.fake()), new PagesDto(1)));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/reviews?&page=1&size=3")
@@ -90,10 +90,10 @@ class ReviewControllerTest {
                         containsString("\"totalPages\"")
                 ))
                 .andExpect(content().string(
-                        containsString("\"reviews\":[")
+                        containsString("\"review\":[")
                 ));
 
-        verify(getReviewsService).reviews(1L, page, size);
+        verify(getReviewsService).reviews(page, size);
     }
 
     @Test

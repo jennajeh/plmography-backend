@@ -8,6 +8,7 @@ import kr.jenna.plmography.repositories.UserRepository;
 import kr.jenna.plmography.services.Review.GetReviewsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,10 +26,10 @@ class GetReviewsServiceTest {
         UserRepository userRepository = mock(UserRepository.class);
         GetReviewsService getReviewsService = new GetReviewsService(reviewRepository, userRepository);
 
-        Review review = Review.fake();
+        List<Review> reviews = Review.fakes(5);
 
-        given(reviewRepository.findAllByUserId(any(), any()))
-                .willReturn(new PageImpl<>(List.of(review)));
+        given(reviewRepository.findAll(any(Pageable.class)))
+                .willReturn(new PageImpl<>(reviews));
 
         given(userRepository.findById(any())).willReturn(Optional.of(User.fake()));
 
@@ -36,9 +37,10 @@ class GetReviewsServiceTest {
         Integer size = 3;
 
         ReviewsDto reviewsDto =
-                getReviewsService.reviews(review.getUserId().getValue(), page, size);
+                getReviewsService.reviews(page, size);
 
         assertThat(reviewsDto).isNotNull();
-        assertThat(reviewsDto.getReviews().get(0).getReviewBody()).isEqualTo("영화가 재미있어요");
+        assertThat(reviewsDto.getReviews().get(0).getReviewBody()).isEqualTo("영화가 재미있어요 1");
+        assertThat(reviewsDto.getReviews().get(1).getReviewBody()).isEqualTo("영화가 재미있어요 2");
     }
 }

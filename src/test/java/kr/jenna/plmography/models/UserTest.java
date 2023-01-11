@@ -59,7 +59,7 @@ class UserTest {
     void toUserDto() {
         User user = new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"),
                 new Nickname("jenna"), new Gender("여성"),
-                new BirthYear(1994), new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=jenna"));
+                new BirthYear(1994));
 
         UserDto userDto = user.toUserDto();
 
@@ -70,7 +70,7 @@ class UserTest {
     @Test
     void toCreateDto() {
         User user = new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"),
-                new Nickname("jenna"), new Gender("여성"), new BirthYear(1994), new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=jenna"));
+                new Nickname("jenna"), new Gender("여성"), new BirthYear(1994));
 
         UserCreationDto userCreateDto = user.toCreateDto();
 

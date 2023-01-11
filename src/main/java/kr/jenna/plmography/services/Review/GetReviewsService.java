@@ -33,34 +33,31 @@ public class GetReviewsService {
         this.userRepository = userRepository;
     }
 
-    public ReviewsDto reviews(Long userId, Integer page, Integer size) {
+    public ReviewsDto reviews(Integer page, Integer size) {
         Sort sort = Sort.by("createdAt").descending();
 
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 
-        Page<Review> reviews = reviewRepository.findAllByUserId(userId, pageable);
+        Page<Review> reviews = reviewRepository.findAll(pageable);
 
         List<ReviewDto> reviewDtos = reviews.stream()
                 .map(review -> {
-                            User user = userRepository.findById(review.getUserId().getValue())
-                                    .orElseThrow(() -> new UserNotFound(review.getUserId().getValue()));
+                    User user = userRepository.findById(review.getUserId().getValue())
+                            .orElseThrow(() -> new UserNotFound(review.getUserId().getValue()));
 
-                            return new ReviewDto(
-                                    review.getId(),
-                                    new WriterDto(
-                                            user.getId(),
-                                            user.getNickname().getValue(),
-                                            user.getProfileImage().getValue()),
-                                    review.getContentId().getValue(),
-                                    review.getStarRate(),
-                                    review.getReviewBody().getValue(),
-                                    review.getLikeUserIds().stream().map(LikeUserId::toDto).collect(Collectors.toSet()),
-                                    review.getCreatedAt(),
-                                    review.getUpdatedAt()
-
-                            );
-                        }
-                ).collect(Collectors.toList());
+                    return new ReviewDto(
+                            review.getId(),
+                            new WriterDto(
+                                    user.getId(),
+                                    user.getNickname().getValue(),
+                                    user.getProfileImage().getValue()),
+                            review.getContentId().getValue(),
+                            review.getStarRate(),
+                            review.getReviewBody().getValue(),
+                            review.getLikeUserIds().stream().map(LikeUserId::toDto).collect(Collectors.toSet()),
+                            review.getCreatedAt(),
+                            review.getUpdatedAt());
+                }).toList();
 
         PagesDto pagesDto = new PagesDto(reviews.getTotalPages());
 
