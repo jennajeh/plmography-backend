@@ -78,15 +78,14 @@ public class User {
     private LocalDateTime updatedAt;
 
     public User(Long id, Email email, Password password,
-                Nickname nickname, Gender gender, BirthYear birthYear,
-                ProfileImage profileImage) {
+                Nickname nickname, Gender gender, BirthYear birthYear) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.gender = gender;
         this.birthYear = birthYear;
-        this.profileImage = profileImage;
+        this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=" + nickname.getValue());
     }
 
     public User(Email email, Password password,

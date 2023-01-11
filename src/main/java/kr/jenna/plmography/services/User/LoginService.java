@@ -25,6 +25,7 @@ public class LoginService {
                 .orElseThrow(() -> new LoginFailed());
 
         if (!user.authenticate(password, passwordEncoder)) {
+
             throw new LoginFailed();
         }
 
