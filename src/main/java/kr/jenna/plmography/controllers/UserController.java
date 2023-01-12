@@ -16,6 +16,7 @@ import kr.jenna.plmography.services.User.CreateUserService;
 import kr.jenna.plmography.services.User.GetUserService;
 import kr.jenna.plmography.services.User.GetUsersService;
 import kr.jenna.plmography.services.User.PatchUserService;
+import kr.jenna.plmography.utils.S3Uploader;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,15 +41,18 @@ public class UserController {
     private GetUserService getUserService;
     private PatchUserService patchUserService;
     private GetUsersService getUsersService;
+    private S3Uploader s3Uploader;
 
     public UserController(CreateUserService createUserService,
                           GetUserService getUserService,
                           PatchUserService patchUserService,
-                          GetUsersService getUsersService) {
+                          GetUsersService getUsersService,
+                          S3Uploader s3Uploader) {
         this.createUserService = createUserService;
         this.getUserService = getUserService;
         this.patchUserService = patchUserService;
         this.getUsersService = getUsersService;
+        this.s3Uploader = s3Uploader;
     }
 
     @PostMapping
@@ -101,6 +107,11 @@ public class UserController {
         User user = patchUserService.update(userId, userProfileRequestDto);
 
         return user.toDto();
+    }
+
+    @PostMapping("/upload-image")
+    public String uploadImage(MultipartFile multipartFile) throws IOException {
+        return s3Uploader.uploadFiles(multipartFile, "profileImage");
     }
 
     @ExceptionHandler(NicknameAlreadyExist.class)
