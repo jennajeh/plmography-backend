@@ -49,7 +49,7 @@ class UserTest {
         String nickname = "강보니";
         String profileImage = "new profile";
 
-        user.update(new Nickname(nickname), new ProfileImage(profileImage));
+        user.changeProfile(new Nickname(nickname), new ProfileImage(profileImage));
 
         assertThat(user.getNickname()).isEqualTo(new Nickname("강보니"));
         assertThat(user.getProfileImage()).isEqualTo(new ProfileImage("new profile"));

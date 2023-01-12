@@ -194,6 +194,24 @@ class UserControllerTest {
     }
 
     @Test
+    void changeProfile() throws Exception {
+        given(patchUserService.update(any(), any())).willReturn(User.fake());
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/users")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{"
+                                + "\"nickname\":\"전제나\","
+                                + "\"profileImage\":\"new image\""
+                                + "}"))
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(
+                        containsString("\"profileImage\"")
+                ));
+
+    }
+
+    @Test
     void userCountWithExistingEmailAndNickname() throws Exception {
         given(getUserService.count(any(), any()))
                 .willReturn(new UserCountDto(1, 1));

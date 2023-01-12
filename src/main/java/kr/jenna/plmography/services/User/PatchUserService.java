@@ -1,6 +1,6 @@
 package kr.jenna.plmography.services.User;
 
-import kr.jenna.plmography.dtos.User.UserDto;
+import kr.jenna.plmography.dtos.User.UserProfileRequestDto;
 import kr.jenna.plmography.exceptions.NicknameAlreadyExist;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.User;
@@ -19,17 +19,19 @@ public class PatchUserService {
         this.userRepository = userRepository;
     }
 
-    public void update(Long userId, UserDto userDto) {
+    public User update(Long userId, UserProfileRequestDto userProfileRequestDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFound(userId));
 
-        Nickname newNickname = new Nickname(userDto.getNickname());
-        ProfileImage newProfileImage = new ProfileImage(userDto.getProfileImage());
+        Nickname nickname = new Nickname(userProfileRequestDto.getNickname());
+        ProfileImage profileImage = new ProfileImage(userProfileRequestDto.getProfileImage());
 
-        if (userRepository.existsByNickname(newNickname)) {
+        if (userRepository.existsByNickname(nickname)) {
             throw new NicknameAlreadyExist();
         }
 
-        user.update(newNickname, newProfileImage);
+        user.changeProfile(nickname, profileImage);
+
+        return user;
     }
 }

@@ -137,13 +137,12 @@ public class User {
         return passwordEncoder.matches(password.getValue(), this.password.getValue());
     }
 
-    public void update(Nickname nickname, ProfileImage profileImage) {
-        this.nickname = nickname;
-
-        if (profileImage.getValue().equals("")) {
+    public void changeProfile(Nickname nickname, ProfileImage profileImage) {
+        if (profileImage.getValue().equals("") || nickname.getValue().equals("")) {
             return;
         }
 
+        this.nickname = nickname;
         this.profileImage = profileImage;
     }
 
@@ -159,5 +158,12 @@ public class User {
                 this.gender.getValue(),
                 this.birthYear.getValue(),
                 this.profileImage.getValue());
+    }
+
+    public UserDto toDto() {
+        return new UserDto(
+                id,
+                nickname.getValue(),
+                profileImage.getValue());
     }
 }

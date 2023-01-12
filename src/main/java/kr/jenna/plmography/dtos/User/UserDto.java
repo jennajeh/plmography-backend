@@ -24,6 +24,12 @@ public class UserDto {
         this.profileImage = profileImage;
     }
 
+    public UserDto(Long id, String nickname, String profileImage) {
+        this.id = id;
+        this.nickname = nickname;
+        this.profileImage = profileImage;
+    }
+
     public Long getId() {
         return id;
     }
