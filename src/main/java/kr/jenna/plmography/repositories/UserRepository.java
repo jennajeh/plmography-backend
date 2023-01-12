@@ -1,8 +1,8 @@
 package kr.jenna.plmography.repositories;
 
+import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.VO.Email;
 import kr.jenna.plmography.models.VO.Nickname;
-import kr.jenna.plmography.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByNickname(Nickname nickname);
 
     Optional<User> findByEmail(Email email);
+
+    Optional<User> findByNickname(Nickname nickname);
 }

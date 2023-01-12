@@ -27,11 +27,22 @@ class GetUserServiceTest {
     }
 
     @Test
-    void detail() {
-        given(userRepository.findById(1L))
+    void profile() {
+        Nickname nickname = new Nickname("전제나");
+
+        given(userRepository.findByNickname(nickname))
                 .willReturn(Optional.of(User.fake()));
 
-        User user = getUserService.detail(1L);
+        User user = getUserService.profile(nickname);
+
+        assertThat(user).isNotNull();
+    }
+
+    @Test
+    void findMe() {
+        given(userRepository.findById(1L)).willReturn(Optional.of(User.fake()));
+
+        User user = getUserService.findMe(1L);
 
         assertThat(user).isNotNull();
     }

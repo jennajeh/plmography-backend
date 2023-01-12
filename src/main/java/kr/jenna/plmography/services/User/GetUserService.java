@@ -18,9 +18,9 @@ public class GetUserService {
         this.userRepository = userRepository;
     }
 
-    public User detail(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFound(userId));
+    public User profile(Nickname nickname) {
+        User user = userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new UserNotFound());
 
         return user;
     }
@@ -30,5 +30,12 @@ public class GetUserService {
         Integer countNickname = userRepository.findAllByNickname(nickname).size();
 
         return new UserCountDto(countEmail, countNickname);
+    }
+
+    public User findMe(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFound(userId));
+
+        return user;
     }
 }

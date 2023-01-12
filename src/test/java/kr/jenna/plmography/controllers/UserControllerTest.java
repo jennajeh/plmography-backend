@@ -57,14 +57,25 @@ class UserControllerTest {
     }
 
     @Test
-    void userDetail() throws Exception {
-        given(getUserService.detail(any())).willReturn(User.fake());
+    void profile() throws Exception {
+        given(getUserService.profile(any())).willReturn(User.fake());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/1")
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/profile?nickname=jenna"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"nickname\"")
+                ));
+    }
+
+    @Test
+    void findMe() throws Exception {
+        given(getUserService.findMe(any())).willReturn(User.fake());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/me")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
-                        containsString("\"email\"")
+                        containsString("\"nickname\"")
                 ));
     }
 

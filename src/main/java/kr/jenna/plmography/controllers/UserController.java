@@ -69,11 +69,18 @@ public class UserController {
         return new UsersDto(users);
     }
 
-    @GetMapping("/{id}")
-    public UserDto detail(@RequestAttribute Long userId) {
-        User user = getUserService.detail(userId);
+    @GetMapping("/me")
+    public UserDto user(@RequestAttribute Long userId) {
+        User user = getUserService.findMe(userId);
 
         return user.toUserDto();
+    }
+
+    @GetMapping("/profile")
+    public UserDto profile(@RequestParam Nickname nickname) {
+        User user = getUserService.profile(nickname);
+
+        return user.toDto();
     }
 
     @GetMapping("/checkDuplicate")
