@@ -97,10 +97,11 @@ class ReviewControllerTest {
     }
 
     @Test
-    void detail() throws Exception {
-        given(getReviewService.detail(any())).willReturn(ReviewDto.fake());
+    void myReview() throws Exception {
+        given(getReviewService.myReview(any())).willReturn(ReviewDto.fake());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/reviews/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/reviews/me")
+                        .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk());
     }
 

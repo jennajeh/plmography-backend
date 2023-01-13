@@ -7,6 +7,7 @@ import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.VO.LikeUserId;
+import kr.jenna.plmography.models.VO.UserId;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,8 @@ public class GetReviewService {
         this.userRepository = userRepository;
     }
 
-    public ReviewDto detail(Long reviewId) {
-        Review review = reviewRepository.findById(reviewId)
+    public ReviewDto myReview(Long userId) {
+        Review review = reviewRepository.findByUserId(new UserId(userId))
                 .orElseThrow(() -> new ReviewNotFound());
 
         User user = userRepository.findById(review.getUserId().getValue())

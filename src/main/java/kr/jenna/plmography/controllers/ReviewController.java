@@ -65,16 +65,17 @@ public class ReviewController {
 
     @GetMapping
     public ReviewsDto list(
+            @RequestAttribute Long userId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
 
-        return getReviewsService.reviews(page, size);
+        return getReviewsService.reviews(userId, page, size);
     }
 
-    @GetMapping("/{id}")
-    public ReviewDto detail(@PathVariable Long id) {
-        return getReviewService.detail(id);
+    @GetMapping("/me")
+    public ReviewDto myReview(@RequestAttribute Long userId) {
+        return getReviewService.myReview(userId);
     }
 
     @PatchMapping("/{id}")

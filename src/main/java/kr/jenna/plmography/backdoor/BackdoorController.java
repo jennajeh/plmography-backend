@@ -112,8 +112,8 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(3, 3, 1399, ?, '지금까지의 서막은 완벽하다. 정주행 재생버튼 누른 이후로 쉬지 않고 다 봤다. "
-                + "이제 3월에 공개될 파트2가 관건이다. 용두사미일지 용두용미일지.', 4L, ?, ?)", false, now.minusMinutes(2), now
+                + " VALUES(3, 3, 899112, ?, '지금까지의 서막은 완벽하다. 정주행 재생버튼 누른 이후로 쉬지 않고 다 봤음다. "
+                + "곧 나올 시즌 2가 관건이네요ㅋㅋㅋ용두사미일지 용두용미일지.', 4L, ?, ?)", false, now.minusMinutes(2), now
         );
 
         jdbcTemplate.update("INSERT INTO review("

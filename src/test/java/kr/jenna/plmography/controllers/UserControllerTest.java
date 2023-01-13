@@ -9,6 +9,7 @@ import kr.jenna.plmography.services.User.GetUserService;
 import kr.jenna.plmography.services.User.GetUsersService;
 import kr.jenna.plmography.services.User.PatchUserService;
 import kr.jenna.plmography.utils.JwtUtil;
+import kr.jenna.plmography.utils.S3Uploader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,9 @@ class UserControllerTest {
 
     @MockBean
     private PatchUserService patchUserService;
+
+    @MockBean
+    private S3Uploader s3Uploader;
 
     @SpyBean
     private JwtUtil jwtUtil;
