@@ -100,7 +100,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(1, 1, 411, ?, '영화가 재미있어요!', 5L, ?, ?)", false, now.minusDays(1), now
+                + " VALUES(1, 1, 899112, ?, '영화가 재미있어요!', 5L, ?, ?)", false, now.minusDays(1), now
         );
 
         jdbcTemplate.update("INSERT INTO review("

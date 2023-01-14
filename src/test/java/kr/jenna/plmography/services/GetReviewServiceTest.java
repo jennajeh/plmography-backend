@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 class GetReviewServiceTest {
 
     @Test
-    void detail() {
+    void myReview() {
         ReviewRepository reviewRepository = mock(ReviewRepository.class);
         UserRepository userRepository = mock(UserRepository.class);
         GetReviewService getReviewService = new GetReviewService(reviewRepository, userRepository);
