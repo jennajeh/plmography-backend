@@ -25,11 +25,11 @@ public class DeleteReviewService {
         this.commentRepository = commentRepository;
     }
 
-    public void delete(Long userId, PostId postId) {
-        Review review = reviewRepository.findById(postId.getValue())
+    public void delete(Long userId, Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ReviewNotFound());
 
-        List<Comment> comments = commentRepository.findAllByPostId(postId);
+        List<Comment> comments = commentRepository.findAllByPostId(new PostId(reviewId));
 
         if (!review.isWriter(userId)) {
             throw new InvalidUser();

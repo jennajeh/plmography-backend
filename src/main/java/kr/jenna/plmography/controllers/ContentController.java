@@ -9,9 +9,9 @@ import kr.jenna.plmography.services.Content.GetContentService;
 import kr.jenna.plmography.services.Content.GetContentsService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/contents")
+@CrossOrigin
 public class ContentController {
     private GetContentService getContentService;
     private GetContentsService getContentsService;
@@ -47,9 +48,9 @@ public class ContentController {
         return new ContentsDto(contentDtos, pagesDto);
     }
 
-    @GetMapping("/{id}")
-    public ContentDto detail(@PathVariable Long id) {
-        return getContentService.detail(id);
+    @GetMapping("/detail")
+    public ContentDto detail(@RequestParam String tmdbId) {
+        return getContentService.detail(tmdbId);
     }
 
     @ExceptionHandler(ContentNotFound.class)

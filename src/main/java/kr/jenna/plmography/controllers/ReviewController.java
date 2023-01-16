@@ -11,13 +11,13 @@ import kr.jenna.plmography.exceptions.UnmatchedPostId;
 import kr.jenna.plmography.exceptions.UnmodifiableReview;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.models.VO.PostId;
 import kr.jenna.plmography.services.Review.CreateReviewService;
 import kr.jenna.plmography.services.Review.DeleteReviewService;
 import kr.jenna.plmography.services.Review.GetReviewService;
 import kr.jenna.plmography.services.Review.GetReviewsService;
 import kr.jenna.plmography.services.Review.PatchReviewService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/reviews")
+@CrossOrigin
 public class ReviewController {
     private CreateReviewService createReviewService;
     private GetReviewService getReviewService;
@@ -81,12 +82,10 @@ public class ReviewController {
     @PatchMapping("/{id}")
     public ReviewModificationDto modify(
             @RequestAttribute Long userId,
-            @PathVariable Long id,
             @RequestBody ReviewDto reviewDto
     ) {
-        PostId postId = new PostId(id);
 
-        Review review = patchReviewService.modify(userId, postId, reviewDto);
+        Review review = patchReviewService.modify(userId, reviewDto);
 
         return review.toReviewModificationDto();
     }
@@ -97,9 +96,7 @@ public class ReviewController {
             @RequestAttribute Long userId,
             @PathVariable Long id
     ) {
-        PostId postId = new PostId(id);
-
-        deleteReviewService.delete(userId, postId);
+        deleteReviewService.delete(userId, id);
     }
 
     @ExceptionHandler(UserNotFound.class)

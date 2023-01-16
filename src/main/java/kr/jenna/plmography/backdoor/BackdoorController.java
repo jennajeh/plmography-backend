@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/backdoor")
 @SuppressWarnings("unchecked")
+@Transactional
 public class BackdoorController {
     private final RestTemplate restTemplate;
     private JdbcTemplate jdbcTemplate;
@@ -53,6 +55,7 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM user_bookmark_themes");
         jdbcTemplate.execute("DELETE FROM user_watched_list");
         jdbcTemplate.execute("DELETE FROM user_favorite_contents");
+        jdbcTemplate.execute("DELETE FROM review_like_user_ids");
         jdbcTemplate.execute("DELETE FROM review");
         jdbcTemplate.execute("DELETE FROM comment");
         jdbcTemplate.execute("DELETE FROM recomment");
@@ -137,25 +140,33 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO comment("
                 + "  id, user_id, post_id, comment_body,"
                 + "  is_deleted, created_at)"
-                + " VALUES(1, 1, 1, '저는 별로였음', ?, ?)", false, now.minusDays(1)
+                + " VALUES(1, 1, 2, '저는 별로였음', ?, ?)", false, now.minusDays(1)
         );
 
         jdbcTemplate.update("INSERT INTO comment("
                 + "  id, user_id, post_id, comment_body,"
                 + "  is_deleted, created_at)"
-                + " VALUES(2, 2, 1, '꿀잼!!!!', ?, ?)", false, now.minusMinutes(1)
+                + " VALUES(2, 2, 3, '꿀잼!!!!', ?, ?)", false, now.minusMinutes(1)
         );
 
         jdbcTemplate.update("INSERT INTO recomment("
                 + "  id, comment_id, recomment_body, user_id,"
                 + "  post_id, created_at)"
-                + " VALUES(1, 2, '동의! 완전 재미있어요', 1, 1, ?)", now
+                + " VALUES(1, 1, '동의! 완전 재미있어요', 1, 2, ?)", now
         );
 
         jdbcTemplate.update("INSERT INTO recomment("
                 + "  id, comment_id, recomment_body, user_id,"
                 + "  post_id, created_at)"
                 + " VALUES(2, 1, '이렇게 생각하신 이유는 뭔가요?', 2, 2, ?)", now.minusMinutes(6)
+        );
+
+        jdbcTemplate.update("" +
+                        "INSERT INTO review_like_user_ids(" +
+                        "  review_id, like_user_id" +
+                        ")" +
+                        " VALUES(?, ?)",
+                4L, 1L
         );
 
         return "Setup database completed!";

@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.Review.ReviewCreationDto;
-import kr.jenna.plmography.dtos.Review.ReviewDto;
 import kr.jenna.plmography.dtos.Review.ReviewModificationDto;
 import kr.jenna.plmography.models.VO.ContentId;
 import kr.jenna.plmography.models.VO.LikeUserId;
@@ -134,8 +133,8 @@ public class Review {
         return reviews;
     }
 
-    public void modify(ReviewDto reviewDto) {
-        this.reviewBody = new ReviewBody(reviewDto.getReviewBody());
+    public void modify(String reviewBody) {
+        this.reviewBody = new ReviewBody(reviewBody);
     }
 
     public void delete() {

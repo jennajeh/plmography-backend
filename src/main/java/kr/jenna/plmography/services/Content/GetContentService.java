@@ -16,9 +16,10 @@ public class GetContentService {
         this.contentRepository = contentRepository;
     }
 
-    public ContentDto detail(Long id) {
-        Content content = contentRepository.findById(id)
-                .orElseThrow(() -> new ContentNotFound(id));
+    public ContentDto detail(String tmdbId) {
+//        Content content = contentRepository.findById(id)
+        Content content = contentRepository.findByTmdbId(tmdbId)
+                .orElseThrow(() -> new ContentNotFound());
 
         return content.toContentDto();
     }
