@@ -39,6 +39,6 @@ public class DeleteReviewService {
             throw new UnmodifiableReview();
         }
 
-        reviewRepository.delete(review);
+        review.delete();
     }
 }
