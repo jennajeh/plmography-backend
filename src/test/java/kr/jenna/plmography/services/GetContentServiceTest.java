@@ -30,7 +30,7 @@ class GetContentServiceTest {
         given(contentRepository.findById(any()))
                 .willReturn(Optional.of(Content.fake()));
 
-        ContentDto contentDto = getContentService.detail(1L);
+        ContentDto contentDto = getContentService.detail("1");
 
         verify(contentRepository).findById(1L);
 

@@ -2,7 +2,7 @@ package kr.jenna.plmography.services;
 
 import kr.jenna.plmography.dtos.Review.ReviewDto;
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.models.VO.PostId;
+import kr.jenna.plmography.models.VO.ReviewBody;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import kr.jenna.plmography.services.Review.PatchReviewService;
@@ -25,10 +25,9 @@ class PatchReviewServiceTest {
 
         given(reviewRepository.findById(any(Long.class))).willReturn(Optional.of(Review.fake()));
 
-        PostId postId = new PostId(1L);
         ReviewDto reviewDto = ReviewDto.fake();
 
-        Review review = patchReviewService.modify(1L, postId, reviewDto);
+        Review review = patchReviewService.modify(1L, 1L, new ReviewBody(reviewDto.getReviewBody()));
 
         assertThat(Review.fake().getReviewBody().getValue())
                 .isNotEqualTo(reviewDto.getReviewBody());

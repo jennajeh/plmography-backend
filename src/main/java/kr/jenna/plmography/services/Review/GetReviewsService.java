@@ -55,7 +55,11 @@ public class GetReviewsService {
                             review.getContentId().getValue(),
                             review.getStarRate(),
                             review.getReviewBody().getValue(),
-                            review.getLikeUserIds().stream().map(LikeUserId::toDto).collect(Collectors.toSet()),
+                            review.getLikeUserIds()
+                                    .stream()
+                                    .map(LikeUserId::toDto)
+                                    .collect(Collectors.toSet()),
+                            review.getDeleted(),
                             review.getCreatedAt(),
                             review.getUpdatedAt());
                 }).toList();

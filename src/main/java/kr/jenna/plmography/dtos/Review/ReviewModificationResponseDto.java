@@ -1,12 +1,12 @@
 package kr.jenna.plmography.dtos.Review;
 
-public class ReviewModificationDto {
+public class ReviewModificationResponseDto {
     private Long id;
 
-    public ReviewModificationDto() {
+    public ReviewModificationResponseDto() {
     }
 
-    public ReviewModificationDto(Long id) {
+    public ReviewModificationResponseDto(Long id) {
         this.id = id;
     }
 

@@ -17,7 +17,6 @@ public class GetContentService {
     }
 
     public ContentDto detail(String tmdbId) {
-//        Content content = contentRepository.findById(id)
         Content content = contentRepository.findByTmdbId(tmdbId)
                 .orElseThrow(() -> new ContentNotFound());
 

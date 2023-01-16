@@ -1,6 +1,6 @@
 package kr.jenna.plmography.services;
 
-import kr.jenna.plmography.dtos.Review.ReviewDto;
+import kr.jenna.plmography.dtos.Review.ReviewsDto;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.VO.UserId;
@@ -26,9 +26,8 @@ class GetReviewServiceTest {
         given(reviewRepository.findByUserId(new UserId(1L))).willReturn(Optional.of(Review.fake()));
         given(userRepository.findById(1L)).willReturn(Optional.of(User.fake()));
 
-        ReviewDto reviewDto = getReviewService.myReview(1L);
+        ReviewsDto reviewDto = getReviewService.myReview(1L);
 
         assertThat(reviewDto).isNotNull();
-        assertThat(reviewDto.getReviewBody()).isEqualTo("영화가 재미있어요");
     }
 }

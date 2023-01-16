@@ -26,7 +26,7 @@ class ReviewTest {
 
         ReviewDto reviewDto = ReviewDto.fake();
 
-        review.modify(reviewDto);
+        review.modify(new ReviewBody("하하"));
 
         assertThat(review.getReviewBody().getValue())
                 .isEqualTo(reviewDto.getReviewBody());

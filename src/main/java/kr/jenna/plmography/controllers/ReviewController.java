@@ -1,8 +1,9 @@
 package kr.jenna.plmography.controllers;
 
+import kr.jenna.plmography.dtos.Review.MyReviewsDto;
 import kr.jenna.plmography.dtos.Review.ReviewCreationDto;
-import kr.jenna.plmography.dtos.Review.ReviewDto;
-import kr.jenna.plmography.dtos.Review.ReviewModificationDto;
+import kr.jenna.plmography.dtos.Review.ReviewModificationRequestDto;
+import kr.jenna.plmography.dtos.Review.ReviewModificationResponseDto;
 import kr.jenna.plmography.dtos.Review.ReviewRegistrationDto;
 import kr.jenna.plmography.dtos.Review.ReviewsDto;
 import kr.jenna.plmography.exceptions.InvalidUser;
@@ -11,6 +12,7 @@ import kr.jenna.plmography.exceptions.UnmatchedPostId;
 import kr.jenna.plmography.exceptions.UnmodifiableReview;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Review;
+import kr.jenna.plmography.models.VO.ReviewBody;
 import kr.jenna.plmography.services.Review.CreateReviewService;
 import kr.jenna.plmography.services.Review.DeleteReviewService;
 import kr.jenna.plmography.services.Review.GetReviewService;
@@ -75,17 +77,20 @@ public class ReviewController {
     }
 
     @GetMapping("/me")
-    public ReviewDto myReview(@RequestAttribute Long userId) {
+    public MyReviewsDto myReview(@RequestAttribute Long userId) {
         return getReviewService.myReview(userId);
     }
 
     @PatchMapping("/{id}")
-    public ReviewModificationDto modify(
+    public ReviewModificationResponseDto modify(
             @RequestAttribute Long userId,
-            @RequestBody ReviewDto reviewDto
+            @RequestBody ReviewModificationRequestDto reviewModificationRequestDto
     ) {
 
-        Review review = patchReviewService.modify(userId, reviewDto);
+        Long id = reviewModificationRequestDto.getId();
+        ReviewBody reviewBody = new ReviewBody(reviewModificationRequestDto.getReviewBody());
+
+        Review review = patchReviewService.modify(userId, id, reviewBody);
 
         return review.toReviewModificationDto();
     }

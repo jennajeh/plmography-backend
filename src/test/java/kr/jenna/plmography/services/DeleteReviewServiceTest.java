@@ -1,7 +1,6 @@
 package kr.jenna.plmography.services;
 
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.models.VO.PostId;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import kr.jenna.plmography.services.Review.DeleteReviewService;
@@ -34,9 +33,9 @@ class DeleteReviewServiceTest {
                 .willReturn(Optional.of(Review.fake()));
 
         Long userId = 1L;
-        PostId postId = new PostId(1L);
+        Long reviewId = 1L;
 
-        assertDoesNotThrow(() -> deleteReviewService.delete(userId, postId));
+        assertDoesNotThrow(() -> deleteReviewService.delete(userId, reviewId));
 
         verify(reviewRepository).delete(any(Review.class));
     }

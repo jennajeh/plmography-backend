@@ -109,6 +109,12 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
+                + " VALUES(7, 1, 76600, ?, '영화가 재미있어요!', 5L, ?, ?)", false, now.minusDays(1), now
+        );
+
+        jdbcTemplate.update("INSERT INTO review("
+                + "  id, user_id, content_id, is_deleted,"
+                + "  review_body, star_rate, created_at, updated_at)"
                 + " VALUES(2, 2, 76600, ?, '재미와 감동이 두배', 4L, ?, ?)", false, now.minusHours(2), now
         );
 

@@ -13,6 +13,7 @@ public class ReviewDto {
     private Long starRate;
     private String reviewBody;
     private Set<LikeUserIdDto> likeUserIds;
+    private boolean isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -22,13 +23,14 @@ public class ReviewDto {
     public ReviewDto(Long id, WriterDto writer,
                      Long contentId, Long starRate,
                      String reviewBody, Set<LikeUserIdDto> likeUserIds,
-                     LocalDateTime createdAt, LocalDateTime updatedAt) {
+                     boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.writer = writer;
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
         this.likeUserIds = likeUserIds;
+        this.isDeleted = isDeleted;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -57,6 +59,10 @@ public class ReviewDto {
         return likeUserIds;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -70,6 +76,6 @@ public class ReviewDto {
                 1L,
                 new WriterDto(1L, "jenna", "https://source.boringavatars.com/beam/120/?nickname=jenna"),
                 1L, 3L, "강추!", Set.of(new LikeUserIdDto(2L)),
-                LocalDateTime.now(), LocalDateTime.now());
+                false, LocalDateTime.now(), LocalDateTime.now());
     }
 }
