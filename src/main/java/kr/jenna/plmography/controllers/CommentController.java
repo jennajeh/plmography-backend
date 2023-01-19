@@ -1,17 +1,16 @@
 package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.dtos.Comment.CommentCreationDto;
-import kr.jenna.plmography.dtos.Comment.CommentDto;
-import kr.jenna.plmography.dtos.Comment.CommentModificationDto;
+import kr.jenna.plmography.dtos.Comment.CommentModificationRequestDto;
+import kr.jenna.plmography.dtos.Comment.CommentModificationResponseDto;
 import kr.jenna.plmography.dtos.Comment.CommentRegistrationDto;
 import kr.jenna.plmography.dtos.Comment.CommentsDto;
 import kr.jenna.plmography.exceptions.CommentNotFound;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Comment;
-import kr.jenna.plmography.models.VO.CommentId;
+import kr.jenna.plmography.models.VO.CommentBody;
 import kr.jenna.plmography.services.Comment.CreateCommentService;
 import kr.jenna.plmography.services.Comment.DeleteCommentService;
-import kr.jenna.plmography.services.Comment.GetCommentService;
 import kr.jenna.plmography.services.Comment.GetCommentsService;
 import kr.jenna.plmography.services.Comment.PatchCommentService;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,17 +31,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
     private CreateCommentService createCommentService;
     private GetCommentsService getCommentsService;
-    private GetCommentService getCommentService;
     private PatchCommentService patchCommentService;
     private DeleteCommentService deleteCommentService;
 
     public CommentController(CreateCommentService createCommentService,
                              GetCommentsService getCommentsService,
-                             GetCommentService getCommentService,
                              PatchCommentService patchCommentService, DeleteCommentService deleteCommentService) {
         this.createCommentService = createCommentService;
         this.getCommentsService = getCommentsService;
-        this.getCommentService = getCommentService;
         this.patchCommentService = patchCommentService;
         this.deleteCommentService = deleteCommentService;
     }
@@ -61,27 +56,21 @@ public class CommentController {
 
     @GetMapping
     public CommentsDto list(
-            @RequestAttribute Long userId,
-            @RequestParam(required = false, defaultValue = "1") Integer page,
-            @RequestParam(required = false, defaultValue = "5") Integer size
+            @RequestAttribute Long userId
     ) {
-        return getCommentsService.comments(userId, page, size);
-    }
-
-    @GetMapping("/{id}")
-    public CommentDto detail(@PathVariable Long id) {
-        return getCommentService.detail(id);
+        return getCommentsService.comments(userId);
     }
 
     @PatchMapping("/{id}")
-    public CommentModificationDto modify(
+    public CommentModificationResponseDto modify(
             @RequestAttribute Long userId,
-            @PathVariable Long id,
-            @RequestBody CommentDto commentDto
+            @RequestBody CommentModificationRequestDto commentModificationRequestDto
     ) {
-        CommentId commentId = new CommentId(id);
+        Long id = commentModificationRequestDto.getId();
 
-        Comment comment = patchCommentService.modify(userId, commentId, commentDto);
+        CommentBody commentBody = new CommentBody(commentModificationRequestDto.getCommentBody());
+
+        Comment comment = patchCommentService.modify(userId, id, commentBody);
 
         return comment.commentModificationDto();
     }
@@ -92,8 +81,7 @@ public class CommentController {
             @RequestAttribute Long userId,
             @PathVariable Long id
     ) {
-        CommentId commentId = new CommentId(id);
-        deleteCommentService.delete(userId, commentId);
+        deleteCommentService.delete(userId, id);
     }
 
     @ExceptionHandler(UserNotFound.class)

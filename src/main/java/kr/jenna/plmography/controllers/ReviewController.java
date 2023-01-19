@@ -86,8 +86,8 @@ public class ReviewController {
             @RequestAttribute Long userId,
             @RequestBody ReviewModificationRequestDto reviewModificationRequestDto
     ) {
-
         Long id = reviewModificationRequestDto.getId();
+
         ReviewBody reviewBody = new ReviewBody(reviewModificationRequestDto.getReviewBody());
 
         Review review = patchReviewService.modify(userId, id, reviewBody);

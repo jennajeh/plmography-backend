@@ -2,7 +2,7 @@ package kr.jenna.plmography.services;
 
 import kr.jenna.plmography.dtos.Comment.CommentDto;
 import kr.jenna.plmography.models.Comment;
-import kr.jenna.plmography.models.VO.CommentId;
+import kr.jenna.plmography.models.VO.CommentBody;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.services.Comment.PatchCommentService;
 import org.junit.jupiter.api.Test;
@@ -23,10 +23,10 @@ class PatchCommentServiceTest {
 
         given(commentRepository.findById(any(Long.class))).willReturn(Optional.of(Comment.fake()));
 
-        CommentId commentId = new CommentId(1L);
+        Long commentId = 1L;
         CommentDto commentDto = CommentDto.fake();
 
-        Comment comment = patchCommentService.modify(1L, commentId, commentDto);
+        Comment comment = patchCommentService.modify(1L, commentId, new CommentBody(commentDto.getCommentBody()));
 
         assertThat(Comment.fake().getCommentBody().getValue())
                 .isNotEqualTo(commentDto.getCommentBody());

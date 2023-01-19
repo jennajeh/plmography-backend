@@ -1,12 +1,12 @@
 package kr.jenna.plmography.dtos.Comment;
 
-public class CommentModificationDto {
+public class CommentModificationResponseDto {
     private Long id;
 
-    public CommentModificationDto() {
+    public CommentModificationResponseDto() {
     }
 
-    public CommentModificationDto(Long id) {
+    public CommentModificationResponseDto(Long id) {
         this.id = id;
     }
 

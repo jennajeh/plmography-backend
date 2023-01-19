@@ -1,6 +1,7 @@
 package kr.jenna.plmography.repositories;
 
 import kr.jenna.plmography.models.Recomment;
+import kr.jenna.plmography.models.VO.CommentId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,6 +11,6 @@ public interface RecommentRepository extends JpaRepository<Recomment, Long> {
 
     List<Recomment> findAllById(Long recommentId);
 
-    List<Recomment> findAllByCommentId(Long commentId);
+    List<Recomment> findAllByCommentId(CommentId commentId);
 
 }

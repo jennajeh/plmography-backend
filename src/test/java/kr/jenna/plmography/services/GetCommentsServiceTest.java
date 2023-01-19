@@ -7,7 +7,6 @@ import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import kr.jenna.plmography.services.Comment.GetCommentsService;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,15 +30,10 @@ class GetCommentsServiceTest {
         given(userRepository.findById(any()))
                 .willReturn(Optional.of(User.fake()));
 
-        given(commentRepository.findAllByUserId(any(), any()))
-                .willReturn(new PageImpl<>(List.of(comment)));
-
-        Integer page = 1;
-        Integer size = 1;
+        given(commentRepository.findAll()).willReturn(List.of(comment));
 
         CommentsDto commentsDto =
-                getCommentsService.comments(
-                        comment.getUserId().getValue(), page, size);
+                getCommentsService.comments(comment.getUserId().getValue());
 
         assertThat(commentsDto).isNotNull();
         assertThat(commentsDto.getComments().get(0).getCommentBody())

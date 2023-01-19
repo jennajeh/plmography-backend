@@ -27,12 +27,12 @@ class GetContentServiceTest {
 
     @Test
     void detail() {
-        given(contentRepository.findById(any()))
+        given(contentRepository.findByTmdbId(any()))
                 .willReturn(Optional.of(Content.fake()));
 
         ContentDto contentDto = getContentService.detail("1");
 
-        verify(contentRepository).findById(1L);
+        verify(contentRepository).findByTmdbId("1");
 
         assertThat(contentDto.getKorTitle()).isEqualTo("아바타");
         assertThat(contentDto.getEngTitle()).isEqualTo("Avatar");

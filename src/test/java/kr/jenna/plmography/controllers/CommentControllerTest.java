@@ -2,11 +2,9 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.dtos.Comment.CommentDto;
 import kr.jenna.plmography.dtos.Comment.CommentsDto;
-import kr.jenna.plmography.dtos.Page.PagesDto;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.services.Comment.CreateCommentService;
 import kr.jenna.plmography.services.Comment.DeleteCommentService;
-import kr.jenna.plmography.services.Comment.GetCommentService;
 import kr.jenna.plmography.services.Comment.GetCommentsService;
 import kr.jenna.plmography.services.Comment.PatchCommentService;
 import kr.jenna.plmography.utils.JwtUtil;
@@ -21,7 +19,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
@@ -42,9 +39,6 @@ class CommentControllerTest {
 
     @MockBean
     private GetCommentsService getCommentsService;
-
-    @MockBean
-    private GetCommentService getCommentService;
 
     @MockBean
     private PatchCommentService patchCommentService;
@@ -78,37 +72,19 @@ class CommentControllerTest {
 
     @Test
     void list() throws Exception {
-        Integer page = 1;
-        Integer size = 5;
+        CommentDto commentDto = CommentDto.fake();
 
-        CommentDto commentDto = new CommentDto(
-                1L, 1L, 1L, "reply", false, LocalDateTime.now());
+        given(getCommentsService.comments(1L))
+                .willReturn(new CommentsDto(List.of(commentDto)));
 
-        given(getCommentsService.comments(1L, page, size))
-                .willReturn(new CommentsDto(List.of(commentDto), new PagesDto(1)));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/comments?/page=1&size=5")
+        mockMvc.perform(MockMvcRequestBuilders.get("/comments")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
-                .andExpect(content().string(
-                        containsString("\"totalPages\"")
-                ))
                 .andExpect(content().string(
                         containsString("\"comments\"")
                 ));
 
-        verify(getCommentsService).comments(1L, page, size);
-    }
-
-    @Test
-    void detail() throws Exception {
-        CommentDto commentDto = new CommentDto(
-                1L, 1L, 1L, "강추~", false, LocalDateTime.now());
-
-        given(getCommentService.detail(any())).willReturn(commentDto);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/comments/1"))
-                .andExpect(status().isOk());
+        verify(getCommentsService).comments(1L);
     }
 
     @Test

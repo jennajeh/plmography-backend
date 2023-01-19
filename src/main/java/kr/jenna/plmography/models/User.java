@@ -86,7 +86,7 @@ public class User {
         this.nickname = nickname;
         this.gender = gender;
         this.birthYear = birthYear;
-        this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=" + nickname.getValue());
+        this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/nickname=" + nickname.getValue());
     }
 
     public User(Email email, Password password,

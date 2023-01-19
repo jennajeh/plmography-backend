@@ -25,11 +25,11 @@ public class DeleteCommentService {
         this.recommentRepository = recommentRepository;
     }
 
-    public void delete(Long userId, CommentId commentId) {
-        Comment comment = commentRepository.findById(commentId.getValue())
+    public void delete(Long userId, Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentNotFound());
 
-        List<Recomment> recomments = recommentRepository.findAllByCommentId(commentId.getValue());
+        List<Recomment> recomments = recommentRepository.findAllByCommentId(new CommentId(commentId));
 
         if (!comment.isWriter(userId)) {
             throw new InvalidUser();
@@ -39,6 +39,6 @@ public class DeleteCommentService {
             throw new UnmodifiableRecomment();
         }
 
-        commentRepository.delete(comment);
+        comment.delete();
     }
 }

@@ -1,39 +1,54 @@
 package kr.jenna.plmography.dtos.Comment;
 
+import kr.jenna.plmography.dtos.User.WriterDto;
+
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class CommentDto {
     private Long id;
-    private Long userId;
+    private WriterDto writer;
     private Long postId;
     private String commentBody;
     private boolean isDeleted;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public CommentDto() {
     }
 
-    public CommentDto(Long id, Long userId, Long postId,
-                      String commentBody, boolean isDeleted, LocalDateTime createdAt) {
+    public CommentDto(Long id,
+                      WriterDto writer,
+                      Long postId,
+                      String commentBody,
+                      boolean isDeleted,
+                      LocalDateTime createdAt,
+                      LocalDateTime updatedAt) {
         this.id = id;
-        this.userId = userId;
+        this.writer = writer;
         this.postId = postId;
         this.commentBody = commentBody;
-        this.isDeleted = isDeleted();
+        this.isDeleted = isDeleted;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public static CommentDto fake() {
-        return new CommentDto(1L, 1L, 1L, "new reply", false, LocalDateTime.now());
+        return new CommentDto(
+                1L,
+                new WriterDto(1L, "jenna", "https://source.boringavatars.com/beam/120/?nickname=jenna"),
+                1L,
+                "new reply",
+                false,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusDays(1));
     }
 
     public Long getId() {
         return id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public WriterDto getWriter() {
+        return writer;
     }
 
     public Long getPostId() {
@@ -52,26 +67,7 @@ public class CommentDto {
         return createdAt;
     }
 
-    @Override
-    public String toString() {
-        return "CommentDto{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", postId=" + postId +
-                ", commentBody='" + commentBody + '\'' +
-                ", isDeleted=" + isDeleted +
-                ", createdAt='" + createdAt + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        CommentDto that = (CommentDto) other;
-        return isDeleted == that.isDeleted
-                && Objects.equals(id, that.id)
-                && Objects.equals(userId, that.userId)
-                && Objects.equals(postId, that.postId)
-                && Objects.equals(commentBody, that.commentBody)
-                && Objects.equals(createdAt, that.createdAt);
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 }

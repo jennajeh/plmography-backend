@@ -6,8 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.Comment.CommentCreationDto;
-import kr.jenna.plmography.dtos.Comment.CommentDto;
-import kr.jenna.plmography.dtos.Comment.CommentModificationDto;
+import kr.jenna.plmography.dtos.Comment.CommentModificationResponseDto;
 import kr.jenna.plmography.models.VO.CommentBody;
 import kr.jenna.plmography.models.VO.PostId;
 import kr.jenna.plmography.models.VO.UserId;
@@ -35,20 +34,26 @@ public class Comment {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @CreationTimestamp
+    private LocalDateTime updatedAt;
+
     public Comment() {
     }
 
-    public Comment(Long id, UserId userId, PostId postId,
-                   CommentBody commentBody, LocalDateTime createdAt) {
+    public Comment(Long id,
+                   UserId userId,
+                   PostId postId,
+                   CommentBody commentBody) {
         this.id = id;
         this.userId = userId;
         this.postId = postId;
         this.commentBody = commentBody;
         this.isDeleted = false;
-        this.createdAt = createdAt;
     }
 
-    public Comment(UserId userId, PostId postId, CommentBody commentBody) {
+    public Comment(UserId userId,
+                   PostId postId,
+                   CommentBody commentBody) {
         this.userId = userId;
         this.postId = postId;
         this.commentBody = commentBody;
@@ -79,17 +84,16 @@ public class Comment {
         return createdAt;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     public static Comment fake() {
-        return new Comment(1L, new UserId(1L), new PostId(1L), new CommentBody("reply"), LocalDateTime.now());
+        return new Comment(1L, new UserId(1L), new PostId(1L), new CommentBody("reply"));
     }
 
-    public CommentDto toCommentDto() {
-        return new CommentDto(id, userId.getValue(), postId.getValue(), commentBody.getValue(),
-                isDeleted, createdAt);
-    }
-
-    public void modify(CommentDto commentDto) {
-        this.commentBody = new CommentBody(commentDto.getCommentBody());
+    public void modify(CommentBody commentBody) {
+        this.commentBody = commentBody;
     }
 
     public void delete() {
@@ -104,7 +108,7 @@ public class Comment {
         return new CommentCreationDto(id);
     }
 
-    public CommentModificationDto commentModificationDto() {
-        return new CommentModificationDto(id);
+    public CommentModificationResponseDto commentModificationDto() {
+        return new CommentModificationResponseDto(id);
     }
 }

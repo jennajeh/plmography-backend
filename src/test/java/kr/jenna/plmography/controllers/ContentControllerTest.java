@@ -62,7 +62,7 @@ class ContentControllerTest {
         given(getContentService.detail(any()))
                 .willReturn(Content.fake().toContentDto());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/contents/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/detail?tmdbId=1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"id\":1")

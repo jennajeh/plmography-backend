@@ -7,16 +7,13 @@ import kr.jenna.plmography.models.VO.PostId;
 import kr.jenna.plmography.models.VO.UserId;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CommentTest {
 
     @Test
     void creation() {
-        Comment comment = new Comment(1L, new UserId(1L),
-                new PostId(1L), new CommentBody("reply"), LocalDateTime.now());
+        Comment comment = new Comment(1L, new UserId(1L), new PostId(1L), new CommentBody("reply"));
 
         assertThat(comment.getCommentBody()).isEqualTo(new CommentBody("reply"));
     }
@@ -27,7 +24,7 @@ class CommentTest {
 
         CommentDto commentDto = CommentDto.fake();
 
-        comment.modify(commentDto);
+        comment.modify(new CommentBody(commentDto.getCommentBody()));
 
         assertThat(comment.getCommentBody().getValue()).isEqualTo(commentDto.getCommentBody());
     }
@@ -39,17 +36,6 @@ class CommentTest {
         comment.delete();
 
         assertThat(comment.isDeleted()).isTrue();
-    }
-
-    @Test
-    void toCommentDto() {
-        Comment comment = Comment.fake();
-
-        CommentDto commentDto = comment.toCommentDto();
-
-        assertThat(commentDto).isNotNull();
-        assertThat(commentDto.getCommentBody())
-                .isEqualTo(comment.getCommentBody().getValue());
     }
 
     @Test

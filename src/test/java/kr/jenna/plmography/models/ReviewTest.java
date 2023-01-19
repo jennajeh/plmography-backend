@@ -1,7 +1,6 @@
 package kr.jenna.plmography.models;
 
 import kr.jenna.plmography.dtos.Review.ReviewCreationDto;
-import kr.jenna.plmography.dtos.Review.ReviewDto;
 import kr.jenna.plmography.models.VO.ContentId;
 import kr.jenna.plmography.models.VO.LikeUserId;
 import kr.jenna.plmography.models.VO.ReviewBody;
@@ -24,12 +23,10 @@ class ReviewTest {
     void modify() {
         Review review = Review.fake();
 
-        ReviewDto reviewDto = ReviewDto.fake();
-
         review.modify(new ReviewBody("하하"));
 
         assertThat(review.getReviewBody().getValue())
-                .isEqualTo(reviewDto.getReviewBody());
+                .isEqualTo("하하");
     }
 
     @Test

@@ -33,7 +33,7 @@ public class CreateReviewService {
         Long starRate = reviewRegistrationDto.getStarRate();
         ReviewBody reviewBody = new ReviewBody(reviewRegistrationDto.getReviewBody());
 
-        Review review = new Review(null, userId, contentId, starRate, reviewBody);
+        Review review = new Review(userId, contentId, starRate, reviewBody);
 
         reviewRepository.save(review);
 

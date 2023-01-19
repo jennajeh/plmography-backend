@@ -2,16 +2,12 @@ package kr.jenna.plmography.services.Comment;
 
 import kr.jenna.plmography.dtos.Comment.CommentDto;
 import kr.jenna.plmography.dtos.Comment.CommentsDto;
-import kr.jenna.plmography.dtos.Page.PagesDto;
+import kr.jenna.plmography.dtos.User.WriterDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,32 +26,27 @@ public class GetCommentsService {
         this.userRepository = userRepository;
     }
 
-
-    public CommentsDto comments(Long userId, Integer page, Integer size) {
-        Sort sort = Sort.by("createdAt").descending();
-
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
-
-        Page<Comment> comments = commentRepository.findAllByUserId(userId, pageable);
+    public CommentsDto comments(Long userId) {
+        List<Comment> comments = commentRepository.findAll();
 
         List<CommentDto> commentDtos = comments.stream()
                 .map(comment -> {
-                            User user = userRepository.findById(comment.getUserId().getValue())
-                                    .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
+                    User user = userRepository.findById(comment.getUserId().getValue())
+                            .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
 
-                            return new CommentDto(
-                                    comment.getId(),
-                                    comment.getUserId().getValue(),
-                                    comment.getPostId().getValue(),
-                                    comment.getCommentBody().getValue(),
-                                    comment.isDeleted(),
-                                    comment.getCreatedAt()
-                            );
-                        }
-                ).collect(Collectors.toList());
+                    return new CommentDto(
+                            comment.getId(),
+                            new WriterDto(
+                                    user.getId(),
+                                    user.getNickname().getValue(),
+                                    user.getProfileImage().getValue()),
+                            comment.getPostId().getValue(),
+                            comment.getCommentBody().getValue(),
+                            comment.isDeleted(),
+                            comment.getCreatedAt(),
+                            comment.getUpdatedAt());
+                }).collect(Collectors.toList());
 
-        PagesDto pagesDto = new PagesDto(comments.getTotalPages());
-
-        return new CommentsDto(commentDtos, pagesDto);
+        return new CommentsDto(commentDtos);
     }
 }
