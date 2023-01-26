@@ -55,11 +55,12 @@ public class ContentController {
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String genre,
             @RequestParam(required = false) Integer date,
+            @RequestParam(required = false) String searchTitle,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "8") Integer size
     ) {
         return getContentsService.filter(
-                platformData, type, genre, date, page, size);
+                platformData, type, genre, date, searchTitle, page, size);
     }
 
     @GetMapping("/{tmdbId}")

@@ -33,7 +33,7 @@ public class GetContentsService {
     }
 
     public ContentsDto filter(String platform, String type, String genreId,
-                              Integer releaseDate, Integer page, Integer size) {
+                              Integer releaseDate, String searchTitle, Integer page, Integer size) {
         Sort sort = Sort.by("createdAt").descending();
 
         Pageable pageable = PageRequest.of(page - 1, size, sort);
@@ -54,6 +54,11 @@ public class GetContentsService {
 
         if (releaseDate != null) {
             spec = spec.and(ContentSpecification.betweenReleaseDate(releaseDate));
+        }
+
+        if (searchTitle != null) {
+            spec = spec.and(ContentSpecification.likeKorTitle(searchTitle))
+                    .or(ContentSpecification.likeEngTitle(searchTitle));
         }
 
         Page<Content> contents = contentRepository.findAll(spec, pageable);

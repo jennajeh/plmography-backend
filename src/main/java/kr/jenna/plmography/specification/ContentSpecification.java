@@ -41,24 +41,24 @@ public class ContentSpecification {
         };
     }
 
-    public static Specification<Content> equalKorTitle(String korTitle) {
+    public static Specification<Content> likeKorTitle(String korTitle) {
         return new Specification<Content>() {
             @Override
             public Predicate toPredicate(Root<Content> root,
                                          CriteriaQuery<?> query,
                                          CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("korTitle"), korTitle);
+                return criteriaBuilder.like(root.get("korTitle"), "%" + korTitle + "%");
             }
         };
     }
 
-    public static Specification<Content> equalEngTitle(String engTitle) {
+    public static Specification<Content> likeEngTitle(String engTitle) {
         return new Specification<Content>() {
             @Override
             public Predicate toPredicate(Root<Content> root,
                                          CriteriaQuery<?> query,
                                          CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("engTitle"), engTitle);
+                return criteriaBuilder.like(root.get("engTitle"), "%" + engTitle + "%");
             }
         };
     }
