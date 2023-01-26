@@ -33,7 +33,7 @@ public class ContentController {
         this.getContentsService = getContentsService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ContentsDto list(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "8") Integer size
@@ -47,6 +47,19 @@ public class ContentController {
         PagesDto pagesDto = new PagesDto(contents.getTotalPages());
 
         return new ContentsDto(contentDtos, pagesDto);
+    }
+
+    @GetMapping
+    public ContentsDto filter(
+            @RequestParam(required = false) String platformData,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) Integer date,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "8") Integer size
+    ) {
+        return getContentsService.filter(
+                platformData, type, genre, date, page, size);
     }
 
     @GetMapping("/{tmdbId}")

@@ -266,7 +266,7 @@ public class BackdoorController {
 
             for (Map data : list) {
                 String imageUrl = "https://image.tmdb.org/t/p/original";
-                String match = "[\"]";
+                String match = "[\\[\\]\"]";
 
                 contentRepository.save(
                         Content.builder()
@@ -278,8 +278,8 @@ public class BackdoorController {
                                 .korTitle(data.get("title").toString().replaceAll(match, ""))
                                 .engTitle(data.get("original_title").toString().replaceAll(match, ""))
                                 .releaseDate(data.get("release_date") == null
-                                        ? ""
-                                        : data.get("release_date").toString().replaceAll(match, ""))
+                                        ? 2022
+                                        : Integer.parseInt(data.get("release_date").toString().substring(0, 4).replaceAll(match, "")))
                                 .popularity(data.get("popularity").toString().replaceAll(match, ""))
                                 .description(data.get("overview").toString().replaceAll(match, ""))
                                 .createdAt(dateTime)
@@ -303,18 +303,22 @@ public class BackdoorController {
 
             for (Map data : list) {
                 String imageUrl = "https://image.tmdb.org/t/p/original";
-                String match = "[\"]";
+                String match = "[\\[\\]\"]";
 
                 contentRepository.save(
                         Content.builder()
                                 .tmdbId(data.get("id").toString().replaceAll(match, ""))
                                 .tmdbGenreId(data.get("genre_ids").toString().replaceAll(match, ""))
-                                .imageUrl(imageUrl + data.get("poster_path").toString().replaceAll(match, ""))
+                                .imageUrl(data.get("poster_path") == null
+                                        ? ""
+                                        : imageUrl + data.get("poster_path").toString().replaceAll(match, ""))
                                 .korTitle(data.get("name").toString().replaceAll(match, ""))
                                 .engTitle(data.get("original_name").toString().replaceAll(match, ""))
                                 .releaseDate(data.get("first_air_date") == null
-                                        ? ""
-                                        : data.get("first_air_date").toString().replaceAll(match, ""))
+                                        ? 2022
+                                        : data.get("first_air_date").toString().length() > 0
+                                        ? Integer.parseInt(data.get("first_air_date").toString().substring(0, 4).replaceAll(match, ""))
+                                        : 2022)
                                 .popularity(data.get("popularity").toString().replaceAll(match, ""))
                                 .description(data.get("overview").toString().replaceAll(match, ""))
                                 .createdAt(dateTime)
@@ -328,11 +332,11 @@ public class BackdoorController {
 
     @GetMapping("/setup-platform-type")
     public String setupPlatformAndType() throws IOException {
-        jdbcTemplate.update("UPDATE content SET platform='[netflix, wavve, watcha, disney]' WHERE id <= 50");
-        jdbcTemplate.update("UPDATE content SET platform='[wavve, tving, apple]' WHERE id > 50 AND id <= 100");
-        jdbcTemplate.update("UPDATE content SET platform='[netflix, watcha]' WHERE id > 100 AND id <= 150");
-        jdbcTemplate.update("UPDATE content SET platform='[disney, apple]' WHERE id > 150 AND id <= 200");
-        jdbcTemplate.update("UPDATE content SET platform='[netflix, wavve, watcha, disney]' WHERE id > 200");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id <= 50");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 50 AND id <= 100");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, watcha' WHERE id > 100 AND id <= 150");
+        jdbcTemplate.update("UPDATE content SET platform='disney, apple' WHERE id > 150 AND id <= 200");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id > 200");
 
         jdbcTemplate.update("UPDATE content SET type='movie' WHERE id <= 200");
         jdbcTemplate.update("UPDATE content SET type='drama' WHERE id > 200");

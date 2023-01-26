@@ -30,7 +30,7 @@ public class Content {
 
     private String engTitle;
 
-    private String releaseDate;
+    private int releaseDate;
 
     private String popularity;
 
@@ -46,7 +46,7 @@ public class Content {
     @Builder
     public Content(Long id, String tmdbId, String tmdbGenreId,
                    String imageUrl, String korTitle, String engTitle,
-                   String releaseDate, String popularity, String platform, String type, String description,
+                   int releaseDate, String popularity, String platform, String type, String description,
                    LocalDateTime createdAt) {
         this.id = id;
         this.tmdbId = tmdbId;
@@ -63,7 +63,7 @@ public class Content {
     }
 
     public static Content fake() {
-        return new Content(1L, "1", "1", "imageUrl", "아바타", "Avatar", "2022-12-23",
+        return new Content(1L, "1", "1", "imageUrl", "아바타", "Avatar", 2022,
                 "3000", "netflix", "movie", "판타지 영화", LocalDateTime.now());
     }
 

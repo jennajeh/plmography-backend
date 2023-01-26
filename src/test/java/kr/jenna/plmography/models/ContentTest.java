@@ -22,7 +22,7 @@ class ContentTest {
 
         ContentDto contentDto = content.toContentDto();
 
-        assertThat(contentDto).isEqualTo(new ContentDto(1L, "1", "1", "imageUrl", "아바타", "Avatar", "2022-12-23",
+        assertThat(contentDto).isEqualTo(new ContentDto(1L, "1", "1", "imageUrl", "아바타", "Avatar", 2022,
                 "3000", "netflix", "movie", "판타지 영화"));
     }
 }
