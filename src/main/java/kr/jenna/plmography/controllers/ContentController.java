@@ -51,16 +51,17 @@ public class ContentController {
 
     @GetMapping
     public ContentsDto filter(
-            @RequestParam(required = false) String platformData,
+            @RequestParam(required = false) String platform,
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String genre,
             @RequestParam(required = false) Integer date,
             @RequestParam(required = false) String searchTitle,
+            @RequestParam(required = false, defaultValue = "") String sort,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "8") Integer size
     ) {
         return getContentsService.filter(
-                platformData, type, genre, date, searchTitle, page, size);
+                platform, type, genre, date, searchTitle, sort, page, size);
     }
 
     @GetMapping("/{tmdbId}")

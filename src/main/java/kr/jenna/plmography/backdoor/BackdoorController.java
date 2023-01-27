@@ -280,7 +280,7 @@ public class BackdoorController {
                                 .releaseDate(data.get("release_date") == null
                                         ? 2022
                                         : Integer.parseInt(data.get("release_date").toString().substring(0, 4).replaceAll(match, "")))
-                                .popularity(data.get("popularity").toString().replaceAll(match, ""))
+                                .popularity(Double.parseDouble(data.get("popularity").toString().replaceAll(match, "")))
                                 .description(data.get("overview").toString().replaceAll(match, ""))
                                 .createdAt(dateTime)
                                 .build()
@@ -319,7 +319,7 @@ public class BackdoorController {
                                         : data.get("first_air_date").toString().length() > 0
                                         ? Integer.parseInt(data.get("first_air_date").toString().substring(0, 4).replaceAll(match, ""))
                                         : 2022)
-                                .popularity(data.get("popularity").toString().replaceAll(match, ""))
+                                .popularity(Double.parseDouble(data.get("popularity").toString().replaceAll(match, "")))
                                 .description(data.get("overview").toString().replaceAll(match, ""))
                                 .createdAt(dateTime)
                                 .build()

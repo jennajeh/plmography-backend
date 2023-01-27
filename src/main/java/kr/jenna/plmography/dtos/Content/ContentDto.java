@@ -10,14 +10,14 @@ public class ContentDto {
     private String korTitle;
     private String engTitle;
     private int releaseDate;
-    private String popularity;
+    private double popularity;
     private String platform;
     private String type;
     private String description;
 
     public ContentDto(Long id, String tmdbId, String tmdbGenreId,
                       String imageUrl, String korTitle, String engTitle,
-                      int releaseDate, String popularity, String platform, String type, String description) {
+                      int releaseDate, double popularity, String platform, String type, String description) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.tmdbGenreId = tmdbGenreId;
@@ -59,7 +59,7 @@ public class ContentDto {
         return releaseDate;
     }
 
-    public String getPopularity() {
+    public double getPopularity() {
         return popularity;
     }
 

@@ -33,10 +33,22 @@ public class GetContentsService {
     }
 
     public ContentsDto filter(String platform, String type, String genreId,
-                              Integer releaseDate, String searchTitle, Integer page, Integer size) {
-        Sort sort = Sort.by("createdAt").descending();
+                              Integer releaseDate, String searchTitle, String sort, Integer page, Integer size) {
+        Sort sortBy = Sort.by("createdAt").descending();
 
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        if (sort.equals("releaseDate")) {
+            sortBy = Sort.by("releaseDate").descending();
+        }
+
+        if (sort.equals("popularity")) {
+            sortBy = Sort.by("popularity").descending();
+        }
+
+        if (sort.equals("korTitle")) {
+            sortBy = Sort.by("korTitle").ascending();
+        }
+
+        Pageable pageable = PageRequest.of(page - 1, size, sortBy);
 
         Specification<Content> spec = (root, query, criteriaBuilder) -> null;
 
