@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,18 +30,16 @@ public class ArticleController {
 
     @GetMapping
     public ArticlesDto list(
-            @RequestAttribute Long userId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-        return getArticlesService.list(userId, page, size);
+        return getArticlesService.list(page, size);
     }
 
     @GetMapping("/{contentId}")
     public ArticleDto detail(
-            @RequestAttribute Long userId,
             @PathVariable Long contentId) {
-        return getArticleService.detail(userId, contentId);
+        return getArticleService.detail(contentId);
     }
 
     @ExceptionHandler(UserNotFound.class)

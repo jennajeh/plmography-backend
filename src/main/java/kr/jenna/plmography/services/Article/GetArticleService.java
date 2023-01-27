@@ -1,11 +1,8 @@
 package kr.jenna.plmography.services.Article;
 
 import kr.jenna.plmography.dtos.Article.ArticleDto;
-import kr.jenna.plmography.dtos.User.WriterDto;
 import kr.jenna.plmography.exceptions.ArticleNotFound;
-import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Article;
-import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.VO.ContentId;
 import kr.jenna.plmography.repositories.ArticleRepository;
 import kr.jenna.plmography.repositories.UserRepository;
@@ -25,19 +22,12 @@ public class GetArticleService {
         this.userRepository = userRepository;
     }
 
-    public ArticleDto detail(Long userId, Long contentId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFound(userId));
-
+    public ArticleDto detail(Long contentId) {
         Article article = articleRepository.findByContentId(new ContentId(contentId))
                 .orElseThrow(() -> new ArticleNotFound());
 
         return new ArticleDto(
                 article.getId(),
-                new WriterDto(
-                        user.getId(),
-                        user.getNickname().getValue(),
-                        user.getProfileImage().getValue()),
                 article.getContentId().getValue(),
                 article.getTitle().getValue(),
                 article.getImage().getValue(),

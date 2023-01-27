@@ -32,6 +32,20 @@ public class ArticleDto {
         this.createdAt = createdAt;
     }
 
+    public ArticleDto(
+            Long id,
+            Long contentId,
+            String title,
+            String image, String articleBody,
+            LocalDateTime createdAt) {
+        this.id = id;
+        this.contentId = contentId;
+        this.title = title;
+        this.image = image;
+        this.articleBody = articleBody;
+        this.createdAt = createdAt;
+    }
+
     public static ArticleDto fake() {
         return new ArticleDto(
                 1L,

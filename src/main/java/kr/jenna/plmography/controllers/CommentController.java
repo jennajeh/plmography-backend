@@ -61,6 +61,12 @@ public class CommentController {
         return getCommentsService.comments(userId);
     }
 
+    @GetMapping("/all")
+    public CommentsDto listWithNotLoggedIn(
+    ) {
+        return getCommentsService.commentsWithNotLoggedIn();
+    }
+
     @PatchMapping("/{id}")
     public CommentModificationResponseDto modify(
             @RequestAttribute Long userId,

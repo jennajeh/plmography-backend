@@ -49,4 +49,28 @@ public class GetCommentsService {
 
         return new CommentsDto(commentDtos);
     }
+
+    public CommentsDto commentsWithNotLoggedIn() {
+        List<Comment> comments = commentRepository.findAll();
+
+        List<CommentDto> commentDtos = comments.stream()
+                .map(comment -> {
+                    User user = userRepository.findById(comment.getUserId().getValue())
+                            .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
+
+                    return new CommentDto(
+                            comment.getId(),
+                            new WriterDto(
+                                    user.getId(),
+                                    user.getNickname().getValue(),
+                                    user.getProfileImage().getValue()),
+                            comment.getPostId().getValue(),
+                            comment.getCommentBody().getValue(),
+                            comment.isDeleted(),
+                            comment.getCreatedAt(),
+                            comment.getUpdatedAt());
+                }).collect(Collectors.toList());
+
+        return new CommentsDto(commentDtos);
+    }
 }

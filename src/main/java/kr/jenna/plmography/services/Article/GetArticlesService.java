@@ -3,10 +3,7 @@ package kr.jenna.plmography.services.Article;
 import kr.jenna.plmography.dtos.Article.ArticleDto;
 import kr.jenna.plmography.dtos.Article.ArticlesDto;
 import kr.jenna.plmography.dtos.Page.PagesDto;
-import kr.jenna.plmography.dtos.User.WriterDto;
-import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Article;
-import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.ArticleRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.data.domain.Page;
@@ -31,7 +28,7 @@ public class GetArticlesService {
         this.userRepository = userRepository;
     }
 
-    public ArticlesDto list(Long userId, Integer page, Integer size) {
+    public ArticlesDto list(Integer page, Integer size) {
         Sort sort = Sort.by("createdAt").descending();
 
         Pageable pageable = PageRequest.of(page - 1, size, sort);
@@ -40,15 +37,8 @@ public class GetArticlesService {
 
         List<ArticleDto> articleDtos = articles.stream()
                 .map(article -> {
-                    User user = userRepository.findById(userId)
-                            .orElseThrow(() -> new UserNotFound(userId));
-
                     return new ArticleDto(
                             article.getId(),
-                            new WriterDto(
-                                    user.getId(),
-                                    user.getNickname().getValue(),
-                                    user.getProfileImage().getValue()),
                             article.getContentId().getValue(),
                             article.getTitle().getValue(),
                             article.getImage().getValue(),

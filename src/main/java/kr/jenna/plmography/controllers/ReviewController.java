@@ -72,8 +72,15 @@ public class ReviewController {
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-
         return getReviewsService.reviews(userId, page, size);
+    }
+
+    @GetMapping("/all")
+    public ReviewsDto listWithNotLoggedIn(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size
+    ) {
+        return getReviewsService.reviewsWithNotLoggedIn(page, size);
     }
 
     @GetMapping("/me")

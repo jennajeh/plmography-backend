@@ -48,15 +48,13 @@ class ArticleControllerTest {
 
     @Test
     void list() throws Exception {
-        Long userId = 1L;
         Integer page = 1;
         Integer size = 5;
 
-        given(getArticlesService.list(userId, page, size))
+        given(getArticlesService.list(page, size))
                 .willReturn(new ArticlesDto(List.of(ArticleDto.fake()), new PagesDto(1)));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/articles?&page=1&size=5")
-                        .header("Authorization", "Bearer " + token))
+        mockMvc.perform(MockMvcRequestBuilders.get("/articles?&page=1&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"totalPages\"")
@@ -65,15 +63,14 @@ class ArticleControllerTest {
                         containsString("\"articles\":[")
                 ));
 
-        verify(getArticlesService).list(userId, page, size);
+        verify(getArticlesService).list(page, size);
     }
 
     @Test
     void detail() throws Exception {
-        given(getArticleService.detail(1L, 1L)).willReturn(ArticleDto.fake());
+        given(getArticleService.detail(1L)).willReturn(ArticleDto.fake());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/articles/1")
-                        .header("Authorization", "Bearer " + token))
+        mockMvc.perform(MockMvcRequestBuilders.get("/articles/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"id\":")
