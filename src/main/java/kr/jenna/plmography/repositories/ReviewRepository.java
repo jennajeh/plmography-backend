@@ -18,4 +18,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Optional<Review> findByUserId(UserId userId);
 
     List<Review> findAllByUserId(UserId userId);
+
+    @Query("select r from Review r where r.userId = :userId and r.isDeleted = 'false'")
+    List<Review> findAllByUserIdAndIsDeleted(@Param("userId") UserId userId);
 }

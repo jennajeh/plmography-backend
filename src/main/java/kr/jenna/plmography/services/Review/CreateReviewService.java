@@ -12,6 +12,8 @@ import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CreateReviewService {
@@ -27,6 +29,12 @@ public class CreateReviewService {
     public Review create(Long id, ReviewRegistrationDto reviewRegistrationDto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFound(id));
+
+        List<Review> notDeletedReviews = reviewRepository.findAllByUserIdAndIsDeleted(new UserId(user.getId()));
+
+        if (!notDeletedReviews.isEmpty()) {
+            return notDeletedReviews.get(0);
+        }
 
         UserId userId = new UserId(user.getId());
         ContentId contentId = new ContentId(reviewRegistrationDto.getContentId());

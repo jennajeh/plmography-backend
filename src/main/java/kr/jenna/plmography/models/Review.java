@@ -156,7 +156,7 @@ public class Review {
     }
 
     public ReviewCreationDto toCreateDto() {
-        return new ReviewCreationDto(id);
+        return new ReviewCreationDto(id, isDeleted);
     }
 
     public ReviewModificationResponseDto toReviewModificationDto() {
