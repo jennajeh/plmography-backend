@@ -1,20 +1,21 @@
 package kr.jenna.plmography.models;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.Content.ContentDto;
+import kr.jenna.plmography.models.VO.WatchedUserId;
+import kr.jenna.plmography.models.VO.WishUserId;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Getter
-@NoArgsConstructor
 public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +42,16 @@ public class Content {
     @Column(length = 4000)
     private String description;
 
+    @ElementCollection
+    private Set<WishUserId> wishUserIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<WatchedUserId> watchedUserIds = new HashSet<>();
+
     private LocalDateTime createdAt;
+
+    public Content() {
+    }
 
     @Builder
     public Content(Long id, String tmdbId, String tmdbGenreId,
@@ -67,8 +77,84 @@ public class Content {
                 3000, "netflix", "movie", "판타지 영화", LocalDateTime.now());
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getTmdbId() {
+        return tmdbId;
+    }
+
+    public String getTmdbGenreId() {
+        return tmdbGenreId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getKorTitle() {
+        return korTitle;
+    }
+
+    public String getEngTitle() {
+        return engTitle;
+    }
+
+    public int getReleaseDate() {
+        return releaseDate;
+    }
+
+    public double getPopularity() {
+        return popularity;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Set<WishUserId> getWishUserIds() {
+        return wishUserIds;
+    }
+
+    public Set<WatchedUserId> getWatchedUserIds() {
+        return watchedUserIds;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     public ContentDto toContentDto() {
         return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
                 engTitle, releaseDate, popularity, platform, type, description);
+    }
+
+    public void toggleWish(WishUserId wishUserId) {
+        if (wishUserIds.contains(wishUserId)) {
+            wishUserIds.remove(wishUserId);
+
+            return;
+        }
+
+        wishUserIds.add(wishUserId);
+    }
+
+    public void toggleWatched(WatchedUserId watchedUserId) {
+        if (watchedUserIds.contains(watchedUserId)) {
+            watchedUserIds.remove(watchedUserId);
+
+            return;
+        }
+
+        watchedUserIds.add(watchedUserId);
     }
 }

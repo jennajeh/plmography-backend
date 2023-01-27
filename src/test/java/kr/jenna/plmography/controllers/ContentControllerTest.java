@@ -45,7 +45,7 @@ class ContentControllerTest {
         given(getContentsService.list(page, size))
                 .willReturn(new PageImpl<>(List.of(content)));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/contents?page=1&size=8"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/list?page=1&size=8"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"totalPages\"")
