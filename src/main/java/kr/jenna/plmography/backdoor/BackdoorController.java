@@ -49,13 +49,9 @@ public class BackdoorController {
     public String setupDatabase() {
         LocalDateTime now = LocalDateTime.now();
 
-        jdbcTemplate.execute("DELETE FROM user_follower_ids");
-        jdbcTemplate.execute("DELETE FROM user_following_ids");
-        jdbcTemplate.execute("DELETE FROM user_bookmark_contents");
-        jdbcTemplate.execute("DELETE FROM user_bookmark_themes");
-        jdbcTemplate.execute("DELETE FROM user_watched_list");
         jdbcTemplate.execute("DELETE FROM user_favorite_contents");
         jdbcTemplate.execute("DELETE FROM users");
+        jdbcTemplate.execute("DELETE FROM subscribe");
         jdbcTemplate.execute("DELETE FROM review_like_user_ids");
         jdbcTemplate.execute("DELETE FROM review");
         jdbcTemplate.execute("DELETE FROM comment");
@@ -100,6 +96,41 @@ public class BackdoorController {
                         " VALUES(5, 'jo@gmail.com', ?, '조성환', '여성', 1990, "
                         + "'https://source.boringavatars.com/beam/120/nickname=jo', ?, ?)",
                 passwordEncoder.encode("Test123!"), now, now
+        );
+
+        jdbcTemplate.update("INSERT INTO subscribe(" +
+                "  id, user_id, following_id)" +
+                " VALUES(1, 1, 2)"
+        );
+
+        jdbcTemplate.update("INSERT INTO subscribe(" +
+                "  id, user_id, following_id)" +
+                " VALUES(2, 1, 3)"
+        );
+
+        jdbcTemplate.update("INSERT INTO subscribe(" +
+                "  id, user_id, following_id)" +
+                " VALUES(3, 1, 4)"
+        );
+
+        jdbcTemplate.update("INSERT INTO subscribe(" +
+                "  id, user_id, following_id)" +
+                " VALUES(4, 1, 5)"
+        );
+
+        jdbcTemplate.update("INSERT INTO subscribe(" +
+                "  id, user_id, following_id)" +
+                " VALUES(5, 2, 1)"
+        );
+
+        jdbcTemplate.update("INSERT INTO subscribe(" +
+                "  id, user_id, following_id)" +
+                " VALUES(6, 2, 3)"
+        );
+
+        jdbcTemplate.update("INSERT INTO subscribe(" +
+                "  id, user_id, following_id)" +
+                " VALUES(7, 2, 4)"
         );
 
         jdbcTemplate.update("INSERT INTO review("
