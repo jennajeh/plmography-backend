@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Like;
+package kr.jenna.plmography.dtos.like;
 
 public class LikeUserIdDto {
     private Long id;

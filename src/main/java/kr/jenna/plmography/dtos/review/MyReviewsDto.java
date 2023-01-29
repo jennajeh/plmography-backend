@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Review;
+package kr.jenna.plmography.dtos.review;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package kr.jenna.plmography.services.Recomment;
+package kr.jenna.plmography.services.recomment;
 
-import kr.jenna.plmography.dtos.Recomment.RecommentDto;
-import kr.jenna.plmography.dtos.Recomment.RecommentsDto;
+import kr.jenna.plmography.dtos.recomment.RecommentDto;
+import kr.jenna.plmography.dtos.recomment.RecommentsDto;
 import kr.jenna.plmography.models.Recomment;
 import kr.jenna.plmography.repositories.RecommentRepository;
 import org.springframework.stereotype.Service;

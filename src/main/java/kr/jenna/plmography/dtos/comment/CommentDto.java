@@ -1,6 +1,6 @@
-package kr.jenna.plmography.dtos.Comment;
+package kr.jenna.plmography.dtos.comment;
 
-import kr.jenna.plmography.dtos.User.WriterDto;
+import kr.jenna.plmography.dtos.user.WriterDto;
 
 import java.time.LocalDateTime;
 

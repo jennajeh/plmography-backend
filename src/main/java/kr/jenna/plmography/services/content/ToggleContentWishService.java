@@ -1,10 +1,10 @@
-package kr.jenna.plmography.services.Content;
+package kr.jenna.plmography.services.content;
 
-import kr.jenna.plmography.dtos.Wish.WishUserIdsDto;
+import kr.jenna.plmography.dtos.wish.WishUserIdsDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
-import kr.jenna.plmography.models.VO.ContentId;
-import kr.jenna.plmography.models.VO.WishUserId;
+import kr.jenna.plmography.models.vo.ContentId;
+import kr.jenna.plmography.models.vo.WishUserId;
 import kr.jenna.plmography.repositories.ContentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

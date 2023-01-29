@@ -1,11 +1,11 @@
-package kr.jenna.plmography.services.Comment;
+package kr.jenna.plmography.services.comment;
 
 import kr.jenna.plmography.exceptions.CommentNotFound;
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.exceptions.UnmodifiableRecomment;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.models.Recomment;
-import kr.jenna.plmography.models.VO.CommentId;
+import kr.jenna.plmography.models.vo.CommentId;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.RecommentRepository;
 import org.springframework.stereotype.Service;

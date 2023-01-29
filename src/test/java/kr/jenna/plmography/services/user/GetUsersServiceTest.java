@@ -1,4 +1,4 @@
-package kr.jenna.plmography.services.User;
+package kr.jenna.plmography.services.user;
 
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.UserRepository;

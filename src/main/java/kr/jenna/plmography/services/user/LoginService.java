@@ -1,9 +1,9 @@
-package kr.jenna.plmography.services.User;
+package kr.jenna.plmography.services.user;
 
 import kr.jenna.plmography.exceptions.LoginFailed;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.VO.Email;
-import kr.jenna.plmography.models.VO.Password;
+import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

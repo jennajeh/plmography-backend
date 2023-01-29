@@ -1,8 +1,8 @@
-package kr.jenna.plmography.services.Content;
+package kr.jenna.plmography.services.content;
 
-import kr.jenna.plmography.dtos.Content.ContentDto;
-import kr.jenna.plmography.dtos.Content.ContentsDto;
-import kr.jenna.plmography.dtos.Page.PagesDto;
+import kr.jenna.plmography.dtos.content.ContentDto;
+import kr.jenna.plmography.dtos.content.ContentsDto;
+import kr.jenna.plmography.dtos.page.PagesDto;
 import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.repositories.ContentRepository;
 import kr.jenna.plmography.specification.ContentSpecification;

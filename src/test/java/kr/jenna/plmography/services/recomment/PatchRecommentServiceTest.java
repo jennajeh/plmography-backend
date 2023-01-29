@@ -1,9 +1,8 @@
-package kr.jenna.plmography.services;
+package kr.jenna.plmography.services.recomment;
 
-import kr.jenna.plmography.dtos.Recomment.RecommentDto;
+import kr.jenna.plmography.dtos.recomment.RecommentDto;
 import kr.jenna.plmography.models.Recomment;
 import kr.jenna.plmography.repositories.RecommentRepository;
-import kr.jenna.plmography.services.Recomment.PatchRecommentService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

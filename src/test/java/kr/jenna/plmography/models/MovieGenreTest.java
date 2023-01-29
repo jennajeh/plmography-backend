@@ -1,6 +1,6 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.models.Eunm.MovieGenre;
+import kr.jenna.plmography.models.eunm.MovieGenre;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

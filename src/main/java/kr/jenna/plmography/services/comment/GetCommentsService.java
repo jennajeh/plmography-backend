@@ -1,8 +1,8 @@
-package kr.jenna.plmography.services.Comment;
+package kr.jenna.plmography.services.comment;
 
-import kr.jenna.plmography.dtos.Comment.CommentDto;
-import kr.jenna.plmography.dtos.Comment.CommentsDto;
-import kr.jenna.plmography.dtos.User.WriterDto;
+import kr.jenna.plmography.dtos.comment.CommentDto;
+import kr.jenna.plmography.dtos.comment.CommentsDto;
+import kr.jenna.plmography.dtos.user.WriterDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.models.User;

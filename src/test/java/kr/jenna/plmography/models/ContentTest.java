@@ -1,8 +1,8 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.Content.ContentDto;
-import kr.jenna.plmography.models.VO.WatchedUserId;
-import kr.jenna.plmography.models.VO.WishUserId;
+import kr.jenna.plmography.dtos.content.ContentDto;
+import kr.jenna.plmography.models.vo.WatchedUserId;
+import kr.jenna.plmography.models.vo.WishUserId;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

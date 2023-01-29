@@ -1,12 +1,12 @@
-package kr.jenna.plmography.services.Comment;
+package kr.jenna.plmography.services.comment;
 
-import kr.jenna.plmography.dtos.Comment.CommentRegistrationDto;
+import kr.jenna.plmography.dtos.comment.CommentRegistrationDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.VO.CommentBody;
-import kr.jenna.plmography.models.VO.PostId;
-import kr.jenna.plmography.models.VO.UserId;
+import kr.jenna.plmography.models.vo.CommentBody;
+import kr.jenna.plmography.models.vo.PostId;
+import kr.jenna.plmography.models.vo.UserId;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;

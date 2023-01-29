@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.User;
+package kr.jenna.plmography.dtos.user;
 
 import java.util.List;
 

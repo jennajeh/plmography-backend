@@ -6,9 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import kr.jenna.plmography.dtos.Content.ContentDto;
-import kr.jenna.plmography.models.VO.WatchedUserId;
-import kr.jenna.plmography.models.VO.WishUserId;
+import kr.jenna.plmography.dtos.content.ContentDto;
+import kr.jenna.plmography.models.vo.WatchedUserId;
+import kr.jenna.plmography.models.vo.WishUserId;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

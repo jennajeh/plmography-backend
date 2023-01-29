@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Recomment;
+package kr.jenna.plmography.dtos.recomment;
 
 public class RecommentModificationDto {
     private Long id;

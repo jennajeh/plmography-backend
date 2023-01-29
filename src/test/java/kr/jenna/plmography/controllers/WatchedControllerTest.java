@@ -1,7 +1,7 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Watched.WatchedUserIdsDto;
-import kr.jenna.plmography.services.Content.ToggleContentWatchedService;
+import kr.jenna.plmography.dtos.watched.WatchedUserIdsDto;
+import kr.jenna.plmography.services.content.ToggleContentWatchedService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

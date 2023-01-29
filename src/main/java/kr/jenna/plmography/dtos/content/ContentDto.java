@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Content;
+package kr.jenna.plmography.dtos.content;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Recomment;
+package kr.jenna.plmography.dtos.recomment;
 
 public class RecommentRegistrationDto {
     private Long commentId;

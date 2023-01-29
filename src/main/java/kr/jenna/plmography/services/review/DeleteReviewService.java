@@ -1,11 +1,11 @@
-package kr.jenna.plmography.services.Review;
+package kr.jenna.plmography.services.review;
 
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.exceptions.ReviewNotFound;
 import kr.jenna.plmography.exceptions.UnmodifiableReview;
 import kr.jenna.plmography.models.Comment;
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.models.VO.PostId;
+import kr.jenna.plmography.models.vo.PostId;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import org.springframework.stereotype.Service;

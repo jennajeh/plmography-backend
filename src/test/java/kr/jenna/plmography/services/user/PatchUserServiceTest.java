@@ -1,11 +1,10 @@
-package kr.jenna.plmography.services;
+package kr.jenna.plmography.services.user;
 
-import kr.jenna.plmography.dtos.User.UserProfileRequestDto;
+import kr.jenna.plmography.dtos.user.UserProfileRequestDto;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.VO.Nickname;
-import kr.jenna.plmography.models.VO.ProfileImage;
+import kr.jenna.plmography.models.vo.Nickname;
+import kr.jenna.plmography.models.vo.ProfileImage;
 import kr.jenna.plmography.repositories.UserRepository;
-import kr.jenna.plmography.services.User.PatchUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
-package kr.jenna.plmography.services.Recomment;
+package kr.jenna.plmography.services.recomment;
 
-import kr.jenna.plmography.dtos.Recomment.RecommentDto;
+import kr.jenna.plmography.dtos.recomment.RecommentDto;
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.exceptions.RecommentNotFound;
 import kr.jenna.plmography.exceptions.UnmatchedRecommentId;

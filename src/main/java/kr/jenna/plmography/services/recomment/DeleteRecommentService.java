@@ -1,4 +1,4 @@
-package kr.jenna.plmography.services.Recomment;
+package kr.jenna.plmography.services.recomment;
 
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.exceptions.RecommentNotFound;

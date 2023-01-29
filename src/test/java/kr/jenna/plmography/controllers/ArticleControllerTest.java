@@ -1,10 +1,10 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Article.ArticleDto;
-import kr.jenna.plmography.dtos.Article.ArticlesDto;
-import kr.jenna.plmography.dtos.Page.PagesDto;
-import kr.jenna.plmography.services.Article.GetArticleService;
-import kr.jenna.plmography.services.Article.GetArticlesService;
+import kr.jenna.plmography.dtos.article.ArticleDto;
+import kr.jenna.plmography.dtos.article.ArticlesDto;
+import kr.jenna.plmography.dtos.page.PagesDto;
+import kr.jenna.plmography.services.article.GetArticleService;
+import kr.jenna.plmography.services.article.GetArticlesService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

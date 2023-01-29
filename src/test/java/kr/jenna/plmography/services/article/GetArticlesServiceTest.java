@@ -1,6 +1,6 @@
-package kr.jenna.plmography.services.Article;
+package kr.jenna.plmography.services.article;
 
-import kr.jenna.plmography.dtos.Article.ArticlesDto;
+import kr.jenna.plmography.dtos.article.ArticlesDto;
 import kr.jenna.plmography.models.Article;
 import kr.jenna.plmography.repositories.ArticleRepository;
 import kr.jenna.plmography.repositories.UserRepository;

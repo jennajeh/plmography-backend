@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.User;
+package kr.jenna.plmography.dtos.user;
 
 public class UserCountDto {
     private Integer countEmail;

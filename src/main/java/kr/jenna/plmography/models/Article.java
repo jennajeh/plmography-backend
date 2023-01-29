@@ -5,11 +5,11 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import kr.jenna.plmography.models.VO.ArticleBody;
-import kr.jenna.plmography.models.VO.ContentId;
-import kr.jenna.plmography.models.VO.Image;
-import kr.jenna.plmography.models.VO.Title;
-import kr.jenna.plmography.models.VO.UserId;
+import kr.jenna.plmography.models.vo.ArticleBody;
+import kr.jenna.plmography.models.vo.ContentId;
+import kr.jenna.plmography.models.vo.Image;
+import kr.jenna.plmography.models.vo.Title;
+import kr.jenna.plmography.models.vo.UserId;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;

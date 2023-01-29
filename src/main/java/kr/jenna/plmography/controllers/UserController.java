@@ -1,21 +1,21 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.User.UserCountDto;
-import kr.jenna.plmography.dtos.User.UserCreationDto;
-import kr.jenna.plmography.dtos.User.UserDto;
-import kr.jenna.plmography.dtos.User.UserProfileRequestDto;
-import kr.jenna.plmography.dtos.User.UserRegistrationDto;
-import kr.jenna.plmography.dtos.User.UsersDto;
+import kr.jenna.plmography.dtos.user.UserCountDto;
+import kr.jenna.plmography.dtos.user.UserCreationDto;
+import kr.jenna.plmography.dtos.user.UserDto;
+import kr.jenna.plmography.dtos.user.UserProfileRequestDto;
+import kr.jenna.plmography.dtos.user.UserRegistrationDto;
+import kr.jenna.plmography.dtos.user.UsersDto;
 import kr.jenna.plmography.exceptions.NicknameAlreadyExist;
 import kr.jenna.plmography.exceptions.SignupFailed;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.VO.Email;
-import kr.jenna.plmography.models.VO.Nickname;
-import kr.jenna.plmography.services.User.CreateUserService;
-import kr.jenna.plmography.services.User.GetUserService;
-import kr.jenna.plmography.services.User.GetUsersService;
-import kr.jenna.plmography.services.User.PatchUserService;
+import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.Nickname;
+import kr.jenna.plmography.services.user.CreateUserService;
+import kr.jenna.plmography.services.user.GetUserService;
+import kr.jenna.plmography.services.user.GetUsersService;
+import kr.jenna.plmography.services.user.PatchUserService;
 import kr.jenna.plmography.utils.S3Uploader;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -71,7 +71,6 @@ public class UserController {
                 .stream()
                 .map(User::toUserDto)
                 .collect(Collectors.toList());
-
         return new UsersDto(users);
     }
 

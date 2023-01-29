@@ -1,8 +1,7 @@
-package kr.jenna.plmography.services;
+package kr.jenna.plmography.services.content;
 
 import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.repositories.ContentRepository;
-import kr.jenna.plmography.services.Content.GetContentsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageImpl;

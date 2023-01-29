@@ -1,13 +1,13 @@
-package kr.jenna.plmography.services.Review;
+package kr.jenna.plmography.services.review;
 
-import kr.jenna.plmography.dtos.Review.MyReviewsDto;
-import kr.jenna.plmography.dtos.Review.ReviewDto;
-import kr.jenna.plmography.dtos.User.WriterDto;
+import kr.jenna.plmography.dtos.review.MyReviewsDto;
+import kr.jenna.plmography.dtos.review.ReviewDto;
+import kr.jenna.plmography.dtos.user.WriterDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.VO.LikeUserId;
-import kr.jenna.plmography.models.VO.UserId;
+import kr.jenna.plmography.models.vo.LikeUserId;
+import kr.jenna.plmography.models.vo.UserId;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;

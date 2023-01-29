@@ -1,6 +1,6 @@
-package kr.jenna.plmography.dtos.Content;
+package kr.jenna.plmography.dtos.content;
 
-import kr.jenna.plmography.dtos.Page.PagesDto;
+import kr.jenna.plmography.dtos.page.PagesDto;
 
 import java.util.List;
 

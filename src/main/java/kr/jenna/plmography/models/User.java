@@ -7,17 +7,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import kr.jenna.plmography.dtos.User.UserCreationDto;
-import kr.jenna.plmography.dtos.User.UserDto;
-import kr.jenna.plmography.models.VO.BirthYear;
-import kr.jenna.plmography.models.VO.ContentId;
-import kr.jenna.plmography.models.VO.Email;
-import kr.jenna.plmography.models.VO.FollowerId;
-import kr.jenna.plmography.models.VO.FollowingId;
-import kr.jenna.plmography.models.VO.Gender;
-import kr.jenna.plmography.models.VO.Nickname;
-import kr.jenna.plmography.models.VO.Password;
-import kr.jenna.plmography.models.VO.ProfileImage;
+import kr.jenna.plmography.dtos.user.UserCreationDto;
+import kr.jenna.plmography.dtos.user.UserDto;
+import kr.jenna.plmography.models.vo.BirthYear;
+import kr.jenna.plmography.models.vo.ContentId;
+import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.Gender;
+import kr.jenna.plmography.models.vo.Nickname;
+import kr.jenna.plmography.models.vo.Password;
+import kr.jenna.plmography.models.vo.ProfileImage;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -53,21 +51,6 @@ public class User {
 
     @Embedded
     private ProfileImage profileImage;
-
-    @ElementCollection
-    private List<FollowerId> followerIds = new ArrayList<>();
-
-    @ElementCollection
-    private List<FollowingId> followingIds = new ArrayList<>();
-
-    @ElementCollection
-    private List<ContentId> bookmarkContents = new ArrayList<>();
-
-    @ElementCollection
-    private List<ContentId> bookmarkThemes = new ArrayList<>();
-
-    @ElementCollection
-    private List<ContentId> watchedList = new ArrayList<>();
 
     @ElementCollection
     private List<ContentId> favoriteContents = new ArrayList<>();

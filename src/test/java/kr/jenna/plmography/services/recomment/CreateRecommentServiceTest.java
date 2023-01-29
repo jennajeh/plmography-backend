@@ -1,11 +1,10 @@
-package kr.jenna.plmography.services;
+package kr.jenna.plmography.services.recomment;
 
-import kr.jenna.plmography.dtos.Recomment.RecommentRegistrationDto;
+import kr.jenna.plmography.dtos.recomment.RecommentRegistrationDto;
 import kr.jenna.plmography.models.Recomment;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.RecommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
-import kr.jenna.plmography.services.Recomment.CreateRecommentService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

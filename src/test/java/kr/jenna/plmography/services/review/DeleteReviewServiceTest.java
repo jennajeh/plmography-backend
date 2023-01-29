@@ -1,9 +1,8 @@
-package kr.jenna.plmography.services;
+package kr.jenna.plmography.services.review;
 
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
-import kr.jenna.plmography.services.Review.DeleteReviewService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

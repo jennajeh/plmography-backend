@@ -1,6 +1,6 @@
-package kr.jenna.plmography.dtos.Watched;
+package kr.jenna.plmography.dtos.watched;
 
-import kr.jenna.plmography.models.VO.WatchedUserId;
+import kr.jenna.plmography.models.vo.WatchedUserId;
 
 import java.util.Set;
 

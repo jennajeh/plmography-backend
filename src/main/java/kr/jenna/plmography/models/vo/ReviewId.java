@@ -1,8 +1,8 @@
-package kr.jenna.plmography.models.VO;
+package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import kr.jenna.plmography.dtos.Like.LikeUserIdDto;
+import kr.jenna.plmography.dtos.like.LikeUserIdDto;
 
 import java.util.Objects;
 

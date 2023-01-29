@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Login;
+package kr.jenna.plmography.dtos.login;
 
 public class LoginResultDto {
     String accessToken;

@@ -1,7 +1,7 @@
 package kr.jenna.plmography.models;
 
 import kr.jenna.plmography.exceptions.InvalidEmail;
-import kr.jenna.plmography.models.VO.Email;
+import kr.jenna.plmography.models.vo.Email;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Page;
+package kr.jenna.plmography.dtos.page;
 
 public class PagesDto {
     private Integer totalPages;

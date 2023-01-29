@@ -1,7 +1,7 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Wish.WishUserIdsDto;
-import kr.jenna.plmography.services.Content.ToggleContentWishService;
+import kr.jenna.plmography.dtos.wish.WishUserIdsDto;
+import kr.jenna.plmography.services.content.ToggleContentWishService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

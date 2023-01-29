@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Review;
+package kr.jenna.plmography.dtos.review;
 
 public class ReviewModificationRequestDto {
     private Long id;

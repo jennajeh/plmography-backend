@@ -1,8 +1,8 @@
-package kr.jenna.plmography.services.Article;
+package kr.jenna.plmography.services.article;
 
-import kr.jenna.plmography.dtos.Article.ArticleDto;
+import kr.jenna.plmography.dtos.article.ArticleDto;
 import kr.jenna.plmography.models.Article;
-import kr.jenna.plmography.models.VO.ContentId;
+import kr.jenna.plmography.models.vo.ContentId;
 import kr.jenna.plmography.repositories.ArticleRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.junit.jupiter.api.Test;

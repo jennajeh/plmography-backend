@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Watched;
+package kr.jenna.plmography.dtos.watched;
 
 public class WatchedUserIdDto {
     private Long id;

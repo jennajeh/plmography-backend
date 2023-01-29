@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.User;
+package kr.jenna.plmography.dtos.user;
 
 public class WriterDto {
     private Long id;

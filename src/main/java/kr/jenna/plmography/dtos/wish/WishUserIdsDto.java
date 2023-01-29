@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Wish;
+package kr.jenna.plmography.dtos.wish;
 
 import java.util.Set;
 

@@ -1,8 +1,8 @@
-package kr.jenna.plmography.services.Content;
+package kr.jenna.plmography.services.content;
 
 import kr.jenna.plmography.models.Content;
-import kr.jenna.plmography.models.VO.ContentId;
-import kr.jenna.plmography.models.VO.WatchedUserId;
+import kr.jenna.plmography.models.vo.ContentId;
+import kr.jenna.plmography.models.vo.WatchedUserId;
 import kr.jenna.plmography.repositories.ContentRepository;
 import org.junit.jupiter.api.Test;
 

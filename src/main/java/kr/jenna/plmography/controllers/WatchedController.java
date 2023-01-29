@@ -1,9 +1,9 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Watched.WatchedUserIdsDto;
-import kr.jenna.plmography.models.VO.ContentId;
-import kr.jenna.plmography.models.VO.WatchedUserId;
-import kr.jenna.plmography.services.Content.ToggleContentWatchedService;
+import kr.jenna.plmography.dtos.watched.WatchedUserIdsDto;
+import kr.jenna.plmography.models.vo.ContentId;
+import kr.jenna.plmography.models.vo.WatchedUserId;
+import kr.jenna.plmography.services.content.ToggleContentWatchedService;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;

@@ -1,4 +1,4 @@
-package kr.jenna.plmography.models.Eunm;
+package kr.jenna.plmography.models.eunm;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

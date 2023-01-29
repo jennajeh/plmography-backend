@@ -1,4 +1,4 @@
-package kr.jenna.plmography.models.VO;
+package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

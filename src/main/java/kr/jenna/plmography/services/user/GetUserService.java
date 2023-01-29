@@ -1,10 +1,10 @@
-package kr.jenna.plmography.services.User;
+package kr.jenna.plmography.services.user;
 
-import kr.jenna.plmography.dtos.User.UserCountDto;
+import kr.jenna.plmography.dtos.user.UserCountDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.VO.Email;
-import kr.jenna.plmography.models.VO.Nickname;
+import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.Nickname;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

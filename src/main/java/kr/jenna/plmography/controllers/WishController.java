@@ -1,9 +1,9 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Wish.WishUserIdsDto;
-import kr.jenna.plmography.models.VO.ContentId;
-import kr.jenna.plmography.models.VO.WishUserId;
-import kr.jenna.plmography.services.Content.ToggleContentWishService;
+import kr.jenna.plmography.dtos.wish.WishUserIdsDto;
+import kr.jenna.plmography.models.vo.ContentId;
+import kr.jenna.plmography.models.vo.WishUserId;
+import kr.jenna.plmography.services.content.ToggleContentWishService;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;

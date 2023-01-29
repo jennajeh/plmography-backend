@@ -1,7 +1,7 @@
-package kr.jenna.plmography.dtos.Review;
+package kr.jenna.plmography.dtos.review;
 
-import kr.jenna.plmography.dtos.Like.LikeUserIdDto;
-import kr.jenna.plmography.dtos.User.WriterDto;
+import kr.jenna.plmography.dtos.like.LikeUserIdDto;
+import kr.jenna.plmography.dtos.user.WriterDto;
 
 import java.time.LocalDateTime;
 import java.util.Set;

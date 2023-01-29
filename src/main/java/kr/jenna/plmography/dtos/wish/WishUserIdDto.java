@@ -1,4 +1,4 @@
-package kr.jenna.plmography.dtos.Wish;
+package kr.jenna.plmography.dtos.wish;
 
 public class WishUserIdDto {
     private Long id;

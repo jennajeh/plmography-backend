@@ -1,10 +1,10 @@
-package kr.jenna.plmography.services.Content;
+package kr.jenna.plmography.services.content;
 
-import kr.jenna.plmography.dtos.Watched.WatchedUserIdsDto;
+import kr.jenna.plmography.dtos.watched.WatchedUserIdsDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
-import kr.jenna.plmography.models.VO.ContentId;
-import kr.jenna.plmography.models.VO.WatchedUserId;
+import kr.jenna.plmography.models.vo.ContentId;
+import kr.jenna.plmography.models.vo.WatchedUserId;
 import kr.jenna.plmography.repositories.ContentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,9 +1,8 @@
-package kr.jenna.plmography.services;
+package kr.jenna.plmography.services.content;
 
-import kr.jenna.plmography.dtos.Content.ContentDto;
+import kr.jenna.plmography.dtos.content.ContentDto;
 import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.repositories.ContentRepository;
-import kr.jenna.plmography.services.Content.GetContentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

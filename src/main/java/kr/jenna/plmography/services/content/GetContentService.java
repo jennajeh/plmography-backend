@@ -1,6 +1,6 @@
-package kr.jenna.plmography.services.Content;
+package kr.jenna.plmography.services.content;
 
-import kr.jenna.plmography.dtos.Content.ContentDto;
+import kr.jenna.plmography.dtos.content.ContentDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.repositories.ContentRepository;

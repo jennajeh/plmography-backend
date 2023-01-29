@@ -1,13 +1,13 @@
-package kr.jenna.plmography.services.Recomment;
+package kr.jenna.plmography.services.recomment;
 
-import kr.jenna.plmography.dtos.Recomment.RecommentRegistrationDto;
+import kr.jenna.plmography.dtos.recomment.RecommentRegistrationDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Recomment;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.VO.CommentId;
-import kr.jenna.plmography.models.VO.PostId;
-import kr.jenna.plmography.models.VO.RecommentBody;
-import kr.jenna.plmography.models.VO.UserId;
+import kr.jenna.plmography.models.vo.CommentId;
+import kr.jenna.plmography.models.vo.PostId;
+import kr.jenna.plmography.models.vo.RecommentBody;
+import kr.jenna.plmography.models.vo.UserId;
 import kr.jenna.plmography.repositories.RecommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
