@@ -1,10 +1,10 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.Recomment.RecommentDto;
-import kr.jenna.plmography.models.VO.CommentId;
-import kr.jenna.plmography.models.VO.PostId;
-import kr.jenna.plmography.models.VO.RecommentBody;
-import kr.jenna.plmography.models.VO.UserId;
+import kr.jenna.plmography.dtos.recomment.RecommentDto;
+import kr.jenna.plmography.models.vo.CommentId;
+import kr.jenna.plmography.models.vo.PostId;
+import kr.jenna.plmography.models.vo.RecommentBody;
+import kr.jenna.plmography.models.vo.UserId;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

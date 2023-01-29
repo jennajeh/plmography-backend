@@ -2,8 +2,8 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
-import kr.jenna.plmography.services.Content.GetContentService;
-import kr.jenna.plmography.services.Content.GetContentsService;
+import kr.jenna.plmography.services.content.GetContentService;
+import kr.jenna.plmography.services.content.GetContentsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -45,7 +45,7 @@ class ContentControllerTest {
         given(getContentsService.list(page, size))
                 .willReturn(new PageImpl<>(List.of(content)));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/contents?page=1&size=8"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/list?page=1&size=8"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"totalPages\"")

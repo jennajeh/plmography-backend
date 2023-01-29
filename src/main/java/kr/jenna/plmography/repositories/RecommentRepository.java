@@ -1,7 +1,7 @@
 package kr.jenna.plmography.repositories;
 
 import kr.jenna.plmography.models.Recomment;
-import kr.jenna.plmography.models.VO.CommentId;
+import kr.jenna.plmography.models.vo.CommentId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,18 +1,18 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Comment.CommentCreationDto;
-import kr.jenna.plmography.dtos.Comment.CommentModificationRequestDto;
-import kr.jenna.plmography.dtos.Comment.CommentModificationResponseDto;
-import kr.jenna.plmography.dtos.Comment.CommentRegistrationDto;
-import kr.jenna.plmography.dtos.Comment.CommentsDto;
+import kr.jenna.plmography.dtos.comment.CommentCreationDto;
+import kr.jenna.plmography.dtos.comment.CommentModificationRequestDto;
+import kr.jenna.plmography.dtos.comment.CommentModificationResponseDto;
+import kr.jenna.plmography.dtos.comment.CommentRegistrationDto;
+import kr.jenna.plmography.dtos.comment.CommentsDto;
 import kr.jenna.plmography.exceptions.CommentNotFound;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Comment;
-import kr.jenna.plmography.models.VO.CommentBody;
-import kr.jenna.plmography.services.Comment.CreateCommentService;
-import kr.jenna.plmography.services.Comment.DeleteCommentService;
-import kr.jenna.plmography.services.Comment.GetCommentsService;
-import kr.jenna.plmography.services.Comment.PatchCommentService;
+import kr.jenna.plmography.models.vo.CommentBody;
+import kr.jenna.plmography.services.comment.CreateCommentService;
+import kr.jenna.plmography.services.comment.DeleteCommentService;
+import kr.jenna.plmography.services.comment.GetCommentsService;
+import kr.jenna.plmography.services.comment.PatchCommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -59,6 +59,12 @@ public class CommentController {
             @RequestAttribute Long userId
     ) {
         return getCommentsService.comments(userId);
+    }
+
+    @GetMapping("/all")
+    public CommentsDto listWithNotLoggedIn(
+    ) {
+        return getCommentsService.commentsWithNotLoggedIn();
     }
 
     @PatchMapping("/{id}")

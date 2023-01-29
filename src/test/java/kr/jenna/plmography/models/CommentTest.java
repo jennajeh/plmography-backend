@@ -1,10 +1,10 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.Comment.CommentCreationDto;
-import kr.jenna.plmography.dtos.Comment.CommentDto;
-import kr.jenna.plmography.models.VO.CommentBody;
-import kr.jenna.plmography.models.VO.PostId;
-import kr.jenna.plmography.models.VO.UserId;
+import kr.jenna.plmography.dtos.comment.CommentCreationDto;
+import kr.jenna.plmography.dtos.comment.CommentDto;
+import kr.jenna.plmography.models.vo.CommentBody;
+import kr.jenna.plmography.models.vo.PostId;
+import kr.jenna.plmography.models.vo.UserId;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

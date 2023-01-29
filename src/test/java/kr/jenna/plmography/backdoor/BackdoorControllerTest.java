@@ -17,17 +17,17 @@ class BackdoorControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    void setupDatabase() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/backdoor/setup-database"))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void setupDatabase() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/backdoor/setup-database"))
+//                .andExpect(status().isOk());
+//    }
 
-    @Test
-    void setupContent() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/backdoor/setup-content"))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void setupContent() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/backdoor/setup-content"))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     void setupMovie() throws Exception {

@@ -1,14 +1,14 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Page.PagesDto;
-import kr.jenna.plmography.dtos.Review.ReviewDto;
-import kr.jenna.plmography.dtos.Review.ReviewsDto;
+import kr.jenna.plmography.dtos.page.PagesDto;
+import kr.jenna.plmography.dtos.review.ReviewDto;
+import kr.jenna.plmography.dtos.review.ReviewsDto;
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.services.Review.CreateReviewService;
-import kr.jenna.plmography.services.Review.DeleteReviewService;
-import kr.jenna.plmography.services.Review.GetReviewService;
-import kr.jenna.plmography.services.Review.GetReviewsService;
-import kr.jenna.plmography.services.Review.PatchReviewService;
+import kr.jenna.plmography.services.review.CreateReviewService;
+import kr.jenna.plmography.services.review.DeleteReviewService;
+import kr.jenna.plmography.services.review.GetReviewService;
+import kr.jenna.plmography.services.review.GetReviewsService;
+import kr.jenna.plmography.services.review.PatchReviewService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

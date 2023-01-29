@@ -1,13 +1,13 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Recomment.RecommentDto;
-import kr.jenna.plmography.dtos.Recomment.RecommentsDto;
+import kr.jenna.plmography.dtos.recomment.RecommentDto;
+import kr.jenna.plmography.dtos.recomment.RecommentsDto;
 import kr.jenna.plmography.models.Recomment;
-import kr.jenna.plmography.services.Recomment.CreateRecommentService;
-import kr.jenna.plmography.services.Recomment.DeleteRecommentService;
-import kr.jenna.plmography.services.Recomment.GetRecommentService;
-import kr.jenna.plmography.services.Recomment.GetRecommentsService;
-import kr.jenna.plmography.services.Recomment.PatchRecommentService;
+import kr.jenna.plmography.services.recomment.CreateRecommentService;
+import kr.jenna.plmography.services.recomment.DeleteRecommentService;
+import kr.jenna.plmography.services.recomment.GetRecommentService;
+import kr.jenna.plmography.services.recomment.GetRecommentsService;
+import kr.jenna.plmography.services.recomment.PatchRecommentService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

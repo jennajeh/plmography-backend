@@ -1,8 +1,8 @@
 package kr.jenna.plmography.repositories;
 
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.VO.Email;
-import kr.jenna.plmography.models.VO.Nickname;
+import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.Nickname;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

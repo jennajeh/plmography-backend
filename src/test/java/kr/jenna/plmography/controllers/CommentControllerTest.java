@@ -1,12 +1,12 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Comment.CommentDto;
-import kr.jenna.plmography.dtos.Comment.CommentsDto;
+import kr.jenna.plmography.dtos.comment.CommentDto;
+import kr.jenna.plmography.dtos.comment.CommentsDto;
 import kr.jenna.plmography.models.Comment;
-import kr.jenna.plmography.services.Comment.CreateCommentService;
-import kr.jenna.plmography.services.Comment.DeleteCommentService;
-import kr.jenna.plmography.services.Comment.GetCommentsService;
-import kr.jenna.plmography.services.Comment.PatchCommentService;
+import kr.jenna.plmography.services.comment.CreateCommentService;
+import kr.jenna.plmography.services.comment.DeleteCommentService;
+import kr.jenna.plmography.services.comment.GetCommentsService;
+import kr.jenna.plmography.services.comment.PatchCommentService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

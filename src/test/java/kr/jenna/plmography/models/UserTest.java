@@ -1,14 +1,14 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.User.UserCreationDto;
-import kr.jenna.plmography.dtos.User.UserDto;
+import kr.jenna.plmography.dtos.user.UserCreationDto;
+import kr.jenna.plmography.dtos.user.UserDto;
 import kr.jenna.plmography.exceptions.InvalidPassword;
-import kr.jenna.plmography.models.VO.BirthYear;
-import kr.jenna.plmography.models.VO.Email;
-import kr.jenna.plmography.models.VO.Gender;
-import kr.jenna.plmography.models.VO.Nickname;
-import kr.jenna.plmography.models.VO.Password;
-import kr.jenna.plmography.models.VO.ProfileImage;
+import kr.jenna.plmography.models.vo.BirthYear;
+import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.Gender;
+import kr.jenna.plmography.models.vo.Nickname;
+import kr.jenna.plmography.models.vo.Password;
+import kr.jenna.plmography.models.vo.ProfileImage;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,8 +58,7 @@ class UserTest {
     @Test
     void toUserDto() {
         User user = new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"),
-                new Nickname("jenna"), new Gender("여성"),
-                new BirthYear(1994));
+                new Nickname("jenna"), new Gender("여성"), new BirthYear(1994));
 
         UserDto userDto = user.toUserDto();
 

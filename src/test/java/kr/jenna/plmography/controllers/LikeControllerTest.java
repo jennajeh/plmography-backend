@@ -1,7 +1,7 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Like.LikeUserIdsDto;
-import kr.jenna.plmography.services.Review.ToggleReviewLikeService;
+import kr.jenna.plmography.dtos.like.LikeUserIdsDto;
+import kr.jenna.plmography.services.review.ToggleReviewLikeService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

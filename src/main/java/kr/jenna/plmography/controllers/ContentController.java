@@ -1,17 +1,18 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.Content.ContentDto;
-import kr.jenna.plmography.dtos.Content.ContentsDto;
-import kr.jenna.plmography.dtos.Page.PagesDto;
+import kr.jenna.plmography.dtos.content.ContentDto;
+import kr.jenna.plmography.dtos.content.ContentsDto;
+import kr.jenna.plmography.dtos.page.PagesDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
-import kr.jenna.plmography.services.Content.GetContentService;
-import kr.jenna.plmography.services.Content.GetContentsService;
+import kr.jenna.plmography.services.content.GetContentService;
+import kr.jenna.plmography.services.content.GetContentsService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,7 +33,7 @@ public class ContentController {
         this.getContentsService = getContentsService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ContentsDto list(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "8") Integer size
@@ -48,8 +49,23 @@ public class ContentController {
         return new ContentsDto(contentDtos, pagesDto);
     }
 
-    @GetMapping("/detail")
-    public ContentDto detail(@RequestParam String tmdbId) {
+    @GetMapping
+    public ContentsDto filter(
+            @RequestParam(required = false) String platform,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) Integer date,
+            @RequestParam(required = false) String searchTitle,
+            @RequestParam(required = false, defaultValue = "") String sort,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "8") Integer size
+    ) {
+        return getContentsService.filter(
+                platform, type, genre, date, searchTitle, sort, page, size);
+    }
+
+    @GetMapping("/{tmdbId}")
+    public ContentDto detail(@PathVariable String tmdbId) {
         return getContentService.detail(tmdbId);
     }
 

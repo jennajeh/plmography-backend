@@ -5,11 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import kr.jenna.plmography.dtos.Comment.CommentCreationDto;
-import kr.jenna.plmography.dtos.Comment.CommentModificationResponseDto;
-import kr.jenna.plmography.models.VO.CommentBody;
-import kr.jenna.plmography.models.VO.PostId;
-import kr.jenna.plmography.models.VO.UserId;
+import kr.jenna.plmography.dtos.comment.CommentCreationDto;
+import kr.jenna.plmography.dtos.comment.CommentModificationResponseDto;
+import kr.jenna.plmography.models.vo.CommentBody;
+import kr.jenna.plmography.models.vo.PostId;
+import kr.jenna.plmography.models.vo.UserId;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
