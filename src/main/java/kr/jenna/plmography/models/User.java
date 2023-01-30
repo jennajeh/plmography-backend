@@ -1,6 +1,5 @@
 package kr.jenna.plmography.models;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +9,6 @@ import jakarta.persistence.Table;
 import kr.jenna.plmography.dtos.user.UserCreationDto;
 import kr.jenna.plmography.dtos.user.UserDto;
 import kr.jenna.plmography.models.vo.BirthYear;
-import kr.jenna.plmography.models.vo.ContentId;
 import kr.jenna.plmography.models.vo.Email;
 import kr.jenna.plmography.models.vo.Gender;
 import kr.jenna.plmography.models.vo.Nickname;
@@ -51,9 +49,6 @@ public class User {
 
     @Embedded
     private ProfileImage profileImage;
-
-    @ElementCollection
-    private List<ContentId> favoriteContents = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createdAt;

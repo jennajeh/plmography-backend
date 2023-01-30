@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.content.ContentDto;
+import kr.jenna.plmography.models.vo.FavoriteUserId;
 import kr.jenna.plmography.models.vo.WatchedUserId;
 import kr.jenna.plmography.models.vo.WishUserId;
 import lombok.Builder;
@@ -47,6 +48,9 @@ public class Content {
 
     @ElementCollection
     private Set<WatchedUserId> watchedUserIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<FavoriteUserId> favoriteUserIds = new HashSet<>();
 
     private LocalDateTime createdAt;
 
@@ -129,6 +133,10 @@ public class Content {
         return watchedUserIds;
     }
 
+    public Set<FavoriteUserId> getFavoriteUserIds() {
+        return favoriteUserIds;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -156,5 +164,15 @@ public class Content {
         }
 
         watchedUserIds.add(watchedUserId);
+    }
+
+    public void toggleFavorite(FavoriteUserId favoriteUserId) {
+        if (favoriteUserIds.contains(favoriteUserId)) {
+            favoriteUserIds.remove(favoriteUserId);
+
+            return;
+        }
+
+        favoriteUserIds.add(favoriteUserId);
     }
 }
