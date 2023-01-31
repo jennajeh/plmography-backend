@@ -9,16 +9,16 @@ import java.util.Objects;
 @Embeddable
 public class WishContentId {
     @Column(name = "wish_content_id")
-    private String value;
+    private Long value;
 
     public WishContentId() {
     }
 
-    public WishContentId(String value) {
+    public WishContentId(Long value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public Long getValue() {
         return value;
     }
 

@@ -30,7 +30,7 @@ class ToggleUserWishServiceTest {
         given(contentRepository.findByTmdbId(any())).willReturn(Optional.of(content));
 
         Long userId = 1L;
-        WishContentId wishContentId = new WishContentId("1");
+        WishContentId wishContentId = new WishContentId(1L);
 
         toggleUserWishService.toggleWish(userId, wishContentId);
 

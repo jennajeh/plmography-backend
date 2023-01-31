@@ -19,7 +19,7 @@ public class FavoriteController {
     @PatchMapping("/users/favoriteContent/{contentId}")
     public FovoriteContentIdsDto toggleFavoriteContent(
             @RequestAttribute Long userId,
-            @PathVariable String contentId
+            @PathVariable Long contentId
     ) {
         FavoriteContentId favoriteContentId = new FavoriteContentId(contentId);
 

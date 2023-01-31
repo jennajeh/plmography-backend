@@ -78,14 +78,14 @@ public class UserController {
     public UserDto user(@RequestAttribute Long userId) {
         User user = getUserService.findMe(userId);
 
-        return user.toUserDto();
+        return user.toMyDto();
     }
 
     @GetMapping("/profile")
     public UserDto profile(@RequestParam Nickname nickname) {
         User user = getUserService.profile(nickname);
 
-        return user.toDto();
+        return user.toUserDto();
     }
 
     @GetMapping("/checkDuplicate")
@@ -105,12 +105,11 @@ public class UserController {
     ) {
         User user = patchUserService.update(userId, userProfileRequestDto);
 
-        return user.toDto();
+        return user.toChangeUserProfileDto();
     }
 
     @PostMapping("/upload-image")
     public String uploadImage(MultipartFile multipartFile) throws IOException {
-        System.out.println("아악!!!!!!!!!!!!!!!!!!!!!" + multipartFile.getOriginalFilename());
         return s3Uploader.uploadFiles(multipartFile, "profileImage");
     }
 

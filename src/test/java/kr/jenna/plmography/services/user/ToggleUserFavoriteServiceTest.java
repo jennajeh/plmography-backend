@@ -30,7 +30,7 @@ class ToggleUserFavoriteServiceTest {
         given(contentRepository.findByTmdbId(any())).willReturn(Optional.of(content));
 
         Long userId = 1L;
-        FavoriteContentId favoriteContentId = new FavoriteContentId("1");
+        FavoriteContentId favoriteContentId = new FavoriteContentId(1L);
 
         toggleUserFavoriteService.toggleFavorite(userId, favoriteContentId);
 

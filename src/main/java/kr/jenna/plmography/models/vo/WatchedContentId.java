@@ -9,16 +9,16 @@ import java.util.Objects;
 @Embeddable
 public class WatchedContentId {
     @Column(name = "watched_content_id")
-    private String value;
+    private Long value;
 
     public WatchedContentId() {
     }
 
-    public WatchedContentId(String value) {
+    public WatchedContentId(Long value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public Long getValue() {
         return value;
     }
 

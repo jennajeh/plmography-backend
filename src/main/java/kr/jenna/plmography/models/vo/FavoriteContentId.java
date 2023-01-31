@@ -9,16 +9,16 @@ import java.util.Objects;
 @Embeddable
 public class FavoriteContentId {
     @Column(name = "favorite_content_id")
-    private String value;
+    private Long value;
 
     public FavoriteContentId() {
     }
 
-    public FavoriteContentId(String value) {
+    public FavoriteContentId(Long value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public Long getValue() {
         return value;
     }
 

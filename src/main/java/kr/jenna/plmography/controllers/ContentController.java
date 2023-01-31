@@ -65,9 +65,14 @@ public class ContentController {
     }
 
     @GetMapping("/{tmdbId}")
-    public ContentDto detail(@PathVariable String tmdbId) {
+    public ContentDto detail(@PathVariable Long tmdbId) {
         return getContentService.detail(tmdbId);
     }
+
+//    @GetMapping("/userProfile")
+//    public UserProfileContentsDto userProfile(@PathVariable Long userId) {
+//        return getContentService.userProfile(userId);
+//    }
 
     @ExceptionHandler(ContentNotFound.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

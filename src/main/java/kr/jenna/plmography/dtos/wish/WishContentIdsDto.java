@@ -17,7 +17,7 @@ public class WishContentIdsDto {
     }
 
     public static WishContentIdsDto fake() {
-        return new WishContentIdsDto(Set.of(new WishContentIdDto("1")));
+        return new WishContentIdsDto(Set.of(new WishContentIdDto(1L)));
     }
 }
 

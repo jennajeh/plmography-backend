@@ -16,7 +16,7 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tmdbId;
+    private Long tmdbId;
 
     private String tmdbGenreId;
 
@@ -43,7 +43,7 @@ public class Content {
     }
 
     @Builder
-    public Content(Long id, String tmdbId, String tmdbGenreId,
+    public Content(Long id, Long tmdbId, String tmdbGenreId,
                    String imageUrl, String korTitle, String engTitle,
                    int releaseDate, double popularity, String platform,
                    String type, String description, LocalDateTime createdAt) {
@@ -62,7 +62,7 @@ public class Content {
     }
 
     public static Content fake() {
-        return new Content(1L, "1", "1", "imageUrl", "아바타", "Avatar", 2022,
+        return new Content(1L, 1L, "1", "imageUrl", "아바타", "Avatar", 2022,
                 3000, "netflix", "movie", "판타지 영화", LocalDateTime.now());
     }
 
@@ -70,7 +70,7 @@ public class Content {
         return id;
     }
 
-    public String getTmdbId() {
+    public Long getTmdbId() {
         return tmdbId;
     }
 

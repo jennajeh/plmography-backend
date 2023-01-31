@@ -30,7 +30,8 @@ public class CreateReviewService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFound(id));
 
-        List<Review> notDeletedReviews = reviewRepository.findAllByUserIdAndIsDeleted(new UserId(user.getId()));
+        List<Review> notDeletedReviews = reviewRepository.findAllByUserIdAndContentIdAndIsDeleted(
+                new UserId(user.getId()), new ContentId(reviewRegistrationDto.getContentId()));
 
         if (!notDeletedReviews.isEmpty()) {
             return notDeletedReviews.get(0);

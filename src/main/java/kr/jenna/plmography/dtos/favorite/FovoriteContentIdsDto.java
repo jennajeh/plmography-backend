@@ -18,6 +18,6 @@ public class FovoriteContentIdsDto {
 
     public static FovoriteContentIdsDto fake() {
         return new FovoriteContentIdsDto(
-                Set.of(new FavoriteContentIdDto("1")));
+                Set.of(new FavoriteContentIdDto(1L)));
     }
 }

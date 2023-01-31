@@ -141,16 +141,30 @@ public class User {
                 nickname.getValue(), profileImage.getValue());
     }
 
-    public UserDto toUserDto() {
-        return new UserDto(id,
-                this.email.getValue(),
-                this.nickname.getValue(),
-                this.gender.getValue(),
-                this.birthYear.getValue(),
-                this.profileImage.getValue());
+    public UserDto toMyDto() {
+        return new UserDto(
+                id,
+                email.getValue(),
+                nickname.getValue(),
+                gender.getValue(),
+                birthYear.getValue(),
+                profileImage.getValue(),
+                wishContentIds,
+                watchedContentIds,
+                favoriteContentIds);
     }
 
-    public UserDto toDto() {
+    public UserDto toUserDto() {
+        return new UserDto(
+                id,
+                nickname.getValue(),
+                profileImage.getValue(),
+                wishContentIds,
+                watchedContentIds,
+                favoriteContentIds);
+    }
+
+    public UserDto toChangeUserProfileDto() {
         return new UserDto(
                 id,
                 nickname.getValue(),

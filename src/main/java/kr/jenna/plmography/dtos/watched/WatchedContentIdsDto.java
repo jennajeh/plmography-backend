@@ -17,6 +17,6 @@ public class WatchedContentIdsDto {
     }
 
     public static WatchedContentIdsDto fake() {
-        return new WatchedContentIdsDto(Set.of(new WatchedContentIdDto("1")));
+        return new WatchedContentIdsDto(Set.of(new WatchedContentIdDto(1L)));
     }
 }

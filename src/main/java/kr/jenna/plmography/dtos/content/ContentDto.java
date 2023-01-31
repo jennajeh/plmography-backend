@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class ContentDto {
     private Long id;
-    private String tmdbId;
+    private Long tmdbId;
     private String tmdbGenreId;
     private String imageUrl;
     private String korTitle;
@@ -15,7 +15,7 @@ public class ContentDto {
     private String type;
     private String description;
 
-    public ContentDto(Long id, String tmdbId, String tmdbGenreId,
+    public ContentDto(Long id, Long tmdbId, String tmdbGenreId,
                       String imageUrl, String korTitle, String engTitle,
                       int releaseDate, double popularity, String platform, String type, String description) {
         this.id = id;
@@ -35,7 +35,7 @@ public class ContentDto {
         return id;
     }
 
-    public String getTmdbId() {
+    public Long getTmdbId() {
         return tmdbId;
     }
 

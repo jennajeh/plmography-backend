@@ -19,7 +19,7 @@ public class WishController {
     @PatchMapping("/users/wishContent/{contentId}")
     public WishContentIdsDto toggleWishContent(
             @RequestAttribute Long userId,
-            @PathVariable String contentId
+            @PathVariable Long contentId
     ) {
         WishContentId wishContentId = new WishContentId(contentId);
 

@@ -1,16 +1,16 @@
 package kr.jenna.plmography.dtos.watched;
 
 public class WatchedContentIdDto {
-    private String tmdbId;
+    private Long tmdbId;
 
     public WatchedContentIdDto() {
     }
 
-    public WatchedContentIdDto(String tmdbId) {
+    public WatchedContentIdDto(Long tmdbId) {
         this.tmdbId = tmdbId;
     }
 
-    public String getTmdbId() {
+    public Long getTmdbId() {
         return tmdbId;
     }
 }

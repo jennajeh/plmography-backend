@@ -14,5 +14,7 @@ public interface ContentRepository extends JpaRepository<Content, Long>, JpaSpec
 
     Page<Content> findAll(Specification<Content> spec, Pageable pageable);
 
-    Optional<Content> findByTmdbId(String tmdbId);
+    Optional<Content> findByTmdbId(Long tmdbId);
+
+//    List<Content> findAllByTmdbId(Set<FavoriteContentId> FavoriteContentIds);
 }

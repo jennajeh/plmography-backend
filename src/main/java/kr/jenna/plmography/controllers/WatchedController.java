@@ -19,7 +19,7 @@ public class WatchedController {
     @PatchMapping("/users/watchedContent/{contentId}")
     public WatchedContentIdsDto toggleWatchedContent(
             @RequestAttribute Long userId,
-            @PathVariable String contentId
+            @PathVariable Long contentId
     ) {
         WatchedContentId watchedContentId = new WatchedContentId(contentId);
 

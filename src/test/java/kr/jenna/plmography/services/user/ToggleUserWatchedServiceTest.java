@@ -30,7 +30,7 @@ class ToggleUserWatchedServiceTest {
         given(contentRepository.findByTmdbId(any())).willReturn(Optional.of(content));
 
         Long userId = 1L;
-        WatchedContentId watchedContentId = new WatchedContentId("1");
+        WatchedContentId watchedContentId = new WatchedContentId(1L);
 
         toggleUserWatchedService.toggleWatched(userId, watchedContentId);
 

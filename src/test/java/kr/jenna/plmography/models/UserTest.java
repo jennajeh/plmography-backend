@@ -1,7 +1,5 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.user.UserCreationDto;
-import kr.jenna.plmography.dtos.user.UserDto;
 import kr.jenna.plmography.exceptions.InvalidPassword;
 import kr.jenna.plmography.models.vo.BirthYear;
 import kr.jenna.plmography.models.vo.Email;
@@ -59,32 +57,10 @@ class UserTest {
     }
 
     @Test
-    void toUserDto() {
-        User user = new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"),
-                new Nickname("jenna"), new Gender("여성"), new BirthYear(1994));
-
-        UserDto userDto = user.toUserDto();
-
-        assertThat(userDto).isEqualTo(new UserDto(1L, "jenna@gmail.com",
-                "jenna", "여성", 1994, "https://source.boringavatars.com/beam/120/nickname=jenna"));
-    }
-
-    @Test
-    void toCreateDto() {
-        User user = new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"),
-                new Nickname("jenna"), new Gender("여성"), new BirthYear(1994));
-
-        UserCreationDto userCreateDto = user.toCreateDto();
-
-        assertThat(userCreateDto).isEqualTo(
-                new UserCreationDto(1L, "jenna@gmail.com", "jenna", "https://source.boringavatars.com/beam/120/nickname=jenna"));
-    }
-
-    @Test
     void toggleWish() {
         User user = User.fake();
 
-        WishContentId wishContentId = new WishContentId("1");
+        WishContentId wishContentId = new WishContentId(1L);
 
         user.toggleWish(wishContentId);
 
@@ -99,7 +75,7 @@ class UserTest {
     void toggleWatched() {
         User user = User.fake();
 
-        WatchedContentId watchedContentId = new WatchedContentId("1");
+        WatchedContentId watchedContentId = new WatchedContentId(1L);
 
         user.toggleWatched(watchedContentId);
 
@@ -114,7 +90,7 @@ class UserTest {
     void toggleFavorite() {
         User user = User.fake();
 
-        FavoriteContentId favoriteContentId = new FavoriteContentId("1");
+        FavoriteContentId favoriteContentId = new FavoriteContentId(1L);
 
         user.toggleFavorite(favoriteContentId);
 

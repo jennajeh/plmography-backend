@@ -1,16 +1,16 @@
 package kr.jenna.plmography.dtos.wish;
 
 public class WishContentIdDto {
-    private String tmdbId;
+    private Long tmdbId;
 
     public WishContentIdDto() {
     }
 
-    public WishContentIdDto(String tmdbId) {
+    public WishContentIdDto(Long tmdbId) {
         this.tmdbId = tmdbId;
     }
 
-    public String getTmdbId() {
+    public Long getTmdbId() {
         return tmdbId;
     }
 }

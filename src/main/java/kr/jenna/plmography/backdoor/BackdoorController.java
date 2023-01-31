@@ -289,6 +289,8 @@ public class BackdoorController {
 
     @GetMapping("/setup-movie")
     public String setupMovie() throws IOException {
+        jdbcTemplate.execute("DELETE FROM content");
+
         for (int i = 1; i <= 10; i += 1) {
             String url = "/movie/popular?"
                     + "api_key=" + apiKey + "&language=ko&page=" + i;
@@ -303,7 +305,7 @@ public class BackdoorController {
 
                 contentRepository.save(
                         Content.builder()
-                                .tmdbId(data.get("id").toString().replaceAll(match, ""))
+                                .tmdbId(Long.parseLong(data.get("id").toString().replaceAll(match, "")))
                                 .tmdbGenreId(data.get("genre_ids").toString().replaceAll(match, ""))
                                 .imageUrl(data.get("poster_path") == null
                                         ? "" :
@@ -340,7 +342,7 @@ public class BackdoorController {
 
                 contentRepository.save(
                         Content.builder()
-                                .tmdbId(data.get("id").toString().replaceAll(match, ""))
+                                .tmdbId(Long.parseLong(data.get("id").toString().replaceAll(match, "")))
                                 .tmdbGenreId(data.get("genre_ids").toString().replaceAll(match, ""))
                                 .imageUrl(data.get("poster_path") == null
                                         ? ""
