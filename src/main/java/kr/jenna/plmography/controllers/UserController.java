@@ -110,6 +110,7 @@ public class UserController {
 
     @PostMapping("/upload-image")
     public String uploadImage(MultipartFile multipartFile) throws IOException {
+        System.out.println("아악!!!!!!!!!!!!!!!!!!!!!" + multipartFile.getOriginalFilename());
         return s3Uploader.uploadFiles(multipartFile, "profileImage");
     }
 

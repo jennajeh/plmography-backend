@@ -117,10 +117,6 @@ public class User {
     }
 
     public void changeProfile(Nickname nickname, ProfileImage profileImage) {
-        if (profileImage.getValue().equals("") || nickname.getValue().equals("")) {
-            return;
-        }
-
         this.nickname = nickname;
         this.profileImage = profileImage;
     }

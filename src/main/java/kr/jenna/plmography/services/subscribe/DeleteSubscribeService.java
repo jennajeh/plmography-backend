@@ -15,9 +15,9 @@ public class DeleteSubscribeService {
         this.subscribeRepository = subscribeRepository;
     }
 
-    public void unFollow(Long userId, Long followingId) {
+    public void unFollow(Long myId, Long followingId) {
         subscribeRepository.deleteAllByUserIdAndFollowingId(
-                new UserId(userId), new FollowingId(followingId)
+                new UserId(myId), new FollowingId(followingId)
         );
     }
 }

@@ -1,8 +1,9 @@
 package kr.jenna.plmography.controllers;
 
+import kr.jenna.plmography.dtos.subscribe.FollowersDto;
+import kr.jenna.plmography.dtos.subscribe.FollowingsDto;
 import kr.jenna.plmography.dtos.subscribe.MySubscribeDto;
 import kr.jenna.plmography.dtos.subscribe.OtherSubscribeDto;
-import kr.jenna.plmography.dtos.subscribe.SubscribesDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.services.subscribe.CreateSubscribeService;
 import kr.jenna.plmography.services.subscribe.DeleteSubscribeService;
@@ -66,16 +67,16 @@ public class SubscribeController {
     }
 
     @GetMapping("/users/following")
-    public SubscribesDto followingList(
-            @RequestParam Long userId,
+    public FollowingsDto followingList(
+            @RequestParam(required = false) Long userId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size) {
         return getSubscribesService.followingList(userId, page, size);
     }
 
     @GetMapping("/users/follower")
-    public SubscribesDto followerList(
-            @RequestParam Long userId,
+    public FollowersDto followerList(
+            @RequestParam(required = false) Long userId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size) {
         return getSubscribesService.followerList(userId, page, size);

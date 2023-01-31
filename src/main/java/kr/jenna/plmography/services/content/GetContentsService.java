@@ -33,7 +33,8 @@ public class GetContentsService {
     }
 
     public ContentsDto filter(String platform, String type, String genreId,
-                              Integer releaseDate, String searchTitle, String sort, Integer page, Integer size) {
+                              Integer releaseDate, String searchTitle, String sort,
+                              Integer page, Integer size) {
         Sort sortBy = Sort.by("createdAt").descending();
 
         if (sort.equals("releaseDate")) {

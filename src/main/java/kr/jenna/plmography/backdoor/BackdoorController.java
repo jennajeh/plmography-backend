@@ -99,37 +99,37 @@ public class BackdoorController {
         );
 
         jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, following_id)" +
+                "  id, user_id, friend_id)" +
                 " VALUES(1, 1, 2)"
         );
 
         jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, following_id)" +
+                "  id, user_id, friend_id)" +
                 " VALUES(2, 1, 3)"
         );
 
         jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, following_id)" +
+                "  id, user_id, friend_id)" +
                 " VALUES(3, 1, 4)"
         );
 
         jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, following_id)" +
+                "  id, user_id, friend_id)" +
                 " VALUES(4, 1, 5)"
         );
 
         jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, following_id)" +
+                "  id, user_id, friend_id)" +
                 " VALUES(5, 2, 1)"
         );
 
         jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, following_id)" +
+                "  id, user_id, friend_id)" +
                 " VALUES(6, 2, 3)"
         );
 
         jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, following_id)" +
+                "  id, user_id, friend_id)" +
                 " VALUES(7, 2, 4)"
         );
 

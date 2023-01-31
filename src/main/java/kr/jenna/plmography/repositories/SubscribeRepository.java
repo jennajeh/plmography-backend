@@ -30,5 +30,6 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
 
     int countByFollowingId(FollowingId followingId);
 
+    @Query("select count(s.followingId) > 0 from Subscribe s where s.userId = :userId and s.followingId = :followingId")
     boolean existsByUserIdAndFollowingId(UserId userId, FollowingId followingId);
 }

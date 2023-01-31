@@ -1,11 +1,13 @@
 package kr.jenna.plmography.services.subscribe;
 
 import kr.jenna.plmography.dtos.page.PagesDto;
+import kr.jenna.plmography.dtos.subscribe.FollowerDto;
+import kr.jenna.plmography.dtos.subscribe.FollowersDto;
+import kr.jenna.plmography.dtos.subscribe.FollowingDto;
+import kr.jenna.plmography.dtos.subscribe.FollowingsDto;
 import kr.jenna.plmography.dtos.subscribe.MySubscribeDto;
 import kr.jenna.plmography.dtos.subscribe.OtherSubscribeDto;
-import kr.jenna.plmography.dtos.subscribe.SubscribeDto;
 import kr.jenna.plmography.dtos.subscribe.SubscribeUserInfoDto;
-import kr.jenna.plmography.dtos.subscribe.SubscribesDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Subscribe;
 import kr.jenna.plmography.models.User;
@@ -48,13 +50,13 @@ public class GetSubscribesService {
         return mySubscribeDto;
     }
 
-    public OtherSubscribeDto otherSubscribeCount(Long myId, Long otherUserId) {
+    public OtherSubscribeDto otherSubscribeCount(Long userId, Long otherUserId) {
         User otherUser = userRepository.findById(otherUserId)
                 .orElseThrow(() -> new UserNotFound());
 
         return new OtherSubscribeDto(
                 subscribeRepository.existsByUserIdAndFollowingId(
-                        new UserId(myId), new FollowingId(otherUserId)
+                        new UserId(userId), new FollowingId(otherUserId)
                 ),
                 new SubscribeUserInfoDto(
                         otherUser.getId(),
@@ -68,19 +70,19 @@ public class GetSubscribesService {
         );
     }
 
-    public SubscribesDto followingList(Long userId, Integer page, Integer size) {
+    public FollowingsDto followingList(Long userId, Integer page, Integer size) {
         Sort sort = Sort.by("id").descending();
 
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 
         Page<Subscribe> subscribes = subscribeRepository.findAllByUserId(new UserId(userId), pageable);
 
-        List<SubscribeDto> subscribeDtos = subscribes.stream()
+        List<FollowingDto> followingDtos = subscribes.stream()
                 .map(subscribe -> {
-                    User user = userRepository.findById(subscribe.getUserId().getValue())
-                            .orElseThrow(() -> new UserNotFound(subscribe.getUserId().getValue()));
+                    User user = userRepository.findById(subscribe.getFollowingId().getValue())
+                            .orElseThrow(() -> new UserNotFound(subscribe.getFollowingId().getValue()));
 
-                    return new SubscribeDto(
+                    return new FollowingDto(
                             user.getId(),
                             user.getNickname().getValue(),
                             user.getProfileImage().getValue(),
@@ -92,33 +94,33 @@ public class GetSubscribesService {
 
         PagesDto pagesDto = new PagesDto(subscribes.getTotalPages());
 
-        return new SubscribesDto(subscribeDtos, pagesDto);
+        return new FollowingsDto(followingDtos, pagesDto);
     }
 
-    public SubscribesDto followerList(Long userId, Integer page, Integer size) {
+    public FollowersDto followerList(Long userId, Integer page, Integer size) {
         Sort sort = Sort.by("id").descending();
 
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 
         Page<Subscribe> subscribes = subscribeRepository.findAllByFollowingId(new FollowingId(userId), pageable);
 
-        List<SubscribeDto> subscribeDtos = subscribes.stream()
+        List<FollowerDto> followerDtos = subscribes.stream()
                 .map(subscribe -> {
                     User user = userRepository.findById(subscribe.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(subscribe.getUserId().getValue()));
 
-                    return new SubscribeDto(
+                    return new FollowerDto(
                             user.getId(),
                             user.getNickname().getValue(),
                             user.getProfileImage().getValue(),
                             subscribeRepository.existsByUserIdAndFollowingId(
-                                    new UserId(subscribe.getUserId().getValue()),
-                                    new FollowingId(subscribe.getFollowingId().getValue()))
+                                    new UserId(subscribe.getFollowingId().getValue()),
+                                    new FollowingId(subscribe.getUserId().getValue()))
                     );
                 }).collect(Collectors.toList());
 
         PagesDto pagesDto = new PagesDto(subscribes.getTotalPages());
 
-        return new SubscribesDto(subscribeDtos, pagesDto);
+        return new FollowersDto(followerDtos, pagesDto);
     }
 }

@@ -1,5 +1,6 @@
 package kr.jenna.plmography.services.subscribe;
 
+import kr.jenna.plmography.models.Subscribe;
 import kr.jenna.plmography.models.vo.FollowingId;
 import kr.jenna.plmography.models.vo.UserId;
 import kr.jenna.plmography.repositories.SubscribeRepository;
@@ -20,7 +21,9 @@ public class CreateSubscribeService {
                 new UserId(userId), new FollowingId(followingId));
 
         if (!alreadyFollowed) {
-            subscribeRepository.saveSubscribe(new UserId(userId), new FollowingId(followingId));
+            Subscribe subscribe = new Subscribe(new UserId(userId), new FollowingId(followingId));
+
+            subscribeRepository.save(subscribe);
         }
     }
 }
