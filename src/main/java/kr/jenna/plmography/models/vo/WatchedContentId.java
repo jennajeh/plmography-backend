@@ -2,23 +2,23 @@ package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import kr.jenna.plmography.dtos.wish.WishUserIdDto;
+import kr.jenna.plmography.dtos.watched.WatchedContentIdDto;
 
 import java.util.Objects;
 
 @Embeddable
-public class WishUserId {
-    @Column(name = "wish_user_id")
-    private Long value;
+public class WatchedContentId {
+    @Column(name = "watched_content_id")
+    private String value;
 
-    public WishUserId() {
+    public WatchedContentId() {
     }
 
-    public WishUserId(Long value) {
+    public WatchedContentId(String value) {
         this.value = value;
     }
 
-    public Long getValue() {
+    public String getValue() {
         return value;
     }
 
@@ -31,9 +31,9 @@ public class WishUserId {
             return false;
         }
 
-        WishUserId otherWishUserId = (WishUserId) other;
+        WatchedContentId otherWatchedContentId = (WatchedContentId) other;
 
-        return Objects.equals(value, otherWishUserId.value);
+        return Objects.equals(value, otherWatchedContentId.value);
     }
 
     @Override
@@ -43,12 +43,12 @@ public class WishUserId {
 
     @Override
     public String toString() {
-        return "WishUserId{" +
+        return "WatchedContentId{" +
                 "value='" + value + '\'' +
                 '}';
     }
 
-    public WishUserIdDto toDto() {
-        return new WishUserIdDto(value);
+    public WatchedContentIdDto toDto() {
+        return new WatchedContentIdDto(value);
     }
 }

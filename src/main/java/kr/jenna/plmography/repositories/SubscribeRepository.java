@@ -12,10 +12,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
     @Modifying
-    @Query("insert into Subscribe(userId, followingId) VALUES(:userId, :followingId)")
-    void saveSubscribe(@Param("userId") UserId userId, @Param("followingId") FollowingId followingId);
-
-    @Modifying
     @Query("delete from Subscribe where userId = :userId and followingId = :followingId")
     void deleteAllByUserIdAndFollowingId(
             @Param("userId") UserId userId, @Param("followingId") FollowingId followingId);

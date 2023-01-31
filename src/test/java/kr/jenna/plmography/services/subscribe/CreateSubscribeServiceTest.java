@@ -1,8 +1,6 @@
 package kr.jenna.plmography.services.subscribe;
 
 import kr.jenna.plmography.models.Subscribe;
-import kr.jenna.plmography.models.vo.FollowingId;
-import kr.jenna.plmography.models.vo.UserId;
 import kr.jenna.plmography.repositories.SubscribeRepository;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +26,7 @@ class CreateSubscribeServiceTest {
                 subscribe.getUserId().getValue(),
                 subscribe.getFollowingId().getValue());
 
-        verify(subscribeRepository).saveSubscribe(any(UserId.class), any(FollowingId.class));
+        verify(subscribeRepository).save(any(Subscribe.class));
     }
 
 }

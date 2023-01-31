@@ -5,10 +5,13 @@ import kr.jenna.plmography.dtos.user.UserDto;
 import kr.jenna.plmography.exceptions.InvalidPassword;
 import kr.jenna.plmography.models.vo.BirthYear;
 import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.FavoriteContentId;
 import kr.jenna.plmography.models.vo.Gender;
 import kr.jenna.plmography.models.vo.Nickname;
 import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.models.vo.ProfileImage;
+import kr.jenna.plmography.models.vo.WatchedContentId;
+import kr.jenna.plmography.models.vo.WishContentId;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -75,5 +78,50 @@ class UserTest {
 
         assertThat(userCreateDto).isEqualTo(
                 new UserCreationDto(1L, "jenna@gmail.com", "jenna", "https://source.boringavatars.com/beam/120/nickname=jenna"));
+    }
+
+    @Test
+    void toggleWish() {
+        User user = User.fake();
+
+        WishContentId wishContentId = new WishContentId("1");
+
+        user.toggleWish(wishContentId);
+
+        assertThat(user.getWishContentIds()).hasSize(1);
+
+        user.toggleWish(wishContentId);
+
+        assertThat(user.getWishContentIds()).hasSize(0);
+    }
+
+    @Test
+    void toggleWatched() {
+        User user = User.fake();
+
+        WatchedContentId watchedContentId = new WatchedContentId("1");
+
+        user.toggleWatched(watchedContentId);
+
+        assertThat(user.getWatchedContentIds()).hasSize(1);
+
+        user.toggleWatched(watchedContentId);
+
+        assertThat(user.getWatchedContentIds()).hasSize(0);
+    }
+
+    @Test
+    void toggleFavorite() {
+        User user = User.fake();
+
+        FavoriteContentId favoriteContentId = new FavoriteContentId("1");
+
+        user.toggleFavorite(favoriteContentId);
+
+        assertThat(user.getFavoriteContentIds()).hasSize(1);
+
+        user.toggleFavorite(favoriteContentId);
+
+        assertThat(user.getFavoriteContentIds()).hasSize(0);
     }
 }

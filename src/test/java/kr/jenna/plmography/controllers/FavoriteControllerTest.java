@@ -1,7 +1,7 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.watched.WatchedContentIdsDto;
-import kr.jenna.plmography.services.user.ToggleUserWatchedService;
+import kr.jenna.plmography.dtos.favorite.FovoriteContentIdsDto;
+import kr.jenna.plmography.services.user.ToggleUserFavoriteService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,14 +19,14 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(WatchedController.class)
+@WebMvcTest(FavoriteController.class)
 @ActiveProfiles("test")
-class WatchedControllerTest {
+class FavoriteControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private ToggleUserWatchedService toggleUserWatchedService;
+    private ToggleUserFavoriteService toggleUserFavoriteService;
 
     @SpyBean
     private JwtUtil jwtUtil;
@@ -39,15 +39,15 @@ class WatchedControllerTest {
     }
 
     @Test
-    void toggleWatchedContent() throws Exception {
-        given(toggleUserWatchedService.toggleWatched(any(), any()))
-                .willReturn(WatchedContentIdsDto.fake());
+    void toggleWishContent() throws Exception {
+        given(toggleUserFavoriteService.toggleFavorite(any(), any()))
+                .willReturn(FovoriteContentIdsDto.fake());
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/users/watchedContent/2")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/users/favoriteContent/2")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
-                        containsString("\"watchedContentIds\":[")
+                        containsString("\"favoriteContentIds\":[")
                 ));
     }
 }

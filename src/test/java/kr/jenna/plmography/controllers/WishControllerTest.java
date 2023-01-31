@@ -1,7 +1,7 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.wish.WishUserIdsDto;
-import kr.jenna.plmography.services.content.ToggleContentWishService;
+import kr.jenna.plmography.dtos.wish.WishContentIdsDto;
+import kr.jenna.plmography.services.user.ToggleUserWishService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class WishControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ToggleContentWishService toggleContentWishService;
+    private ToggleUserWishService toggleUserWishService;
 
     @SpyBean
     private JwtUtil jwtUtil;
@@ -40,14 +40,14 @@ class WishControllerTest {
 
     @Test
     void toggleWishContent() throws Exception {
-        given(toggleContentWishService.toggleWish(any(), any()))
-                .willReturn(WishUserIdsDto.fake());
+        given(toggleUserWishService.toggleWish(any(), any()))
+                .willReturn(WishContentIdsDto.fake());
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/contents/1/wishUserIds")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/users/wishContent/2")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
-                        containsString("\"wishUserIds\":[")
+                        containsString("\"wishContentIds\":[")
                 ));
     }
 }

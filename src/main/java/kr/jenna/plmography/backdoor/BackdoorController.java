@@ -49,7 +49,9 @@ public class BackdoorController {
     public String setupDatabase() {
         LocalDateTime now = LocalDateTime.now();
 
-        jdbcTemplate.execute("DELETE FROM user_favorite_contents");
+        jdbcTemplate.execute("DELETE FROM user_favorite_content_ids");
+        jdbcTemplate.execute("DELETE FROM user_watched_content_ids");
+        jdbcTemplate.execute("DELETE FROM user_wish_content_ids");
         jdbcTemplate.execute("DELETE FROM users");
         jdbcTemplate.execute("DELETE FROM subscribe");
         jdbcTemplate.execute("DELETE FROM review_like_user_ids");

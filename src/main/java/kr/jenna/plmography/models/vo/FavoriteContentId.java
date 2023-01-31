@@ -2,22 +2,23 @@ package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import kr.jenna.plmography.dtos.favorite.FavoriteContentIdDto;
 
 import java.util.Objects;
 
 @Embeddable
-public class FavoriteUserId {
-    @Column(name = "favorite_user_id")
-    private Long value;
+public class FavoriteContentId {
+    @Column(name = "favorite_content_id")
+    private String value;
 
-    public FavoriteUserId() {
+    public FavoriteContentId() {
     }
 
-    public FavoriteUserId(Long value) {
+    public FavoriteContentId(String value) {
         this.value = value;
     }
 
-    public Long getValue() {
+    public String getValue() {
         return value;
     }
 
@@ -30,9 +31,9 @@ public class FavoriteUserId {
             return false;
         }
 
-        FavoriteUserId otherFavoriteUserId = (FavoriteUserId) other;
+        FavoriteContentId otherFavoriteContentId = (FavoriteContentId) other;
 
-        return Objects.equals(value, otherFavoriteUserId.value);
+        return Objects.equals(value, otherFavoriteContentId.value);
     }
 
     @Override
@@ -42,12 +43,12 @@ public class FavoriteUserId {
 
     @Override
     public String toString() {
-        return "FavoriteUserId{" +
+        return "FavoriteContentId{" +
                 "value='" + value + '\'' +
                 '}';
     }
 
-    public FavoriteUserId toDto() {
-        return new FavoriteUserId(value);
+    public FavoriteContentIdDto toDto() {
+        return new FavoriteContentIdDto(value);
     }
 }
