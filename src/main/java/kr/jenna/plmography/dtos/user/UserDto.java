@@ -42,24 +42,6 @@ public class UserDto {
         setFavoriteContentIds(favoriteContentIds);
     }
 
-    private void setWishContentIds(Set<WishContentId> wishContentIds) {
-        this.wishContentIds = wishContentIds.stream()
-                .map(WishContentId::getValue)
-                .collect(Collectors.toSet());
-    }
-
-    private void setWatchedContentIds(Set<WatchedContentId> watchedContentIds) {
-        this.watchedContentIds = watchedContentIds.stream()
-                .map(WatchedContentId::getValue)
-                .collect(Collectors.toSet());
-    }
-
-    private void setFavoriteContentIds(Set<FavoriteContentId> favoriteContentIds) {
-        this.favoriteContentIds = favoriteContentIds.stream()
-                .map(FavoriteContentId::getValue)
-                .collect(Collectors.toSet());
-    }
-
     public UserDto(Long id,
                    String nickname,
                    String profileImage,
@@ -114,6 +96,24 @@ public class UserDto {
 
     public Set<Long> getFavoriteContentIds() {
         return favoriteContentIds;
+    }
+
+    private void setWishContentIds(Set<WishContentId> wishContentIds) {
+        this.wishContentIds = wishContentIds.stream()
+                .map(WishContentId::getValue)
+                .collect(Collectors.toSet());
+    }
+
+    private void setWatchedContentIds(Set<WatchedContentId> watchedContentIds) {
+        this.watchedContentIds = watchedContentIds.stream()
+                .map(WatchedContentId::getValue)
+                .collect(Collectors.toSet());
+    }
+
+    private void setFavoriteContentIds(Set<FavoriteContentId> favoriteContentIds) {
+        this.favoriteContentIds = favoriteContentIds.stream()
+                .map(FavoriteContentId::getValue)
+                .collect(Collectors.toSet());
     }
 
     @Override

@@ -26,13 +26,4 @@ public class GetContentService {
 
         return content.toContentDto();
     }
-
-//    public UserProfileContentsDto userProfile(Long userId) {
-//        User user = userRepository.findById(userId)
-//                .orElseThrow(() -> new UserNotFound(userId));
-//
-//        List<Content> contents = contentRepository.findAllByTmdbId(
-//                user.getFavoriteContentIds().stream().collect(Collectors.toSet()));
-//        return null;
-//    }
 }

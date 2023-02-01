@@ -21,7 +21,7 @@ class GetContentsServiceTest {
     @BeforeEach
     void setUp() {
         contentRepository = mock(ContentRepository.class);
-        getContentsService = new GetContentsService(contentRepository);
+        getContentsService = new GetContentsService(contentRepository, userRepository);
     }
 
     @Test

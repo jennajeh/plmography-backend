@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ContentRepository extends JpaRepository<Content, Long>, JpaSpecificationExecutor<Content> {
@@ -14,7 +15,7 @@ public interface ContentRepository extends JpaRepository<Content, Long>, JpaSpec
 
     Page<Content> findAll(Specification<Content> spec, Pageable pageable);
 
-    Optional<Content> findByTmdbId(Long tmdbId);
+    List<Content> findAllByPopularityGreaterThanOrderByPopularityDesc(int popularity);
 
-//    List<Content> findAllByTmdbId(Set<FavoriteContentId> FavoriteContentIds);
+    Optional<Content> findByTmdbId(Long tmdbId);
 }

@@ -2,9 +2,15 @@ package kr.jenna.plmography.services.content;
 
 import kr.jenna.plmography.dtos.content.ContentDto;
 import kr.jenna.plmography.dtos.content.ContentsDto;
+import kr.jenna.plmography.dtos.content.UserProfileContentDto;
+import kr.jenna.plmography.dtos.content.UserProfileContentsDto;
 import kr.jenna.plmography.dtos.page.PagesDto;
+import kr.jenna.plmography.exceptions.ContentNotFound;
+import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Content;
+import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.ContentRepository;
+import kr.jenna.plmography.repositories.UserRepository;
 import kr.jenna.plmography.specification.ContentSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,15 +28,23 @@ import java.util.stream.Collectors;
 @Transactional
 public class GetContentsService {
     private ContentRepository contentRepository;
+    private UserRepository userRepository;
 
-    public GetContentsService(ContentRepository contentRepository) {
+    public GetContentsService(ContentRepository contentRepository,
+                              UserRepository userRepository) {
         this.contentRepository = contentRepository;
+        this.userRepository = userRepository;
     }
 
-    public Page<Content> list(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public ContentsDto topRated() {
+        List<Content> contents = contentRepository
+                .findAllByPopularityGreaterThanOrderByPopularityDesc(2500);
 
-        return contentRepository.findAll(pageable);
+        List<ContentDto> contentsDtos = contents.stream()
+                .map(content -> content.toContentDto())
+                .collect(Collectors.toList());
+
+        return new ContentsDto(contentsDtos);
     }
 
     public ContentsDto filter(String platform, String type, String genreId,
@@ -83,5 +98,68 @@ public class GetContentsService {
         PagesDto pagesDto = new PagesDto(contents.getTotalPages());
 
         return new ContentsDto(contentDtos, pagesDto);
+    }
+
+    public UserProfileContentsDto favoriteContents(Long userId, String favoriteContentId) {
+        String[] contentIds = favoriteContentId.split(",");
+
+        List<UserProfileContentDto> contentDtos = Arrays.stream(contentIds)
+                .map(contentId -> {
+                    User user = userRepository.findById(userId)
+                            .orElseThrow(() -> new UserNotFound());
+
+                    Content content = contentRepository.findByTmdbId(Long.parseLong(contentId))
+                            .orElseThrow(() -> new ContentNotFound());
+
+                    return new UserProfileContentDto(
+                            user.getId(),
+                            content.getTmdbId(),
+                            content.getImageUrl(),
+                            content.getKorTitle());
+                }).toList();
+
+        return new UserProfileContentsDto(contentDtos);
+    }
+
+    public UserProfileContentsDto watchedContents(Long userId, String watchedContentId) {
+        String[] contentIds = watchedContentId.split(",");
+
+        List<UserProfileContentDto> contentDtos = Arrays.stream(contentIds)
+                .map(contentId -> {
+                    User user = userRepository.findById(userId)
+                            .orElseThrow(() -> new UserNotFound());
+
+                    Content content = contentRepository.findByTmdbId(Long.parseLong(contentId))
+                            .orElseThrow(() -> new ContentNotFound());
+
+                    return new UserProfileContentDto(
+                            user.getId(),
+                            content.getTmdbId(),
+                            content.getImageUrl(),
+                            content.getKorTitle());
+                }).toList();
+
+        return new UserProfileContentsDto(contentDtos);
+    }
+
+    public UserProfileContentsDto wishContents(Long userId, String wishContentId) {
+        String[] contentIds = wishContentId.split(",");
+
+        List<UserProfileContentDto> contentDtos = Arrays.stream(contentIds)
+                .map(contentId -> {
+                    User user = userRepository.findById(userId)
+                            .orElseThrow(() -> new UserNotFound());
+
+                    Content content = contentRepository.findByTmdbId(Long.parseLong(contentId))
+                            .orElseThrow(() -> new ContentNotFound());
+
+                    return new UserProfileContentDto(
+                            user.getId(),
+                            content.getTmdbId(),
+                            content.getImageUrl(),
+                            content.getKorTitle());
+                }).toList();
+
+        return new UserProfileContentsDto(contentDtos);
     }
 }
