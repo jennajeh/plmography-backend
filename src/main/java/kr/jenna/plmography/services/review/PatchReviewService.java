@@ -21,7 +21,7 @@ public class PatchReviewService {
         this.commentRepository = commentRepository;
     }
 
-    public Review modify(Long userId, Long reviewId, ReviewBody reviewBody) {
+    public Review modify(Long userId, Long reviewId, Long starRate, ReviewBody reviewBody) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ReviewNotFound());
 
@@ -29,7 +29,7 @@ public class PatchReviewService {
             throw new InvalidUser();
         }
 
-        review.modify(reviewBody);
+        review.modify(starRate, reviewBody);
 
         return review;
     }

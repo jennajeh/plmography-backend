@@ -133,7 +133,8 @@ public class Review {
         return reviews;
     }
 
-    public void modify(ReviewBody reviewBody) {
+    public void modify(Long starRate, ReviewBody reviewBody) {
+        this.starRate = starRate;
         this.reviewBody = reviewBody;
     }
 
