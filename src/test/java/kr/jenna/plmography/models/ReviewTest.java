@@ -23,7 +23,7 @@ class ReviewTest {
     void modify() {
         Review review = Review.fake();
 
-        review.modify(new ReviewBody("하하"));
+        review.modify(5L, new ReviewBody("하하"));
 
         assertThat(review.getReviewBody().getValue())
                 .isEqualTo("하하");

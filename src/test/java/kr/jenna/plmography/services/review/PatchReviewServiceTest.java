@@ -26,12 +26,18 @@ class PatchReviewServiceTest {
 
         ReviewDto reviewDto = ReviewDto.fake();
 
-        Review review = patchReviewService.modify(1L, 1L, new ReviewBody(reviewDto.getReviewBody()));
+        Review review = patchReviewService.modify(1L, 1L, 3L, new ReviewBody(reviewDto.getReviewBody()));
 
         assertThat(Review.fake().getReviewBody().getValue())
                 .isNotEqualTo(reviewDto.getReviewBody());
 
+        assertThat(Review.fake().getStarRate())
+                .isNotEqualTo(reviewDto.getStarRate());
+
         assertThat(review.getReviewBody().getValue())
                 .isEqualTo(reviewDto.getReviewBody());
+
+        assertThat(review.getStarRate())
+                .isEqualTo(reviewDto.getStarRate());
     }
 }
