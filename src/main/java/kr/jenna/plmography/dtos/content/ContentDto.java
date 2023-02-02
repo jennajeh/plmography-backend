@@ -13,7 +13,26 @@ public class ContentDto {
     private double popularity;
     private String platform;
     private String type;
+    private Long themeId;
     private String description;
+
+    public ContentDto(Long id, Long tmdbId, String tmdbGenreId,
+                      String imageUrl, String korTitle, String engTitle,
+                      int releaseDate, double popularity, String platform,
+                      String type, Long themeId, String description) {
+        this.id = id;
+        this.tmdbId = tmdbId;
+        this.tmdbGenreId = tmdbGenreId;
+        this.imageUrl = imageUrl;
+        this.korTitle = korTitle;
+        this.engTitle = engTitle;
+        this.releaseDate = releaseDate;
+        this.popularity = popularity;
+        this.platform = platform;
+        this.type = type;
+        this.themeId = themeId;
+        this.description = description;
+    }
 
     public ContentDto(Long id, Long tmdbId, String tmdbGenreId,
                       String imageUrl, String korTitle, String engTitle,
@@ -71,6 +90,10 @@ public class ContentDto {
         return type;
     }
 
+    public Long getThemeId() {
+        return themeId;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -89,6 +112,7 @@ public class ContentDto {
                 && Objects.equals(popularity, otherDto.popularity)
                 && Objects.equals(platform, otherDto.platform)
                 && Objects.equals(type, otherDto.type)
+                && Objects.equals(themeId, otherDto.themeId)
                 && Objects.equals(description, otherDto.description);
     }
 
@@ -96,6 +120,6 @@ public class ContentDto {
     public int hashCode() {
         return Objects.hash(id, tmdbId, tmdbGenreId,
                 imageUrl, korTitle, engTitle, releaseDate,
-                popularity, platform, type, description);
+                popularity, platform, type, themeId, description);
     }
 }

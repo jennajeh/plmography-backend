@@ -1,5 +1,6 @@
 package kr.jenna.plmography.models;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,9 +38,32 @@ public class Content {
     @Column(length = 4000)
     private String description;
 
+    @Nullable
+    private Long themeId;
+
     private LocalDateTime createdAt;
 
     public Content() {
+    }
+
+    public Content(Long id, Long tmdbId, String tmdbGenreId,
+                   String imageUrl, String korTitle, String engTitle,
+                   int releaseDate, double popularity, String type,
+                   String platform, String description, Long themeId,
+                   LocalDateTime createdAt) {
+        this.id = id;
+        this.tmdbId = tmdbId;
+        this.tmdbGenreId = tmdbGenreId;
+        this.imageUrl = imageUrl;
+        this.korTitle = korTitle;
+        this.engTitle = engTitle;
+        this.releaseDate = releaseDate;
+        this.popularity = popularity;
+        this.type = type;
+        this.platform = platform;
+        this.description = description;
+        this.themeId = themeId;
+        this.createdAt = createdAt;
     }
 
     @Builder
@@ -110,12 +134,21 @@ public class Content {
         return description;
     }
 
+    public Long getThemeId() {
+        return themeId;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
+//    public ContentDto toContentDto() {
+//        return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
+//                engTitle, releaseDate, popularity, platform, type, description);
+//    }
+
     public ContentDto toContentDto() {
         return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
-                engTitle, releaseDate, popularity, platform, type, description);
+                engTitle, releaseDate, popularity, platform, type, themeId, description);
     }
 }
