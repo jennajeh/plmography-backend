@@ -1,6 +1,7 @@
 package kr.jenna.plmography.repositories;
 
 import kr.jenna.plmography.models.Review;
+import kr.jenna.plmography.models.vo.ContentId;
 import kr.jenna.plmography.models.vo.UserId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findAllByUserId(UserId userId);
 
-    @Query("select r from Review r where r.userId = :userId and r.isDeleted = 'false'")
-    List<Review> findAllByUserIdAndIsDeleted(@Param("userId") UserId userId);
+    @Query("select r from Review r where r.userId = :userId and r.contentId = :contentId and r.isDeleted = false")
+    List<Review> findAllByUserIdAndContentIdAndIsDeleted(
+            @Param("userId") UserId userId, @Param("contentId") ContentId contentId);
 }

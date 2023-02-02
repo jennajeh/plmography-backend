@@ -1,7 +1,7 @@
 package kr.jenna.plmography.controllers;
 
-import kr.jenna.plmography.dtos.watched.WatchedUserIdsDto;
-import kr.jenna.plmography.services.content.ToggleContentWatchedService;
+import kr.jenna.plmography.dtos.watched.WatchedContentIdsDto;
+import kr.jenna.plmography.services.user.ToggleUserWatchedService;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class WatchedControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ToggleContentWatchedService toggleContentWatchedService;
+    private ToggleUserWatchedService toggleUserWatchedService;
 
     @SpyBean
     private JwtUtil jwtUtil;
@@ -40,14 +40,14 @@ class WatchedControllerTest {
 
     @Test
     void toggleWatchedContent() throws Exception {
-        given(toggleContentWatchedService.toggleWatched(any(), any()))
-                .willReturn(WatchedUserIdsDto.fake());
+        given(toggleUserWatchedService.toggleWatched(any(), any()))
+                .willReturn(WatchedContentIdsDto.fake());
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/contents/1/watchedUserIds")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/users/watchedContent/2")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
-                        containsString("\"watchedUserIds\":[")
+                        containsString("\"watchedContentIds\":[")
                 ));
     }
 }

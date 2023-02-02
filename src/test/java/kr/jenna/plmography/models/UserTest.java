@@ -1,14 +1,15 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.dtos.user.UserCreationDto;
-import kr.jenna.plmography.dtos.user.UserDto;
 import kr.jenna.plmography.exceptions.InvalidPassword;
 import kr.jenna.plmography.models.vo.BirthYear;
 import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.FavoriteContentId;
 import kr.jenna.plmography.models.vo.Gender;
 import kr.jenna.plmography.models.vo.Nickname;
 import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.models.vo.ProfileImage;
+import kr.jenna.plmography.models.vo.WatchedContentId;
+import kr.jenna.plmography.models.vo.WishContentId;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,24 +57,47 @@ class UserTest {
     }
 
     @Test
-    void toUserDto() {
-        User user = new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"),
-                new Nickname("jenna"), new Gender("여성"), new BirthYear(1994));
+    void toggleWish() {
+        User user = User.fake();
 
-        UserDto userDto = user.toUserDto();
+        WishContentId wishContentId = new WishContentId(1L);
 
-        assertThat(userDto).isEqualTo(new UserDto(1L, "jenna@gmail.com",
-                "jenna", "여성", 1994, "https://source.boringavatars.com/beam/120/nickname=jenna"));
+        user.toggleWish(wishContentId);
+
+        assertThat(user.getWishContentIds()).hasSize(1);
+
+        user.toggleWish(wishContentId);
+
+        assertThat(user.getWishContentIds()).hasSize(0);
     }
 
     @Test
-    void toCreateDto() {
-        User user = new User(1L, new Email("jenna@gmail.com"), new Password("Test123!"),
-                new Nickname("jenna"), new Gender("여성"), new BirthYear(1994));
+    void toggleWatched() {
+        User user = User.fake();
 
-        UserCreationDto userCreateDto = user.toCreateDto();
+        WatchedContentId watchedContentId = new WatchedContentId(1L);
 
-        assertThat(userCreateDto).isEqualTo(
-                new UserCreationDto(1L, "jenna@gmail.com", "jenna", "https://source.boringavatars.com/beam/120/nickname=jenna"));
+        user.toggleWatched(watchedContentId);
+
+        assertThat(user.getWatchedContentIds()).hasSize(1);
+
+        user.toggleWatched(watchedContentId);
+
+        assertThat(user.getWatchedContentIds()).hasSize(0);
+    }
+
+    @Test
+    void toggleFavorite() {
+        User user = User.fake();
+
+        FavoriteContentId favoriteContentId = new FavoriteContentId(1L);
+
+        user.toggleFavorite(favoriteContentId);
+
+        assertThat(user.getFavoriteContentIds()).hasSize(1);
+
+        user.toggleFavorite(favoriteContentId);
+
+        assertThat(user.getFavoriteContentIds()).hasSize(0);
     }
 }

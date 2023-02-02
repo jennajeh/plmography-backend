@@ -13,6 +13,10 @@ public class ContentsDto {
         this.pages = pages;
     }
 
+    public ContentsDto(List<ContentDto> contents) {
+        this.contents = contents;
+    }
+
     public List<ContentDto> getContents() {
         return contents;
     }

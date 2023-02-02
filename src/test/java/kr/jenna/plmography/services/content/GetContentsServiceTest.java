@@ -2,10 +2,9 @@ package kr.jenna.plmography.services.content;
 
 import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.repositories.ContentRepository;
+import kr.jenna.plmography.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -17,24 +16,22 @@ import static org.mockito.Mockito.mock;
 class GetContentsServiceTest {
     private GetContentsService getContentsService;
     private ContentRepository contentRepository;
+    private UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
         contentRepository = mock(ContentRepository.class);
-        getContentsService = new GetContentsService(contentRepository);
+        userRepository = mock(UserRepository.class);
+        getContentsService = new GetContentsService(contentRepository, userRepository);
     }
 
     @Test
-    void list() {
-        Content content = mock(Content.class);
+    void topRated() {
+        Content content = Content.fake();
 
-        given(contentRepository.findAll(any(Pageable.class)))
-                .willReturn(new PageImpl<>(List.of(content)));
+        given(contentRepository.findAllByPopularityGreaterThanOrderByPopularityDesc(any(Integer.class)))
+                .willReturn(List.of(content));
 
-        Integer page = 1;
-        Integer size = 8;
-
-        assertThat(getContentsService.list(page, size)).isNotNull();
-        assertThat(getContentsService.list(page, size)).hasSize(1);
+        assertThat(getContentsService.topRated().getContents()).isNotNull();
     }
 }

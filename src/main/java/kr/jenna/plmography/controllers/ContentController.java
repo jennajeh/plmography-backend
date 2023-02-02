@@ -2,12 +2,10 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.dtos.content.ContentDto;
 import kr.jenna.plmography.dtos.content.ContentsDto;
-import kr.jenna.plmography.dtos.page.PagesDto;
+import kr.jenna.plmography.dtos.content.UserProfileContentsDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
-import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.services.content.GetContentService;
 import kr.jenna.plmography.services.content.GetContentsService;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/contents")
@@ -33,20 +28,9 @@ public class ContentController {
         this.getContentsService = getContentsService;
     }
 
-    @GetMapping("/list")
-    public ContentsDto list(
-            @RequestParam(required = false, defaultValue = "1") Integer page,
-            @RequestParam(required = false, defaultValue = "8") Integer size
-    ) {
-        Page<Content> contents = getContentsService.list(page, size);
-
-        List<ContentDto> contentDtos = contents.stream()
-                .map(content -> content.toContentDto())
-                .collect(Collectors.toList());
-
-        PagesDto pagesDto = new PagesDto(contents.getTotalPages());
-
-        return new ContentsDto(contentDtos, pagesDto);
+    @GetMapping("/topRated")
+    public ContentsDto topRated() {
+        return getContentsService.topRated();
     }
 
     @GetMapping
@@ -65,8 +49,32 @@ public class ContentController {
     }
 
     @GetMapping("/{tmdbId}")
-    public ContentDto detail(@PathVariable String tmdbId) {
+    public ContentDto detail(@PathVariable Long tmdbId) {
         return getContentService.detail(tmdbId);
+    }
+
+    @GetMapping("/favorite")
+    public UserProfileContentsDto favoriteContents(
+            @RequestParam Long userId,
+            @RequestParam(required = false) String favoriteContentId
+    ) {
+        return getContentsService.favoriteContents(userId, favoriteContentId);
+    }
+
+    @GetMapping("/watched")
+    public UserProfileContentsDto watchedContents(
+            @RequestParam Long userId,
+            @RequestParam(required = false) String watchedContentId
+    ) {
+        return getContentsService.watchedContents(userId, watchedContentId);
+    }
+
+    @GetMapping("/wish")
+    public UserProfileContentsDto wishContents(
+            @RequestParam Long userId,
+            @RequestParam(required = false) String wishContentId
+    ) {
+        return getContentsService.wishContents(userId, wishContentId);
     }
 
     @ExceptionHandler(ContentNotFound.class)

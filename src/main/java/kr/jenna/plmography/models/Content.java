@@ -1,19 +1,14 @@
 package kr.jenna.plmography.models;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.content.ContentDto;
-import kr.jenna.plmography.models.vo.WatchedUserId;
-import kr.jenna.plmography.models.vo.WishUserId;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Content {
@@ -21,7 +16,7 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tmdbId;
+    private Long tmdbId;
 
     private String tmdbGenreId;
 
@@ -42,22 +37,16 @@ public class Content {
     @Column(length = 4000)
     private String description;
 
-    @ElementCollection
-    private Set<WishUserId> wishUserIds = new HashSet<>();
-
-    @ElementCollection
-    private Set<WatchedUserId> watchedUserIds = new HashSet<>();
-
     private LocalDateTime createdAt;
 
     public Content() {
     }
 
     @Builder
-    public Content(Long id, String tmdbId, String tmdbGenreId,
+    public Content(Long id, Long tmdbId, String tmdbGenreId,
                    String imageUrl, String korTitle, String engTitle,
-                   int releaseDate, double popularity, String platform, String type, String description,
-                   LocalDateTime createdAt) {
+                   int releaseDate, double popularity, String platform,
+                   String type, String description, LocalDateTime createdAt) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.tmdbGenreId = tmdbGenreId;
@@ -73,7 +62,7 @@ public class Content {
     }
 
     public static Content fake() {
-        return new Content(1L, "1", "1", "imageUrl", "아바타", "Avatar", 2022,
+        return new Content(1L, 1L, "1", "imageUrl", "아바타", "Avatar", 2022,
                 3000, "netflix", "movie", "판타지 영화", LocalDateTime.now());
     }
 
@@ -81,7 +70,7 @@ public class Content {
         return id;
     }
 
-    public String getTmdbId() {
+    public Long getTmdbId() {
         return tmdbId;
     }
 
@@ -121,14 +110,6 @@ public class Content {
         return description;
     }
 
-    public Set<WishUserId> getWishUserIds() {
-        return wishUserIds;
-    }
-
-    public Set<WatchedUserId> getWatchedUserIds() {
-        return watchedUserIds;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -136,25 +117,5 @@ public class Content {
     public ContentDto toContentDto() {
         return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
                 engTitle, releaseDate, popularity, platform, type, description);
-    }
-
-    public void toggleWish(WishUserId wishUserId) {
-        if (wishUserIds.contains(wishUserId)) {
-            wishUserIds.remove(wishUserId);
-
-            return;
-        }
-
-        wishUserIds.add(wishUserId);
-    }
-
-    public void toggleWatched(WatchedUserId watchedUserId) {
-        if (watchedUserIds.contains(watchedUserId)) {
-            watchedUserIds.remove(watchedUserId);
-
-            return;
-        }
-
-        watchedUserIds.add(watchedUserId);
     }
 }

@@ -10,12 +10,14 @@ import jakarta.persistence.Table;
 import kr.jenna.plmography.dtos.user.UserCreationDto;
 import kr.jenna.plmography.dtos.user.UserDto;
 import kr.jenna.plmography.models.vo.BirthYear;
-import kr.jenna.plmography.models.vo.ContentId;
 import kr.jenna.plmography.models.vo.Email;
+import kr.jenna.plmography.models.vo.FavoriteContentId;
 import kr.jenna.plmography.models.vo.Gender;
 import kr.jenna.plmography.models.vo.Nickname;
 import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.models.vo.ProfileImage;
+import kr.jenna.plmography.models.vo.WatchedContentId;
+import kr.jenna.plmography.models.vo.WishContentId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,7 +25,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -53,7 +57,13 @@ public class User {
     private ProfileImage profileImage;
 
     @ElementCollection
-    private List<ContentId> favoriteContents = new ArrayList<>();
+    private Set<WishContentId> wishContentIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<WatchedContentId> watchedContentIds = new HashSet<>();
+
+    @ElementCollection
+    private Set<FavoriteContentId> favoriteContentIds = new HashSet<>();
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -122,10 +132,6 @@ public class User {
     }
 
     public void changeProfile(Nickname nickname, ProfileImage profileImage) {
-        if (profileImage.getValue().equals("") || nickname.getValue().equals("")) {
-            return;
-        }
-
         this.nickname = nickname;
         this.profileImage = profileImage;
     }
@@ -135,19 +141,63 @@ public class User {
                 nickname.getValue(), profileImage.getValue());
     }
 
-    public UserDto toUserDto() {
-        return new UserDto(id,
-                this.email.getValue(),
-                this.nickname.getValue(),
-                this.gender.getValue(),
-                this.birthYear.getValue(),
-                this.profileImage.getValue());
+    public UserDto toMyDto() {
+        return new UserDto(
+                id,
+                email.getValue(),
+                nickname.getValue(),
+                gender.getValue(),
+                birthYear.getValue(),
+                profileImage.getValue(),
+                wishContentIds,
+                watchedContentIds,
+                favoriteContentIds);
     }
 
-    public UserDto toDto() {
+    public UserDto toUserDto() {
+        return new UserDto(
+                id,
+                nickname.getValue(),
+                profileImage.getValue(),
+                wishContentIds,
+                watchedContentIds,
+                favoriteContentIds);
+    }
+
+    public UserDto toChangeUserProfileDto() {
         return new UserDto(
                 id,
                 nickname.getValue(),
                 profileImage.getValue());
+    }
+
+    public void toggleWish(WishContentId wishContentId) {
+        if (wishContentIds.contains(wishContentId)) {
+            wishContentIds.remove(wishContentId);
+
+            return;
+        }
+
+        wishContentIds.add(wishContentId);
+    }
+
+    public void toggleWatched(WatchedContentId watchedContentId) {
+        if (watchedContentIds.contains(watchedContentId)) {
+            watchedContentIds.remove(watchedContentId);
+
+            return;
+        }
+
+        watchedContentIds.add(watchedContentId);
+    }
+
+    public void toggleFavorite(FavoriteContentId favoriteContentId) {
+        if (favoriteContentIds.contains(favoriteContentId)) {
+            favoriteContentIds.remove(favoriteContentId);
+
+            return;
+        }
+
+        favoriteContentIds.add(favoriteContentId);
     }
 }

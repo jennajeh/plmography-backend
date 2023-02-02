@@ -11,7 +11,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 public class FollowingId {
-    @Column(name = "following_id")
+    @Column(name = "friend_id")
     private Long value;
 
     public FollowingId(Long value) {

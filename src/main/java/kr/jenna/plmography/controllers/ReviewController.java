@@ -95,9 +95,10 @@ public class ReviewController {
     ) {
         Long id = reviewModificationRequestDto.getId();
 
+        Long starRate = reviewModificationRequestDto.getStarRate();
         ReviewBody reviewBody = new ReviewBody(reviewModificationRequestDto.getReviewBody());
 
-        Review review = patchReviewService.modify(userId, id, reviewBody);
+        Review review = patchReviewService.modify(userId, id, starRate, reviewBody);
 
         return review.toReviewModificationDto();
     }
