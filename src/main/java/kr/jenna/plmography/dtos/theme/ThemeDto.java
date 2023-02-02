@@ -25,4 +25,8 @@ public class ThemeDto {
     public String getTitle() {
         return title;
     }
+
+    public static ThemeDto fake() {
+        return new ThemeDto(1L, 4L, "2월 종료 예정작");
+    }
 }
