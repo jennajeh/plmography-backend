@@ -39,4 +39,14 @@ public class GetThemesService {
 
         return new ThemesDto(themeDtos, pagesDto);
     }
+
+    public ThemesDto top3Hit() {
+        List<Theme> themes = themeRepository.findTop3ByHitOrderByHitDesc();
+
+        List<ThemeDto> themeDtos = themes.stream()
+                .map(theme -> theme.toThemeDto())
+                .collect(Collectors.toList());
+
+        return new ThemesDto(themeDtos);
+    }
 }

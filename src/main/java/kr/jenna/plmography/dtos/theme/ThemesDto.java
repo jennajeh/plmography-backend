@@ -11,6 +11,10 @@ public class ThemesDto {
     public ThemesDto() {
     }
 
+    public ThemesDto(List<ThemeDto> themes) {
+        this.themes = themes;
+    }
+
     public ThemesDto(List<ThemeDto> themes, PagesDto pages) {
         this.themes = themes;
         this.pages = pages;

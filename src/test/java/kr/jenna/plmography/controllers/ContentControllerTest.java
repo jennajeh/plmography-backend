@@ -65,5 +65,4 @@ class ContentControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/contents/1"))
                 .andExpect(status().isNotFound());
     }
-
 }

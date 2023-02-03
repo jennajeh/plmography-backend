@@ -3,6 +3,7 @@ package kr.jenna.plmography.services.theme;
 import kr.jenna.plmography.dtos.theme.ThemesDto;
 import kr.jenna.plmography.models.Theme;
 import kr.jenna.plmography.repositories.ThemeRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -15,12 +16,17 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class GetThemesServiceTest {
+    private ThemeRepository themeRepository;
+    private GetThemesService getThemesService;
+
+    @BeforeEach
+    void setUp() {
+        themeRepository = mock(ThemeRepository.class);
+        getThemesService = new GetThemesService(themeRepository);
+    }
 
     @Test
     void list() {
-        ThemeRepository themeRepository = mock(ThemeRepository.class);
-        GetThemesService getThemesService = new GetThemesService(themeRepository);
-
         Theme theme = Theme.fake();
 
         given(themeRepository.findAll(any(Pageable.class)))
@@ -35,4 +41,12 @@ class GetThemesServiceTest {
         assertThat(themesDto.getThemes().get(0).getTitle()).isEqualTo("혼자 보기 좋은 영화 모음");
     }
 
+    @Test
+    void top3Hit() {
+        Theme theme = Theme.fake();
+
+        given(themeRepository.findTop3ByHitOrderByHitDesc()).willReturn(List.of(theme));
+
+        assertThat(getThemesService.top3Hit().getThemes()).isNotNull();
+    }
 }

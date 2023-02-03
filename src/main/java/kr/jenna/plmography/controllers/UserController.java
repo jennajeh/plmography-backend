@@ -98,7 +98,6 @@ public class UserController {
     }
 
     @PatchMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public UserDto changeProfile(
             @RequestAttribute Long userId,
             @RequestBody UserProfileRequestDto userProfileRequestDto
