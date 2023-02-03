@@ -45,7 +45,7 @@ class GetThemesServiceTest {
     void top3Hit() {
         Theme theme = Theme.fake();
 
-        given(themeRepository.findTop3ByOrderByHitDesc()).willReturn(List.of(theme));
+        given(themeRepository.findTop3ByOrderByHit_ValueDesc()).willReturn(List.of(theme));
 
         assertThat(getThemesService.top3Hit().getThemes()).isNotNull();
     }
