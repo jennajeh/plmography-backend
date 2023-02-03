@@ -1,6 +1,5 @@
 package kr.jenna.plmography.models;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +19,8 @@ public class Content {
     private Long tmdbId;
 
     private String tmdbGenreId;
+    
+    private Long themeId;
 
     private String imageUrl;
 
@@ -37,9 +38,6 @@ public class Content {
 
     @Column(length = 4000)
     private String description;
-
-    @Nullable
-    private Long themeId;
 
     private LocalDateTime createdAt;
 
@@ -87,7 +85,7 @@ public class Content {
 
     public static Content fake() {
         return new Content(1L, 1L, "1", "imageUrl", "아바타", "Avatar", 2022,
-                3000, "netflix", "movie", "판타지 영화", LocalDateTime.now());
+                3000, "movie", "netflix", "판타지 영화", 1L, LocalDateTime.now());
     }
 
     public Long getId() {
@@ -141,11 +139,6 @@ public class Content {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
-//    public ContentDto toContentDto() {
-//        return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
-//                engTitle, releaseDate, popularity, platform, type, description);
-//    }
 
     public ContentDto toContentDto() {
         return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,

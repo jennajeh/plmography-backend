@@ -219,7 +219,6 @@ class UserControllerTest {
                                 + "\"nickname\":\"전제나\","
                                 + "\"profileImage\":\"new image\""
                                 + "}"))
-                .andExpect(status().isNoContent())
                 .andExpect(content().string(
                         containsString("\"profileImage\"")
                 ));

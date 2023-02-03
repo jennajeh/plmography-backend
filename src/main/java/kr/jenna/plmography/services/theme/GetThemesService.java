@@ -41,7 +41,7 @@ public class GetThemesService {
     }
 
     public ThemesDto top3Hit() {
-        List<Theme> themes = themeRepository.findTop3ByHitOrderByHitDesc();
+        List<Theme> themes = themeRepository.findTop3ByOrderByHitDesc();
 
         List<ThemeDto> themeDtos = themes.stream()
                 .map(theme -> theme.toThemeDto())

@@ -33,7 +33,7 @@ public class ContentController {
         return getContentsService.topRated();
     }
 
-    @GetMapping
+    @GetMapping("/filter")
     public ContentsDto filter(
             @RequestParam(required = false) String platform,
             @RequestParam(required = false) String type,
@@ -46,6 +46,11 @@ public class ContentController {
     ) {
         return getContentsService.filter(
                 platform, type, genre, date, searchTitle, sort, page, size);
+    }
+
+    @GetMapping("/themes/{themeId}")
+    public ContentsDto themeList(@PathVariable Long themeId) {
+        return getContentsService.themeList(themeId);
     }
 
     @GetMapping("/{tmdbId}")

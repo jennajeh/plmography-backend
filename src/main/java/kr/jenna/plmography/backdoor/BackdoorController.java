@@ -429,69 +429,69 @@ public class BackdoorController {
         jdbcTemplate.update("UPDATE content SET type='drama' WHERE id > 200");
 
         // 테마 설정
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 315162");
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 76600");
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 736526");
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 634649");
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 299536");
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 774752");
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 671");
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 338953");
-        jdbcTemplate.update("UPDATE content SET theme_id='1' WHERE tmdb_id = 616037");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 315162");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 76600");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 736526");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 634649");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 299536");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 774752");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 671");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 338953");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 616037");
 
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 135157");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 1399");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 112836");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 33238");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 4057");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 1421");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 112888");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 57243");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 2316");
-        jdbcTemplate.update("UPDATE content SET theme_id='2' WHERE tmdb_id = 63333");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 135157");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 1399");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 112836");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 33238");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 4057");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 1421");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 112888");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 57243");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 2316");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 63333");
 
-        jdbcTemplate.update("UPDATE content SET theme_id='3' WHERE tmdb_id = 5920");
-        jdbcTemplate.update("UPDATE content SET theme_id='3' WHERE tmdb_id = 99966");
+        jdbcTemplate.update("UPDATE content SET theme_id=3 WHERE tmdb_id = 5920");
+        jdbcTemplate.update("UPDATE content SET theme_id=3 WHERE tmdb_id = 99966");
 
-        jdbcTemplate.update("UPDATE content SET theme_id='4' WHERE tmdb_id = 555604");
-        jdbcTemplate.update("UPDATE content SET theme_id='4' WHERE tmdb_id = 505642");
-        jdbcTemplate.update("UPDATE content SET theme_id='4' WHERE tmdb_id = 94997");
-        jdbcTemplate.update("UPDATE content SET theme_id='4' WHERE tmdb_id = 85552");
-        jdbcTemplate.update("UPDATE content SET theme_id='4' WHERE tmdb_id = 73586");
-        jdbcTemplate.update("UPDATE content SET theme_id='4' WHERE tmdb_id = 113988");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 555604");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 505642");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 94997");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 85552");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 73586");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 113988");
 
-        jdbcTemplate.update("UPDATE content SET theme_id='5' WHERE tmdb_id = 411");
-        jdbcTemplate.update("UPDATE content SET theme_id='5' WHERE tmdb_id = 899112");
-        jdbcTemplate.update("UPDATE content SET theme_id='5' WHERE tmdb_id = 1001865");
-        jdbcTemplate.update("UPDATE content SET theme_id='5' WHERE tmdb_id = 1045944");
+        jdbcTemplate.update("UPDATE content SET theme_id=5 WHERE tmdb_id = 411");
+        jdbcTemplate.update("UPDATE content SET theme_id=5 WHERE tmdb_id = 899112");
+        jdbcTemplate.update("UPDATE content SET theme_id=5 WHERE tmdb_id = 1001865");
+        jdbcTemplate.update("UPDATE content SET theme_id=5 WHERE tmdb_id = 1045944");
 
-        jdbcTemplate.update("UPDATE content SET theme_id='6' WHERE tmdb_id = 95479");
-        jdbcTemplate.update("UPDATE content SET theme_id='6' WHERE tmdb_id = 114410");
-        jdbcTemplate.update("UPDATE content SET theme_id='6' WHERE tmdb_id = 46260");
-        jdbcTemplate.update("UPDATE content SET theme_id='6' WHERE tmdb_id = 30984");
-        jdbcTemplate.update("UPDATE content SET theme_id='6' WHERE tmdb_id = 456");
-        jdbcTemplate.update("UPDATE content SET theme_id='6' WHERE tmdb_id = 60572");
-        jdbcTemplate.update("UPDATE content SET theme_id='6' WHERE tmdb_id = 46298");
-        jdbcTemplate.update("UPDATE content SET theme_id='6' WHERE tmdb_id = 843241");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 95479");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 114410");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 46260");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 30984");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 456");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 60572");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 46298");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 843241");
 
-        jdbcTemplate.update("UPDATE content SET theme_id='7' WHERE tmdb_id = 800815");
-        jdbcTemplate.update("UPDATE content SET theme_id='7' WHERE tmdb_id = 873126");
-        jdbcTemplate.update("UPDATE content SET theme_id='7' WHERE tmdb_id = 1041513");
-        jdbcTemplate.update("UPDATE content SET theme_id='7' WHERE tmdb_id = 661374");
-        jdbcTemplate.update("UPDATE content SET theme_id='7' WHERE tmdb_id = 829280");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 800815");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 873126");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 1041513");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 661374");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 829280");
 
-        jdbcTemplate.update("UPDATE content SET theme_id='8' WHERE tmdb_id = 66732");
-        jdbcTemplate.update("UPDATE content SET theme_id='8' WHERE tmdb_id = 1399");
-        jdbcTemplate.update("UPDATE content SET theme_id='8' WHERE tmdb_id = 1396");
-        jdbcTemplate.update("UPDATE content SET theme_id='8' WHERE tmdb_id = 63174");
-        jdbcTemplate.update("UPDATE content SET theme_id='8' WHERE tmdb_id = 106541");
-        jdbcTemplate.update("UPDATE content SET theme_id='8' WHERE tmdb_id = 106541");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 66732");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 1399");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 1396");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 63174");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 106541");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 106541");
 
-        jdbcTemplate.update("UPDATE content SET theme_id='9' WHERE tmdb_id = 661374");
-        jdbcTemplate.update("UPDATE content SET theme_id='9' WHERE tmdb_id = 4614");
-        jdbcTemplate.update("UPDATE content SET theme_id='9' WHERE tmdb_id = 99966");
-        jdbcTemplate.update("UPDATE content SET theme_id='9' WHERE tmdb_id = 1431");
-        jdbcTemplate.update("UPDATE content SET theme_id='9' WHERE tmdb_id = 2288");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 661374");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 4614");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 99966");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 1431");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 2288");
 
         return "Platform completely saved!";
     }

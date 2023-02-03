@@ -74,4 +74,15 @@ public class ContentSpecification {
             }
         };
     }
+
+    public static Specification<Content> equalThemeId(Long themeId) {
+        return new Specification<Content>() {
+            @Override
+            public Predicate toPredicate(Root<Content> root,
+                                         CriteriaQuery<?> query,
+                                         CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.get("themeId"), themeId);
+            }
+        };
+    }
 }

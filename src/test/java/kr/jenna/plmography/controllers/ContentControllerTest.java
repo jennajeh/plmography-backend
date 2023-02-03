@@ -1,6 +1,8 @@
 package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.dtos.content.ContentsDto;
+import kr.jenna.plmography.dtos.content.UserProfileContentDto;
+import kr.jenna.plmography.dtos.content.UserProfileContentsDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.services.content.GetContentService;
@@ -46,6 +48,33 @@ class ContentControllerTest {
     }
 
     @Test
+    void filter() throws Exception {
+        given(getContentsService.filter(any(), any(), any(), any(), any(), any(), any(), any()))
+                .willReturn(new ContentsDto(List.of(Content.fake().toContentDto())));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/filter"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"contents\":[")
+                ))
+                .andExpect(content().string(
+                        containsString("\"pages\":")
+                ));
+    }
+
+    @Test
+    void themeList() throws Exception {
+        given(getContentsService.themeList(any()))
+                .willReturn(new ContentsDto(List.of(Content.fake().toContentDto())));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/themes/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"contents\":[")
+                ));
+    }
+
+    @Test
     void contentDetail() throws Exception {
         given(getContentService.detail(any()))
                 .willReturn(Content.fake().toContentDto());
@@ -64,5 +93,41 @@ class ContentControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/contents/1"))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void favoriteContents() throws Exception {
+        given(getContentsService.favoriteContents(any(), any()))
+                .willReturn(new UserProfileContentsDto(List.of(UserProfileContentDto.fake())));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/favorite?userId=1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"userProfileContents\":[")
+                ));
+    }
+
+    @Test
+    void watchedContents() throws Exception {
+        given(getContentsService.watchedContents(any(), any()))
+                .willReturn(new UserProfileContentsDto(List.of(UserProfileContentDto.fake())));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/watched?userId=1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"userProfileContents\":[")
+                ));
+    }
+
+    @Test
+    void wishContents() throws Exception {
+        given(getContentsService.wishContents(any(), any()))
+                .willReturn(new UserProfileContentsDto(List.of(UserProfileContentDto.fake())));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/wish?userId=1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"userProfileContents\":[")
+                ));
     }
 }

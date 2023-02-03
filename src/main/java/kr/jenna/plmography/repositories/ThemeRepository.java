@@ -10,5 +10,5 @@ import java.util.List;
 public interface ThemeRepository extends JpaRepository<Theme, Long> {
     Page<Theme> findAll(Pageable pageable);
 
-    List<Theme> findTop3ByHitOrderByHitDesc();
+    List<Theme> findTop3ByOrderByHitDesc();
 }

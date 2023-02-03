@@ -6,10 +6,13 @@ import kr.jenna.plmography.dtos.content.UserProfileContentDto;
 import kr.jenna.plmography.dtos.content.UserProfileContentsDto;
 import kr.jenna.plmography.dtos.page.PagesDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
+import kr.jenna.plmography.exceptions.ThemeNotFound;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Content;
+import kr.jenna.plmography.models.Theme;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.ContentRepository;
+import kr.jenna.plmography.repositories.ThemeRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import kr.jenna.plmography.specification.ContentSpecification;
 import org.springframework.data.domain.Page;
@@ -28,11 +31,14 @@ import java.util.stream.Collectors;
 @Transactional
 public class GetContentsService {
     private ContentRepository contentRepository;
+    private ThemeRepository themeRepository;
     private UserRepository userRepository;
 
     public GetContentsService(ContentRepository contentRepository,
+                              ThemeRepository themeRepository,
                               UserRepository userRepository) {
         this.contentRepository = contentRepository;
+        this.themeRepository = themeRepository;
         this.userRepository = userRepository;
     }
 
@@ -98,6 +104,25 @@ public class GetContentsService {
         PagesDto pagesDto = new PagesDto(contents.getTotalPages());
 
         return new ContentsDto(contentDtos, pagesDto);
+    }
+
+    public ContentsDto themeList(Long themeId) {
+        Specification<Content> spec = (root, query, criteriaBuilder) -> null;
+
+        if (themeId != null) {
+            Theme theme = themeRepository.findById(themeId)
+                    .orElseThrow(() -> new ThemeNotFound());
+
+            spec = spec.and(ContentSpecification.equalThemeId(theme.getId()));
+        }
+
+        List<Content> contents = contentRepository.findAll(spec);
+
+        List<ContentDto> contentDtos = contents.stream()
+                .map(Content::toContentDto)
+                .collect(Collectors.toList());
+
+        return new ContentsDto(contentDtos);
     }
 
     public UserProfileContentsDto favoriteContents(Long userId, String favoriteContentId) {
