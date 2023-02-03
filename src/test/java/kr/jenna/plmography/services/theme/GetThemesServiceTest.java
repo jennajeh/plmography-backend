@@ -1,14 +1,19 @@
 package kr.jenna.plmography.services.theme;
 
+import kr.jenna.plmography.dtos.content.ContentsDto;
 import kr.jenna.plmography.dtos.theme.ThemesDto;
+import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.models.Theme;
+import kr.jenna.plmography.repositories.ContentRepository;
 import kr.jenna.plmography.repositories.ThemeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,12 +22,14 @@ import static org.mockito.Mockito.mock;
 
 class GetThemesServiceTest {
     private ThemeRepository themeRepository;
+    private ContentRepository contentRepository;
     private GetThemesService getThemesService;
 
     @BeforeEach
     void setUp() {
         themeRepository = mock(ThemeRepository.class);
-        getThemesService = new GetThemesService(themeRepository);
+        contentRepository = mock(ContentRepository.class);
+        getThemesService = new GetThemesService(themeRepository, contentRepository);
     }
 
     @Test
@@ -39,6 +46,21 @@ class GetThemesServiceTest {
 
         assertThat(themesDto).isNotNull();
         assertThat(themesDto.getThemes().get(0).getTitle()).isEqualTo("혼자 보기 좋은 영화 모음");
+    }
+
+    @Test
+    void themeList() {
+        given(themeRepository.findById(any())).willReturn(Optional.of(Theme.fake()));
+
+        given(contentRepository.findAll(any(Specification.class)))
+                .willReturn(List.of(Content.fake()));
+
+        Long themeId = 1L;
+
+        ContentsDto contentsDto = getThemesService.themeList(themeId);
+
+        assertThat(contentsDto.getContents()).isNotNull();
+        assertThat(contentsDto.getContents().get(0).getThemeId()).isEqualTo(themeId);
     }
 
     @Test

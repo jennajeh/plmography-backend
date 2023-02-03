@@ -48,11 +48,6 @@ public class ContentController {
                 platform, type, genre, date, searchTitle, sort, page, size);
     }
 
-    @GetMapping("/themes/{themeId}")
-    public ContentsDto themeList(@PathVariable Long themeId) {
-        return getContentsService.themeList(themeId);
-    }
-
     @GetMapping("/{tmdbId}")
     public ContentDto detail(@PathVariable Long tmdbId) {
         return getContentService.detail(tmdbId);

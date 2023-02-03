@@ -1,5 +1,6 @@
 package kr.jenna.plmography.controllers;
 
+import kr.jenna.plmography.dtos.content.ContentsDto;
 import kr.jenna.plmography.dtos.theme.ThemesDto;
 import kr.jenna.plmography.dtos.theme.UpdateHitResponseDto;
 import kr.jenna.plmography.exceptions.ThemeNotFound;
@@ -33,6 +34,11 @@ public class ThemeController {
             @RequestParam(required = false, defaultValue = "10") Integer size
     ) {
         return getThemesService.list(page, size);
+    }
+
+    @GetMapping("/{themeId}/contents")
+    public ContentsDto themeList(@PathVariable Long themeId) {
+        return getThemesService.themeList(themeId);
     }
 
     @PatchMapping("/{themeId}")

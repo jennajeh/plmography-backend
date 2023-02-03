@@ -63,18 +63,6 @@ class ContentControllerTest {
     }
 
     @Test
-    void themeList() throws Exception {
-        given(getContentsService.themeList(any()))
-                .willReturn(new ContentsDto(List.of(Content.fake().toContentDto())));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/contents/themes/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(
-                        containsString("\"contents\":[")
-                ));
-    }
-
-    @Test
     void contentDetail() throws Exception {
         given(getContentService.detail(any()))
                 .willReturn(Content.fake().toContentDto());

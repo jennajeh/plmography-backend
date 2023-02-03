@@ -1,14 +1,21 @@
 package kr.jenna.plmography.services.theme;
 
+import kr.jenna.plmography.dtos.content.ContentDto;
+import kr.jenna.plmography.dtos.content.ContentsDto;
 import kr.jenna.plmography.dtos.page.PagesDto;
 import kr.jenna.plmography.dtos.theme.ThemeDto;
 import kr.jenna.plmography.dtos.theme.ThemesDto;
+import kr.jenna.plmography.exceptions.ThemeNotFound;
+import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.models.Theme;
+import kr.jenna.plmography.repositories.ContentRepository;
 import kr.jenna.plmography.repositories.ThemeRepository;
+import kr.jenna.plmography.specification.ContentSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +26,12 @@ import java.util.stream.Collectors;
 @Transactional
 public class GetThemesService {
     private final ThemeRepository themeRepository;
+    private ContentRepository contentRepository;
 
-    public GetThemesService(ThemeRepository themeRepository) {
+    public GetThemesService(ThemeRepository themeRepository,
+                            ContentRepository contentRepository) {
         this.themeRepository = themeRepository;
+        this.contentRepository = contentRepository;
     }
 
     public ThemesDto list(Integer page, Integer size) {
@@ -48,5 +58,24 @@ public class GetThemesService {
                 .collect(Collectors.toList());
 
         return new ThemesDto(themeDtos);
+    }
+
+    public ContentsDto themeList(Long themeId) {
+        Specification<Content> spec = (root, query, criteriaBuilder) -> null;
+
+        if (themeId != null) {
+            Theme theme = themeRepository.findById(themeId)
+                    .orElseThrow(() -> new ThemeNotFound());
+
+            spec = spec.and(ContentSpecification.equalThemeId(theme.getId()));
+        }
+
+        List<Content> contents = contentRepository.findAll(spec);
+
+        List<ContentDto> contentDtos = contents.stream()
+                .map(Content::toContentDto)
+                .collect(Collectors.toList());
+
+        return new ContentsDto(contentDtos);
     }
 }

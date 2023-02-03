@@ -3,10 +3,8 @@ package kr.jenna.plmography.services.content;
 import kr.jenna.plmography.dtos.content.ContentsDto;
 import kr.jenna.plmography.dtos.content.UserProfileContentsDto;
 import kr.jenna.plmography.models.Content;
-import kr.jenna.plmography.models.Theme;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.ContentRepository;
-import kr.jenna.plmography.repositories.ThemeRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,16 +25,14 @@ import static org.mockito.Mockito.mock;
 class GetContentsServiceTest {
     private GetContentsService getContentsService;
     private ContentRepository contentRepository;
-    private ThemeRepository themeRepository;
     private UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
         contentRepository = mock(ContentRepository.class);
-        themeRepository = mock(ThemeRepository.class);
         userRepository = mock(UserRepository.class);
         getContentsService = new GetContentsService(
-                contentRepository, themeRepository, userRepository);
+                contentRepository, userRepository);
     }
 
     @Test
@@ -70,21 +66,6 @@ class GetContentsServiceTest {
         assertThat(contentsDto.getContents()).isNotNull();
         assertThat(contentsDto.getContents().get(0).getPlatform()).isEqualTo("netflix");
         assertThat(contentsDto.getPages().getTotalPages()).isEqualTo(1);
-    }
-
-    @Test
-    void themeList() {
-        given(themeRepository.findById(any())).willReturn(Optional.of(Theme.fake()));
-
-        given(contentRepository.findAll(any(Specification.class)))
-                .willReturn(List.of(Content.fake()));
-
-        Long themeId = 1L;
-
-        ContentsDto contentsDto = getContentsService.themeList(themeId);
-
-        assertThat(contentsDto.getContents()).isNotNull();
-        assertThat(contentsDto.getContents().get(0).getThemeId()).isEqualTo(themeId);
     }
 
     @Test

@@ -1,9 +1,11 @@
 package kr.jenna.plmography.controllers;
 
+import kr.jenna.plmography.dtos.content.ContentsDto;
 import kr.jenna.plmography.dtos.page.PagesDto;
 import kr.jenna.plmography.dtos.theme.ThemeDto;
 import kr.jenna.plmography.dtos.theme.ThemesDto;
 import kr.jenna.plmography.dtos.theme.UpdateHitResponseDto;
+import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.models.Theme;
 import kr.jenna.plmography.services.theme.GetThemesService;
 import kr.jenna.plmography.services.theme.PatchThemeService;
@@ -60,6 +62,18 @@ class ThemeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"themes\":[")
+                ));
+    }
+
+    @Test
+    void themeList() throws Exception {
+        given(getThemesService.themeList(any()))
+                .willReturn(new ContentsDto(List.of(Content.fake().toContentDto())));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/themes/1/contents"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"contents\":[")
                 ));
     }
 
