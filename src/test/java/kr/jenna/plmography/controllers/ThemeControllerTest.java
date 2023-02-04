@@ -67,10 +67,10 @@ class ThemeControllerTest {
 
     @Test
     void themeList() throws Exception {
-        given(getThemesService.themeList(any()))
+        given(getThemesService.themeList(any(), any(), any(), any()))
                 .willReturn(new ContentsDto(List.of(Content.fake().toContentDto())));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/themes/1/contents"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/themes/1/contents?page=1&size=8"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"contents\":[")

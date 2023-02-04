@@ -37,8 +37,13 @@ public class ThemeController {
     }
 
     @GetMapping("/{themeId}/contents")
-    public ContentsDto themeList(@PathVariable Long themeId) {
-        return getThemesService.themeList(themeId);
+    public ContentsDto themeList(
+            @PathVariable Long themeId,
+            @RequestParam(required = false) String platform,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "8") Integer size
+    ) {
+        return getThemesService.themeList(themeId, platform, page, size);
     }
 
     @PatchMapping("/{themeId}")

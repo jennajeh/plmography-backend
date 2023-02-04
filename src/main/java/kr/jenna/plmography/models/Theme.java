@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.theme.ThemeDto;
 import kr.jenna.plmography.models.vo.Hit;
+import kr.jenna.plmography.models.vo.Image;
 import kr.jenna.plmography.models.vo.Title;
 
 @Entity
@@ -19,14 +20,18 @@ public class Theme {
     private Hit hit;
 
     @Embedded
+    private Image image;
+
+    @Embedded
     private Title title;
 
     public Theme() {
     }
 
-    public Theme(Long id, Hit hit, Title title) {
+    public Theme(Long id, Hit hit, Image image, Title title) {
         this.id = id;
         this.hit = hit;
+        this.image = image;
         this.title = title;
     }
 
@@ -38,6 +43,10 @@ public class Theme {
         return hit;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
     public Title getTitle() {
         return title;
     }
@@ -47,10 +56,10 @@ public class Theme {
     }
 
     public static Theme fake() {
-        return new Theme(1L, new Hit(1L), new Title("혼자 보기 좋은 영화 모음"));
+        return new Theme(1L, new Hit(1L), new Image("image"), new Title("혼자 보기 좋은 영화 모음"));
     }
 
     public ThemeDto toThemeDto() {
-        return new ThemeDto(id, hit.getValue(), title.getValue());
+        return new ThemeDto(id, hit.getValue(), image.getValue(), title.getValue());
     }
 }

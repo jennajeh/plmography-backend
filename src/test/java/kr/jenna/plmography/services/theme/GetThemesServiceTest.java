@@ -8,6 +8,7 @@ import kr.jenna.plmography.repositories.ContentRepository;
 import kr.jenna.plmography.repositories.ThemeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -50,14 +51,19 @@ class GetThemesServiceTest {
 
     @Test
     void themeList() {
+        Page<Content> pages = new PageImpl<>(List.of(Content.fake()));
+
         given(themeRepository.findById(any())).willReturn(Optional.of(Theme.fake()));
 
-        given(contentRepository.findAll(any(Specification.class)))
-                .willReturn(List.of(Content.fake()));
+        given(contentRepository.findAll(any(Specification.class), any(Pageable.class)))
+                .willReturn(pages);
 
         Long themeId = 1L;
+        String platform = "netflix";
+        Integer page = 1;
+        Integer size = 8;
 
-        ContentsDto contentsDto = getThemesService.themeList(themeId);
+        ContentsDto contentsDto = getThemesService.themeList(themeId, platform, page, size);
 
         assertThat(contentsDto.getContents()).isNotNull();
         assertThat(contentsDto.getContents().get(0).getThemeId()).isEqualTo(themeId);
@@ -67,7 +73,7 @@ class GetThemesServiceTest {
     void top3Hit() {
         Theme theme = Theme.fake();
 
-        given(themeRepository.findTop3ByOrderByHit_ValueDesc()).willReturn(List.of(theme));
+        given(themeRepository.findTop3ByOrderByHitDesc()).willReturn(List.of(theme));
 
         assertThat(getThemesService.top3Hit().getThemes()).isNotNull();
     }

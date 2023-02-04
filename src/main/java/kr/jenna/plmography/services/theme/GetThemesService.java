@@ -51,7 +51,7 @@ public class GetThemesService {
     }
 
     public ThemesDto top3Hit() {
-        List<Theme> themes = themeRepository.findTop3ByOrderByHit_ValueDesc();
+        List<Theme> themes = themeRepository.findTop3ByOrderByHitDesc();
 
         List<ThemeDto> themeDtos = themes.stream()
                 .map(theme -> theme.toThemeDto())
@@ -60,7 +60,11 @@ public class GetThemesService {
         return new ThemesDto(themeDtos);
     }
 
-    public ContentsDto themeList(Long themeId) {
+    public ContentsDto themeList(Long themeId, String platform, Integer page, Integer size) {
+        Sort sortBy = Sort.by("id").descending();
+
+        Pageable pageable = PageRequest.of(page - 1, size, sortBy);
+
         Specification<Content> spec = (root, query, criteriaBuilder) -> null;
 
         if (themeId != null) {
@@ -70,12 +74,18 @@ public class GetThemesService {
             spec = spec.and(ContentSpecification.equalThemeId(theme.getId()));
         }
 
-        List<Content> contents = contentRepository.findAll(spec);
+        if (platform != null) {
+            spec = spec.and(ContentSpecification.likePlatform(platform));
+        }
+
+        Page<Content> contents = contentRepository.findAll(spec, pageable);
 
         List<ContentDto> contentDtos = contents.stream()
                 .map(Content::toContentDto)
                 .collect(Collectors.toList());
 
-        return new ContentsDto(contentDtos);
+        PagesDto pagesDto = new PagesDto(contents.getTotalPages());
+
+        return new ContentsDto(contentDtos, pagesDto);
     }
 }

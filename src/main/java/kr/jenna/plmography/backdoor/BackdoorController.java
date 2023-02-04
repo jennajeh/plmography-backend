@@ -59,6 +59,7 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM comment");
         jdbcTemplate.execute("DELETE FROM recomment");
         jdbcTemplate.execute("DELETE FROM article");
+        jdbcTemplate.execute("DELETE FROM theme");
 
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +
@@ -271,53 +272,72 @@ public class BackdoorController {
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(1, 10, '요즘 핫한 판타지 영화 🔥')"
+                "  id, hit, image, title)" +
+                " VALUES(1, 10, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/651/f8025d6a-9446-44e6-b6e5-d2be856c5c69.jpg', "
+                + "'요즘 핫한 판타지 영화 🔥')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(2, 1, '밥 먹으면서 보기 좋은 예능/드라마 10선 🍽️')"
+                "  id, hit, image, title)" +
+                " VALUES(2, 1, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/433/172cbbfd-5fa5-4bda-9136-be5513dae0e7.jpeg', "
+                + "'밥 먹으면서 보기 좋은 예능/드라마 10선 🍽️')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(3, 8, '놓치면 후회하는 2월 종료 예정작 👀')"
+                "  id, hit, image, title)" +
+                " VALUES(3, 8, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/644/8be06fe0-5a24-440c-9771-0524a96136d1.jpg', "
+                + "'놓치면 후회하는 2월 종료 예정작 👀')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(4, 30, '골든 글로브 수상작 💯')"
+                "  id, hit, image, title)" +
+                " VALUES(4, 30, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/641/434de4bc-176e-412f-8083-24a8b52cd3af.jpg', "
+                + "'골든 글로브 수상작 💯')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(5, 15, '눈 내리면 이 영화가 생각나요 ❄️')"
+                "  id, hit, image, title)" +
+                " VALUES(5, 15, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/283/d4a60897-aead-46ee-9ae7-8af2ee0e27bf.jpg', "
+                + "'눈 내리면 이 영화가 생각나요 ❄️')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(6, 14, '애니메이션 TV 프로그램️ 🧸')"
+                "  id, hit, image, title)" +
+                " VALUES(6, 14, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/498/9388a7cc-b101-449f-b6f1-41de91cb4131.jpg', "
+                + "'애니메이션 TV 프로그램️ 🧸')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(7, 3, '제 95회 미국 아카데미 시상식 후보작')"
+                "  id, hit, image, title)" +
+                " VALUES(7, 3, 'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/230/ab3a0ed8-a1fd-49cd-b739-51c50d1880f6.jpg', "
+                + "'제 95회 미국 아카데미 시상식 후보작')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(8, 2, '꼭 봐야할 미드 TOP 5️')"
+                "  id, hit, image, title)" +
+                " VALUES(8, 2, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/588/41e17257-ca96-42eb-b3d0-859b93af16b2.jpeg', "
+                + "'꼭 봐야할 미드 TOP 5️')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(9, 3, '꼭 봐야할 추리/스릴러 모음️')"
+                "  id, hit, image, title)" +
+                " VALUES(9, 3, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/521/a08d0e18-ee5f-4868-8032-2673effa0db4.jpeg', "
+                + "'꼭 봐야할 추리/스릴러 모음️')"
         );
 
         jdbcTemplate.update("INSERT INTO theme(" +
-                "  id, hit, title)" +
-                " VALUES(10, 3, '제 58회 백상예술대상 후보작️')"
+                "  id, hit, image, title)" +
+                " VALUES(10, 3, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/226/8fc7bffc-4019-4e77-a264-331df8182e04.jpg', "
+                + "'제 58회 백상예술대상 후보작️')"
         );
 
         return "Setup database completed!";
@@ -423,6 +443,9 @@ public class BackdoorController {
         jdbcTemplate.update("UPDATE content SET platform='netflix, watcha' WHERE id > 100 AND id <= 150");
         jdbcTemplate.update("UPDATE content SET platform='disney, apple' WHERE id > 150 AND id <= 200");
         jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id > 200");
+
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney, apple' WHERE id = 12");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, tving' WHERE id = 26");
 
         // 타입 설정
         jdbcTemplate.update("UPDATE content SET type='movie' WHERE id <= 200");
