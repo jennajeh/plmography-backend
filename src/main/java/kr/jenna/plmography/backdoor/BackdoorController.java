@@ -59,6 +59,7 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM comment");
         jdbcTemplate.execute("DELETE FROM recomment");
         jdbcTemplate.execute("DELETE FROM article");
+        jdbcTemplate.execute("DELETE FROM theme");
 
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +
@@ -270,6 +271,75 @@ public class BackdoorController {
                 + "‘피터 파커’는 사상 최악의 위기를 맞게 되는데…', ?)", now.minusDays(6)
         );
 
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(1, 10, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/651/f8025d6a-9446-44e6-b6e5-d2be856c5c69.jpg', "
+                + "'요즘 핫한 판타지 영화 🔥')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(2, 1, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/433/172cbbfd-5fa5-4bda-9136-be5513dae0e7.jpeg', "
+                + "'밥 먹으면서 보기 좋은 예능/드라마 10선 🍽️')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(3, 8, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/644/8be06fe0-5a24-440c-9771-0524a96136d1.jpg', "
+                + "'놓치면 후회하는 2월 종료 예정작 👀')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(4, 30, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/641/434de4bc-176e-412f-8083-24a8b52cd3af.jpg', "
+                + "'골든 글로브 수상작 💯')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(5, 15, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/283/d4a60897-aead-46ee-9ae7-8af2ee0e27bf.jpg', "
+                + "'눈 내리면 이 영화가 생각나요 ❄️')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(6, 14, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/498/9388a7cc-b101-449f-b6f1-41de91cb4131.jpg', "
+                + "'애니메이션 TV 프로그램️ 🧸')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(7, 3, 'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/230/ab3a0ed8-a1fd-49cd-b739-51c50d1880f6.jpg', "
+                + "'제 95회 미국 아카데미 시상식 후보작')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(8, 2, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/588/41e17257-ca96-42eb-b3d0-859b93af16b2.jpeg', "
+                + "'꼭 봐야할 미드 TOP 5️')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(9, 3, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/521/a08d0e18-ee5f-4868-8032-2673effa0db4.jpeg', "
+                + "'꼭 봐야할 추리/스릴러 모음️')"
+        );
+
+        jdbcTemplate.update("INSERT INTO theme(" +
+                "  id, hit, image, title)" +
+                " VALUES(10, 3, "
+                + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/226/8fc7bffc-4019-4e77-a264-331df8182e04.jpg', "
+                + "'제 58회 백상예술대상 후보작️')"
+        );
+
         return "Setup database completed!";
     }
 
@@ -365,16 +435,101 @@ public class BackdoorController {
         return "TvDrama completely saved!";
     }
 
-    @GetMapping("/setup-platform-type")
+    @GetMapping("/setup-content-data")
     public String setupPlatformAndType() throws IOException {
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id <= 50");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 50 AND id <= 100");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, watcha' WHERE id > 100 AND id <= 150");
-        jdbcTemplate.update("UPDATE content SET platform='disney, apple' WHERE id > 150 AND id <= 200");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id > 200");
+        // 플랫폼 설정
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney, apple' WHERE id <= 25");
+        jdbcTemplate.update("UPDATE content SET platform='apple, wavve, tving' WHERE id <= 50");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 50 AND id <= 75");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, watcha' WHERE id > 76 AND id <= 100");
+        jdbcTemplate.update("UPDATE content SET platform='apple, disney' WHERE id > 100 AND id <= 125");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney, apple' WHERE id > 125 AND id <= 150");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 150 AND id <= 175");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving' WHERE id > 175 AND id <= 200");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id > 200 AND id <= 225");
 
+        // 플랫폼 설정
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 225 AND id <= 250");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, watcha' WHERE id > 250 AND id <= 275");
+        jdbcTemplate.update("UPDATE content SET platform='apple, disney' WHERE id > 275 AND id <= 300");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney, apple' WHERE id > 300 AND id <= 325");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 325 AND id <= 350");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving' WHERE id > 350 AND id <= 375");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id > 375");
+
+        // 타입 설정
         jdbcTemplate.update("UPDATE content SET type='movie' WHERE id <= 200");
         jdbcTemplate.update("UPDATE content SET type='drama' WHERE id > 200");
+
+        // 테마 설정
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 315162");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 76600");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 736526");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 634649");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 299536");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 774752");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 671");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 338953");
+        jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 616037");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 135157");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 1399");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 112836");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 33238");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 4057");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 1421");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 112888");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 57243");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 2316");
+        jdbcTemplate.update("UPDATE content SET theme_id=2 WHERE tmdb_id = 63333");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=3 WHERE tmdb_id = 5920");
+        jdbcTemplate.update("UPDATE content SET theme_id=3 WHERE tmdb_id = 99966");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 555604");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 505642");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 94997");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 85552");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 73586");
+        jdbcTemplate.update("UPDATE content SET theme_id=4 WHERE tmdb_id = 113988");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=5 WHERE tmdb_id = 411");
+        jdbcTemplate.update("UPDATE content SET theme_id=5 WHERE tmdb_id = 899112");
+        jdbcTemplate.update("UPDATE content SET theme_id=5 WHERE tmdb_id = 1001865");
+        jdbcTemplate.update("UPDATE content SET theme_id=5 WHERE tmdb_id = 1045944");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 95479");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 114410");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 46260");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 30984");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 456");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 60572");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 46298");
+        jdbcTemplate.update("UPDATE content SET theme_id=6 WHERE tmdb_id = 843241");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 800815");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 873126");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 1041513");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 661374");
+        jdbcTemplate.update("UPDATE content SET theme_id=7 WHERE tmdb_id = 829280");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 66732");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 1399");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 1396");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 63174");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 106541");
+        jdbcTemplate.update("UPDATE content SET theme_id=8 WHERE tmdb_id = 106541");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 661374");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 4614");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 99966");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 1431");
+        jdbcTemplate.update("UPDATE content SET theme_id=9 WHERE tmdb_id = 2288");
+
+        jdbcTemplate.update("UPDATE content SET theme_id=10 WHERE tmdb_id = 93405");
+        jdbcTemplate.update("UPDATE content SET theme_id=10 WHERE tmdb_id = 112888");
+        jdbcTemplate.update("UPDATE content SET theme_id=10 WHERE tmdb_id = 135157");
+        jdbcTemplate.update("UPDATE content SET theme_id=10 WHERE tmdb_id = 112836");
 
         return "Platform completely saved!";
     }

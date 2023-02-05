@@ -19,6 +19,8 @@ public class Content {
     private Long tmdbId;
 
     private String tmdbGenreId;
+    
+    private Long themeId;
 
     private String imageUrl;
 
@@ -42,6 +44,26 @@ public class Content {
     public Content() {
     }
 
+    public Content(Long id, Long tmdbId, String tmdbGenreId,
+                   String imageUrl, String korTitle, String engTitle,
+                   int releaseDate, double popularity, String type,
+                   String platform, String description, Long themeId,
+                   LocalDateTime createdAt) {
+        this.id = id;
+        this.tmdbId = tmdbId;
+        this.tmdbGenreId = tmdbGenreId;
+        this.imageUrl = imageUrl;
+        this.korTitle = korTitle;
+        this.engTitle = engTitle;
+        this.releaseDate = releaseDate;
+        this.popularity = popularity;
+        this.type = type;
+        this.platform = platform;
+        this.description = description;
+        this.themeId = themeId;
+        this.createdAt = createdAt;
+    }
+
     @Builder
     public Content(Long id, Long tmdbId, String tmdbGenreId,
                    String imageUrl, String korTitle, String engTitle,
@@ -63,7 +85,7 @@ public class Content {
 
     public static Content fake() {
         return new Content(1L, 1L, "1", "imageUrl", "아바타", "Avatar", 2022,
-                3000, "netflix", "movie", "판타지 영화", LocalDateTime.now());
+                3000, "movie", "netflix", "판타지 영화", 1L, LocalDateTime.now());
     }
 
     public Long getId() {
@@ -110,12 +132,16 @@ public class Content {
         return description;
     }
 
+    public Long getThemeId() {
+        return themeId;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public ContentDto toContentDto() {
         return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
-                engTitle, releaseDate, popularity, platform, type, description);
+                engTitle, releaseDate, popularity, platform, type, themeId, description);
     }
 }

@@ -33,7 +33,7 @@ public class ContentController {
         return getContentsService.topRated();
     }
 
-    @GetMapping
+    @GetMapping("/filter")
     public ContentsDto filter(
             @RequestParam(required = false) String platform,
             @RequestParam(required = false) String type,

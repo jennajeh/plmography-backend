@@ -31,4 +31,8 @@ public class UserProfileContentDto {
     public String getKorTitle() {
         return korTitle;
     }
+
+    public static UserProfileContentDto fake() {
+        return new UserProfileContentDto(1L, 1L, "imageUrl", "아바타");
+    }
 }
