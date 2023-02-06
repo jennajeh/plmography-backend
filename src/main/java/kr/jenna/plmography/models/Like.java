@@ -1,0 +1,51 @@
+package kr.jenna.plmography.models;
+
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import kr.jenna.plmography.dtos.like.LikeDto;
+import kr.jenna.plmography.models.vo.PostId;
+import kr.jenna.plmography.models.vo.UserId;
+
+@Entity
+public class Like {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Embedded
+    private PostId postId;
+
+    @Embedded
+    private UserId userId;
+
+    public Like() {
+    }
+
+    public Like(PostId postId, UserId userId) {
+        this.postId = postId;
+        this.userId = userId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public PostId getPostId() {
+        return postId;
+    }
+
+    public UserId getUserId() {
+        return userId;
+    }
+
+    public LikeDto toDto() {
+        return new LikeDto(id, postId.getValue(), userId.getValue());
+    }
+
+    public static Like fake() {
+        return new Like(new PostId(1L), new UserId(1L));
+    }
+}

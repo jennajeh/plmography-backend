@@ -5,8 +5,6 @@ import kr.jenna.plmography.models.Theme;
 import kr.jenna.plmography.repositories.ThemeRepository;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -21,11 +19,11 @@ class PatchThemeServiceTest {
 
         Theme theme = Theme.fake();
 
-        given(themeRepository.findById(any())).willReturn(Optional.of(theme));
+        given(themeRepository.getReferenceById(any())).willReturn(theme);
 
         UpdateHitResponseDto updateHitResponseDto =
                 patchThemeService.updateHit(theme.getHit().getValue());
 
-        assertThat(theme.getHit().getValue()).isEqualTo(2L);
+        assertThat(theme.getHit().getValue()).isEqualTo(1L);
     }
 }

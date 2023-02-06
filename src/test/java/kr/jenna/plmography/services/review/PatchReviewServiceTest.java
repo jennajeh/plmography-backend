@@ -7,8 +7,6 @@ import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -22,7 +20,8 @@ class PatchReviewServiceTest {
         CommentRepository commentRepository = mock(CommentRepository.class);
         PatchReviewService patchReviewService = new PatchReviewService(reviewRepository, commentRepository);
 
-        given(reviewRepository.findById(any(Long.class))).willReturn(Optional.of(Review.fake()));
+        given(reviewRepository.getReferenceById(any(Long.class)))
+                .willReturn(Review.fake());
 
         ReviewDto reviewDto = ReviewDto.fake();
 
