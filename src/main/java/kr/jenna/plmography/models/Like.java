@@ -5,11 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import kr.jenna.plmography.dtos.like.LikeDto;
 import kr.jenna.plmography.models.vo.PostId;
 import kr.jenna.plmography.models.vo.UserId;
 
 @Entity
+@Table(name = "LIKES")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +24,12 @@ public class Like {
     private UserId userId;
 
     public Like() {
+    }
+
+    public Like(Long id, PostId postId, UserId userId) {
+        this.id = id;
+        this.postId = postId;
+        this.userId = userId;
     }
 
     public Like(PostId postId, UserId userId) {
@@ -46,6 +54,6 @@ public class Like {
     }
 
     public static Like fake() {
-        return new Like(new PostId(1L), new UserId(1L));
+        return new Like(1L, new PostId(1L), new UserId(1L));
     }
 }

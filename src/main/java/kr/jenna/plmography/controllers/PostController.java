@@ -6,6 +6,7 @@ import kr.jenna.plmography.dtos.post.PostModificationRequestDto;
 import kr.jenna.plmography.dtos.post.PostModificationResponseDto;
 import kr.jenna.plmography.dtos.post.PostRegistrationDto;
 import kr.jenna.plmography.dtos.post.PostsDto;
+import kr.jenna.plmography.dtos.post.SelectedPostsDto;
 import kr.jenna.plmography.dtos.post.UpdateHitPostResponseDto;
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.exceptions.UserNotFound;
@@ -18,6 +19,7 @@ import kr.jenna.plmography.services.post.DeletePostService;
 import kr.jenna.plmography.services.post.GetPostService;
 import kr.jenna.plmography.services.post.GetPostsService;
 import kr.jenna.plmography.services.post.PatchPostService;
+import kr.jenna.plmography.utils.S3Uploader;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,22 +34,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/posts")
 @CrossOrigin
 public class PostController {
+    private final S3Uploader s3Uploader;
     private CreatePostService createPostService;
     private GetPostsService getPostsService;
     private GetPostService getPostService;
     private PatchPostService patchPostService;
     private DeletePostService deletePostService;
 
-    public PostController(CreatePostService createPostService,
+    public PostController(S3Uploader s3Uploader,
+                          CreatePostService createPostService,
                           GetPostsService getPostsService,
                           GetPostService getPostService,
                           PatchPostService patchPostService,
                           DeletePostService deletePostService) {
+        this.s3Uploader = s3Uploader;
         this.createPostService = createPostService;
         this.getPostsService = getPostsService;
         this.getPostService = getPostService;
@@ -64,6 +72,11 @@ public class PostController {
         Post post = createPostService.create(userId, postRegistrationDto);
 
         return post.toPostCreationDto();
+    }
+
+    @GetMapping("/topHit")
+    public PostsDto top3Hit() {
+        return getPostsService.top3Hit();
     }
 
     @GetMapping
@@ -90,7 +103,7 @@ public class PostController {
             @RequestAttribute Long userId,
             @RequestBody PostModificationRequestDto postModificationRequestDto
     ) {
-        Long postId = postModificationRequestDto.getId();
+        Long postId = postModificationRequestDto.getPostId();
         Title title = new Title(postModificationRequestDto.getTitle());
         PostBody postBody = new PostBody(postModificationRequestDto.getPostBody());
         Image image = new Image(postModificationRequestDto.getImage());
@@ -105,6 +118,17 @@ public class PostController {
             @PathVariable Long postId
     ) {
         deletePostService.delete(userId, postId);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePosts(@RequestBody SelectedPostsDto selectedPostsDto) {
+        deletePostService.deletePosts(selectedPostsDto);
+    }
+
+    @PostMapping("/upload")
+    public String upload(MultipartFile multipartFile) throws IOException {
+        return s3Uploader.uploadFiles(multipartFile, "plmographycommunity");
     }
 
     @ExceptionHandler(UserNotFound.class)

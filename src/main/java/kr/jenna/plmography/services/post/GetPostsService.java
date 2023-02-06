@@ -100,4 +100,33 @@ public class GetPostsService {
                             comment.getUpdatedAt());
                 }).collect(Collectors.toList());
     }
+
+    public PostsDto top3Hit() {
+        List<Post> posts = postRepository.findTop3ByOrderByHitDesc();
+
+        List<PostDto> postDtos = posts.stream()
+                .map(post -> {
+                    User user = userRepository.findById(post.getUserId().getValue())
+                            .orElseThrow(() -> new UserNotFound(post.getUserId().getValue()));
+
+                    List<CommentDto> comments = findComments(post);
+
+                    return new PostDto(
+                            post.getId(),
+                            new WriterDto(
+                                    user.getId(),
+                                    user.getNickname().getValue(),
+                                    user.getProfileImage().getValue()),
+                            comments,
+                            post.getTitle().getValue(),
+                            post.getPostBody().getValue(),
+                            post.getHit().getValue(),
+                            post.getImage().getValue(),
+                            post.getDeleted(),
+                            post.getCreatedAt(),
+                            post.getUpdatedAt());
+                }).collect(Collectors.toList());
+
+        return new PostsDto(postDtos);
+    }
 }

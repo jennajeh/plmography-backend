@@ -7,6 +7,7 @@ import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.PostRepository;
 import kr.jenna.plmography.repositories.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,15 +22,22 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class GetPostsServiceTest {
+    private PostRepository postRepository;
+    private UserRepository userRepository;
+    private CommentRepository commentRepository;
+    private GetPostsService getPostsService;
+
+    @BeforeEach
+    void setup() {
+        postRepository = mock(PostRepository.class);
+        userRepository = mock(UserRepository.class);
+        commentRepository = mock(CommentRepository.class);
+        getPostsService = new GetPostsService(
+                postRepository, commentRepository, userRepository);
+    }
 
     @Test
     void list() {
-        PostRepository postRepository = mock(PostRepository.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        CommentRepository commentRepository = mock(CommentRepository.class);
-        GetPostsService getPostsService = new GetPostsService(
-                postRepository, commentRepository, userRepository);
-
         given(postRepository.findAll(any(Specification.class), any(Pageable.class)))
                 .willReturn(new PageImpl<>(List.of(Post.fake())));
 
@@ -46,4 +54,12 @@ class GetPostsServiceTest {
         assertThat(postsDto.getPosts().get(0).getPostBody()).isEqualTo("첫 글 작성");
     }
 
+    @Test
+    void top3Hit() {
+        given(postRepository.findTop3ByOrderByHitDesc()).willReturn(List.of(Post.fake()));
+        given(userRepository.findById(any())).willReturn(Optional.of(User.fake()));
+
+        assertThat(getPostsService.top3Hit().getPosts()).isNotNull();
+        assertThat(getPostsService.top3Hit().getPosts().get(0).getPostBody()).isEqualTo("첫 글 작성");
+    }
 }

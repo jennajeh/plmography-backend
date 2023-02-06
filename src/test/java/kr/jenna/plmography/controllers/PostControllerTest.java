@@ -12,6 +12,7 @@ import kr.jenna.plmography.services.post.GetPostService;
 import kr.jenna.plmography.services.post.GetPostsService;
 import kr.jenna.plmography.services.post.PatchPostService;
 import kr.jenna.plmography.utils.JwtUtil;
+import kr.jenna.plmography.utils.S3Uploader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,9 @@ class PostControllerTest {
 
     @MockBean
     private DeletePostService deletePostService;
+
+    @MockBean
+    private S3Uploader s3Uploader;
 
     @SpyBean
     private JwtUtil jwtUtil;
@@ -135,6 +139,16 @@ class PostControllerTest {
     void delete() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/posts/1")
                         .header("Authorization", "Bearer " + token))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void deleteSelectedPosts() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{" +
+                                "\"postIds\": [1, 2]" +
+                                "}"))
                 .andExpect(status().isNoContent());
     }
 }

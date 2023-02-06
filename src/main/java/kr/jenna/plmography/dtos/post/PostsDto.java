@@ -11,6 +11,10 @@ public class PostsDto {
     public PostsDto() {
     }
 
+    public PostsDto(List<PostDto> posts) {
+        this.posts = posts;
+    }
+
     public PostsDto(List<PostDto> posts, PagesDto pages) {
         this.posts = posts;
         this.pages = pages;

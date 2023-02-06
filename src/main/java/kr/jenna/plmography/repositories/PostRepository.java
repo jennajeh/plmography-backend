@@ -18,4 +18,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findAll(Specification specification, Pageable pageable);
 
     List<Post> findAllByUserId(UserId userId);
+
+    List<Post> findTop3ByOrderByHitDesc();
 }
