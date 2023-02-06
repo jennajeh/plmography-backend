@@ -80,27 +80,6 @@ public class GetPostsService {
         return new PostsDto(postDtos, pagesDto);
     }
 
-    private List<CommentDto> findComments(Post post) {
-        return commentRepository.findAllByPostId(new PostId(post.getId()))
-                .stream()
-                .map(comment -> {
-                    User user = userRepository.findById(comment.getUserId().getValue())
-                            .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
-
-                    return new CommentDto(
-                            comment.getId(),
-                            new WriterDto(
-                                    user.getId(),
-                                    user.getNickname().getValue(),
-                                    user.getProfileImage().getValue()),
-                            comment.getPostId().getValue(),
-                            comment.getCommentBody().getValue(),
-                            comment.isDeleted(),
-                            comment.getCreatedAt(),
-                            comment.getUpdatedAt());
-                }).collect(Collectors.toList());
-    }
-
     public PostsDto top3Hit() {
         List<Post> posts = postRepository.findTop3ByOrderByHitDesc();
 
@@ -128,5 +107,26 @@ public class GetPostsService {
                 }).collect(Collectors.toList());
 
         return new PostsDto(postDtos);
+    }
+
+    private List<CommentDto> findComments(Post post) {
+        return commentRepository.findAllByPostId(new PostId(post.getId()))
+                .stream()
+                .map(comment -> {
+                    User user = userRepository.findById(comment.getUserId().getValue())
+                            .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
+
+                    return new CommentDto(
+                            comment.getId(),
+                            new WriterDto(
+                                    user.getId(),
+                                    user.getNickname().getValue(),
+                                    user.getProfileImage().getValue()),
+                            comment.getPostId().getValue(),
+                            comment.getCommentBody().getValue(),
+                            comment.isDeleted(),
+                            comment.getCreatedAt(),
+                            comment.getUpdatedAt());
+                }).collect(Collectors.toList());
     }
 }

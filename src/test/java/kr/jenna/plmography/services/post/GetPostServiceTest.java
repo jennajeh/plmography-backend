@@ -1,28 +1,40 @@
 package kr.jenna.plmography.services.post;
 
 import kr.jenna.plmography.dtos.post.MyPostsDto;
+import kr.jenna.plmography.dtos.post.PostDto;
 import kr.jenna.plmography.models.Post;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.vo.UserId;
+import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.PostRepository;
 import kr.jenna.plmography.repositories.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class GetPostServiceTest {
+    private PostRepository postRepository;
+    private UserRepository userRepository;
+    private CommentRepository commentRepository;
+    private GetPostService getPostService;
+
+    @BeforeEach
+    void setUp() {
+        postRepository = mock(PostRepository.class);
+        commentRepository = mock(CommentRepository.class);
+        userRepository = mock(UserRepository.class);
+        getPostService = new GetPostService(postRepository, commentRepository, userRepository);
+    }
 
     @Test
     void myPost() {
-        PostRepository postRepository = mock(PostRepository.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        GetPostService getPostService = new GetPostService(postRepository, userRepository);
-
         given(postRepository.findAllByUserId(new UserId(1L))).willReturn(List.of(Post.fake()));
         given(userRepository.findById(1L)).willReturn(Optional.of(User.fake()));
 
@@ -30,5 +42,16 @@ class GetPostServiceTest {
 
         assertThat(postsDto).isNotNull();
         assertThat(postsDto.getMyPosts().get(0).getTitle()).isEqualTo("제목");
+    }
+
+    @Test
+    void detail() {
+        given(postRepository.findById(any())).willReturn(Optional.of(Post.fake()));
+        given(userRepository.findById(any())).willReturn(Optional.of(User.fake()));
+
+        PostDto postDto = getPostService.detail(1L);
+
+        assertThat(postDto).isNotNull();
+        assertThat(postDto.getTitle()).isEqualTo("제목");
     }
 }

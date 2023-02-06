@@ -4,19 +4,15 @@ import kr.jenna.plmography.dtos.content.ContentDto;
 import kr.jenna.plmography.exceptions.ContentNotFound;
 import kr.jenna.plmography.models.Content;
 import kr.jenna.plmography.repositories.ContentRepository;
-import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
 public class GetContentService {
-    private UserRepository userRepository;
     private ContentRepository contentRepository;
 
-    public GetContentService(UserRepository userRepository,
-                             ContentRepository contentRepository) {
-        this.userRepository = userRepository;
+    public GetContentService(ContentRepository contentRepository) {
         this.contentRepository = contentRepository;
     }
 

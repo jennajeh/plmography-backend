@@ -2,6 +2,7 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.dtos.post.MyPostsDto;
 import kr.jenna.plmography.dtos.post.PostCreationDto;
+import kr.jenna.plmography.dtos.post.PostDto;
 import kr.jenna.plmography.dtos.post.PostModificationRequestDto;
 import kr.jenna.plmography.dtos.post.PostModificationResponseDto;
 import kr.jenna.plmography.dtos.post.PostRegistrationDto;
@@ -91,6 +92,11 @@ public class PostController {
     @GetMapping("/me")
     public MyPostsDto myPost(@RequestAttribute Long userId) {
         return getPostService.myPost(userId);
+    }
+
+    @GetMapping("/{postId}")
+    public PostDto detail(@PathVariable Long postId) {
+        return getPostService.detail(postId);
     }
 
     @PatchMapping("/{postId}/updateHit")

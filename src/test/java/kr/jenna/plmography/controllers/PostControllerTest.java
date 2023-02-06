@@ -102,6 +102,17 @@ class PostControllerTest {
     }
 
     @Test
+    void detail() throws Exception {
+        given(getPostService.detail(any())).willReturn(PostDto.fake());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/posts/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"id\":1")
+                ));
+    }
+
+    @Test
     void myPost() throws Exception {
         given(getPostService.myPost(any())).willReturn(any());
 
@@ -120,7 +131,7 @@ class PostControllerTest {
     }
 
     @Test
-    void update() throws Exception {
+    void modify() throws Exception {
         given(patchPostService.modify(any(), any(), any(), any(), any()))
                 .willReturn(new PostModificationResponseDto(1L));
 
