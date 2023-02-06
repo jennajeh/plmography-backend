@@ -1,7 +1,6 @@
 package kr.jenna.plmography.services.theme;
 
 import kr.jenna.plmography.dtos.theme.UpdateHitResponseDto;
-import kr.jenna.plmography.exceptions.ThemeNotFound;
 import kr.jenna.plmography.models.Theme;
 import kr.jenna.plmography.repositories.ThemeRepository;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,7 @@ public class PatchThemeService {
     }
 
     public UpdateHitResponseDto updateHit(Long themeId) {
-        Theme theme = themeRepository.findById(themeId)
-                .orElseThrow(() -> new ThemeNotFound());
+        Theme theme = themeRepository.getReferenceById(themeId);
 
         theme.updateHit(theme.getHit().getValue());
 

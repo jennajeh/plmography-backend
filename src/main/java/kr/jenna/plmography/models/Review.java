@@ -12,11 +12,13 @@ import kr.jenna.plmography.models.vo.LikeUserId;
 import kr.jenna.plmography.models.vo.ReviewBody;
 import kr.jenna.plmography.models.vo.UserId;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -44,7 +46,7 @@ public class Review {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Review() {
@@ -143,7 +145,7 @@ public class Review {
     }
 
     public boolean isWriter(Long userId) {
-        return this.userId.getValue() == userId;
+        return Objects.equals(this.userId.getValue(), userId);
     }
 
     public void toggleLike(LikeUserId likeUserId) {

@@ -28,11 +28,11 @@ public class Theme {
     public Theme() {
     }
 
-    public Theme(Long id, Hit hit, Image image, Title title) {
+    public Theme(Long id, Image image, Title title) {
         this.id = id;
-        this.hit = hit;
         this.image = image;
         this.title = title;
+        this.hit = new Hit(0L);
     }
 
     public Long getId() {
@@ -56,7 +56,7 @@ public class Theme {
     }
 
     public static Theme fake() {
-        return new Theme(1L, new Hit(1L), new Image("image"), new Title("혼자 보기 좋은 영화 모음"));
+        return new Theme(1L, new Image("image"), new Title("혼자 보기 좋은 영화 모음"));
     }
 
     public ThemeDto toThemeDto() {

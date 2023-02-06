@@ -1,7 +1,6 @@
 package kr.jenna.plmography.services.review;
 
 import kr.jenna.plmography.exceptions.InvalidUser;
-import kr.jenna.plmography.exceptions.ReviewNotFound;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.vo.ReviewBody;
 import kr.jenna.plmography.repositories.CommentRepository;
@@ -22,8 +21,7 @@ public class PatchReviewService {
     }
 
     public Review modify(Long userId, Long reviewId, Long starRate, ReviewBody reviewBody) {
-        Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new ReviewNotFound());
+        Review review = reviewRepository.getReferenceById(reviewId);
 
         if (!review.isWriter(userId)) {
             throw new InvalidUser();

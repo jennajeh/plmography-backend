@@ -6,8 +6,6 @@ import kr.jenna.plmography.repositories.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,8 +28,7 @@ class DeleteReviewServiceTest {
     void delete() {
         Review review = Review.fake();
 
-        given(reviewRepository.findById(any()))
-                .willReturn(Optional.of(review));
+        given(reviewRepository.getReferenceById(any())).willReturn(review);
 
         Long userId = 1L;
         Long reviewId = 1L;

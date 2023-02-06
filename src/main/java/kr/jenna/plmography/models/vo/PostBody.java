@@ -2,21 +2,18 @@ package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import kr.jenna.plmography.exceptions.EmptyTitle;
+import kr.jenna.plmography.exceptions.EmptyPostBody;
 
 import java.util.Objects;
 
 @Embeddable
-public class Title {
-    @Column(name = "title")
+public class PostBody {
+    @Column(name = "post_body")
     private String value;
 
-    public Title() {
-    }
-
-    public Title(String value) {
+    public PostBody(String value) {
         if (value == null || value.equals("")) {
-            throw new EmptyTitle();
+            throw new EmptyPostBody();
         }
 
         this.value = value;
@@ -35,9 +32,9 @@ public class Title {
             return false;
         }
 
-        Title otherTitle = (Title) other;
+        PostBody otherPostBody = (PostBody) other;
 
-        return Objects.equals(value, otherTitle.value);
+        return Objects.equals(value, otherPostBody.value);
     }
 
     @Override
@@ -47,7 +44,7 @@ public class Title {
 
     @Override
     public String toString() {
-        return "Title{" +
+        return "PostBody {" +
                 "value='" + value + '\'' +
                 '}';
     }

@@ -36,5 +36,4 @@ class CreateReviewServiceTest {
 
         verify(reviewRepository).save(any(Review.class));
     }
-
 }
