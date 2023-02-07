@@ -77,7 +77,7 @@ public class PostController {
 
     @GetMapping("/topHit")
     public PostsDto top3Hit() {
-        return getPostsService.top3Hit();
+        return getPostsService.top6Hit();
     }
 
     @GetMapping

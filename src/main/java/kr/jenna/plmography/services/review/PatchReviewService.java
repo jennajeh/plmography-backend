@@ -3,7 +3,7 @@ package kr.jenna.plmography.services.review;
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.vo.ReviewBody;
-import kr.jenna.plmography.repositories.CommentRepository;
+import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PatchReviewService {
     private final ReviewRepository reviewRepository;
-    private final CommentRepository commentRepository;
+    private final ReviewCommentRepository reviewCommentRepository;
 
     public PatchReviewService(ReviewRepository reviewRepository,
-                              CommentRepository commentRepository) {
+                              ReviewCommentRepository reviewCommentRepository) {
         this.reviewRepository = reviewRepository;
-        this.commentRepository = commentRepository;
+        this.reviewCommentRepository = reviewCommentRepository;
     }
 
     public Review modify(Long userId, Long reviewId, Long starRate, ReviewBody reviewBody) {

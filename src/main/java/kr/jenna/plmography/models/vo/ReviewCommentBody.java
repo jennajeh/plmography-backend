@@ -7,14 +7,14 @@ import kr.jenna.plmography.exceptions.EmptyContent;
 import java.util.Objects;
 
 @Embeddable
-public class ReviewBody {
-    @Column(name = "review_body")
+public class ReviewCommentBody {
+    @Column(name = "review_comment_body")
     private String value;
 
-    public ReviewBody() {
+    public ReviewCommentBody() {
     }
 
-    public ReviewBody(String value) {
+    public ReviewCommentBody(String value) {
         if (value == null || value.equals("")) {
             throw new EmptyContent();
         }
@@ -31,24 +31,18 @@ public class ReviewBody {
         if (this == other) {
             return true;
         }
+
         if (other == null || getClass() != other.getClass()) {
             return false;
         }
 
-        ReviewBody otherReviewBody = (ReviewBody) other;
+        ReviewCommentBody otherReviewCommentBody = (ReviewCommentBody) other;
 
-        return Objects.equals(value, otherReviewBody.value);
+        return Objects.equals(value, otherReviewCommentBody.value);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(value);
-    }
-
-    @Override
-    public String toString() {
-        return "ReviewBody {" +
-                "value='" + value + '\'' +
-                '}';
     }
 }

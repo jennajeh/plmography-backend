@@ -56,10 +56,12 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM subscribe");
         jdbcTemplate.execute("DELETE FROM review_like_user_ids");
         jdbcTemplate.execute("DELETE FROM review");
-        jdbcTemplate.execute("DELETE FROM comment");
+        jdbcTemplate.execute("DELETE FROM review_comment");
         jdbcTemplate.execute("DELETE FROM recomment");
         jdbcTemplate.execute("DELETE FROM article");
         jdbcTemplate.execute("DELETE FROM theme");
+//        jdbcTemplate.execute("DELETE FROM likes");
+//        jdbcTemplate.execute("DELETE FROM post");
 
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +

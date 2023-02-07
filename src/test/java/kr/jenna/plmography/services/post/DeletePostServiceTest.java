@@ -2,9 +2,9 @@ package kr.jenna.plmography.services.post;
 
 import kr.jenna.plmography.dtos.post.SelectedPostsDto;
 import kr.jenna.plmography.models.Post;
-import kr.jenna.plmography.repositories.CommentRepository;
 import kr.jenna.plmography.repositories.LikeRepository;
 import kr.jenna.plmography.repositories.PostRepository;
+import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.mock;
 
 class DeletePostServiceTest {
     private PostRepository postRepository;
-    private CommentRepository commentRepository;
+    private ReviewCommentRepository reviewCommentRepository;
     private LikeRepository likeRepository;
     private DeletePostService deletePostService;
     private Post post;
@@ -30,9 +30,9 @@ class DeletePostServiceTest {
 
         postRepository = mock(PostRepository.class);
         likeRepository = mock(LikeRepository.class);
-        commentRepository = mock(CommentRepository.class);
+        reviewCommentRepository = mock(ReviewCommentRepository.class);
         deletePostService =
-                new DeletePostService(postRepository, commentRepository, likeRepository);
+                new DeletePostService(postRepository, reviewCommentRepository, likeRepository);
     }
 
     @Test
