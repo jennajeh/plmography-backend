@@ -11,7 +11,7 @@ import kr.jenna.plmography.models.vo.PostId;
 import kr.jenna.plmography.models.vo.UserId;
 
 @Entity
-@Table(name = "LIKES")
+@Table(name = "Likes")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

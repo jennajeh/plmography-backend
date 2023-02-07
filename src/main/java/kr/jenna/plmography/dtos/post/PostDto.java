@@ -1,5 +1,6 @@
 package kr.jenna.plmography.dtos.post;
 
+import com.sun.istack.Nullable;
 import kr.jenna.plmography.dtos.postComment.PostCommentDto;
 import kr.jenna.plmography.dtos.user.WriterDto;
 
@@ -8,14 +9,26 @@ import java.util.List;
 
 public class PostDto {
     private Long id;
+
     private WriterDto writer;
+
+    @Nullable
     private List<PostCommentDto> comments;
+
     private String title;
+
+    @Nullable
     private String postBody;
+
     private Long hit;
+
+    @Nullable
     private String image;
+
     private boolean isDeleted;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
 
     public PostDto() {
@@ -50,7 +63,8 @@ public class PostDto {
             String postBody,
             Long hit,
             String image,
-            boolean isDeleted, LocalDateTime createdAt,
+            boolean isDeleted,
+            LocalDateTime createdAt,
             LocalDateTime updatedAt) {
         this.id = id;
         this.writer = writer;

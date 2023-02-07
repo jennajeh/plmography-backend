@@ -2,20 +2,18 @@ package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import kr.jenna.plmography.exceptions.EmptyPostBody;
 
 import java.util.Objects;
 
 @Embeddable
 public class PostBody {
-    @Column(name = "post_body")
+    @Column(name = "post_body", length = 10000)
     private String value;
 
-    public PostBody(String value) {
-        if (value == null || value.equals("")) {
-            throw new EmptyPostBody();
-        }
+    public PostBody() {
+    }
 
+    public PostBody(String value) {
         this.value = value;
     }
 

@@ -44,6 +44,8 @@ public class GetPostService {
 
                     List<PostCommentDto> comments = findComments(post);
 
+                    System.out.println("여기@@@@@@@@@@@@@@@@" + post.getPostBody().getValue());
+
                     return new PostDto(
                             post.getId(),
                             new WriterDto(
@@ -52,9 +54,13 @@ public class GetPostService {
                                     user.getProfileImage().getValue()),
                             comments,
                             post.getTitle().getValue(),
-                            post.getPostBody().getValue(),
+                            post.getPostBody() == null
+                                    ? ""
+                                    : post.getPostBody().getValue(),
                             post.getHit().getValue(),
-                            post.getImage().getValue(),
+                            post.getImage() == null
+                                    ? ""
+                                    : post.getImage().getValue(),
                             post.getDeleted(),
                             post.getCreatedAt(),
                             post.getUpdatedAt());
@@ -82,32 +88,40 @@ public class GetPostService {
                         user.getProfileImage().getValue()),
                 comments,
                 post.getTitle().getValue(),
-                post.getPostBody().getValue(),
+                post.getPostBody() == null
+                        ? ""
+                        : post.getPostBody().getValue(),
                 post.getHit().getValue(),
-                post.getImage().getValue(),
+                post.getImage() == null
+                        ? ""
+                        : post.getImage().getValue(),
                 post.getDeleted(),
                 post.getCreatedAt(),
                 post.getUpdatedAt());
     }
 
     private List<PostCommentDto> findComments(Post post) {
-        return postCommentRepository.findAllByPostId(new PostId(post.getId()))
-                .stream()
-                .map(comment -> {
-                    User user = userRepository.findById(comment.getUserId().getValue())
-                            .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
+        if (postCommentRepository.existsByPostId(new PostId(post.getId()))) {
+            return postCommentRepository.findAllByPostId(new PostId(post.getId()))
+                    .stream()
+                    .map(comment -> {
+                        User user = userRepository.findById(comment.getUserId().getValue())
+                                .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
 
-                    return new PostCommentDto(
-                            comment.getId(),
-                            new WriterDto(
-                                    user.getId(),
-                                    user.getNickname().getValue(),
-                                    user.getProfileImage().getValue()),
-                            comment.getPostId().getValue(),
-                            comment.getPostCommentBody().getValue(),
-                            comment.isDeleted(),
-                            comment.getCreatedAt(),
-                            comment.getUpdatedAt());
-                }).collect(Collectors.toList());
+                        return new PostCommentDto(
+                                comment.getId(),
+                                new WriterDto(
+                                        user.getId(),
+                                        user.getNickname().getValue(),
+                                        user.getProfileImage().getValue()),
+                                comment.getPostId().getValue(),
+                                comment.getPostCommentBody().getValue(),
+                                comment.isDeleted(),
+                                comment.getCreatedAt(),
+                                comment.getUpdatedAt());
+                    }).collect(Collectors.toList());
+        }
+
+        return null;
     }
 }

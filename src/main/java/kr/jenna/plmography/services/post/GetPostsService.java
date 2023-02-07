@@ -67,9 +67,13 @@ public class GetPostsService {
                                     user.getProfileImage().getValue()),
                             comments,
                             post.getTitle().getValue(),
-                            post.getPostBody().getValue(),
+                            post.getPostBody() == null
+                                    ? ""
+                                    : post.getPostBody().getValue(),
                             post.getHit().getValue(),
-                            post.getImage().getValue(),
+                            post.getImage() == null
+                                    ? ""
+                                    : post.getImage().getValue(),
                             post.getDeleted(),
                             post.getCreatedAt(),
                             post.getUpdatedAt());
@@ -98,9 +102,13 @@ public class GetPostsService {
                                     user.getProfileImage().getValue()),
                             comments,
                             post.getTitle().getValue(),
-                            post.getPostBody().getValue(),
+                            post.getPostBody() == null
+                                    ? ""
+                                    : post.getPostBody().getValue(),
                             post.getHit().getValue(),
-                            post.getImage().getValue(),
+                            post.getImage() == null
+                                    ? ""
+                                    : post.getImage().getValue(),
                             post.getDeleted(),
                             post.getCreatedAt(),
                             post.getUpdatedAt());

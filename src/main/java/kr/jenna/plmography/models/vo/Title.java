@@ -2,7 +2,6 @@ package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import kr.jenna.plmography.exceptions.EmptyTitle;
 
 import java.util.Objects;
 
@@ -15,10 +14,6 @@ public class Title {
     }
 
     public Title(String value) {
-        if (value == null || value.equals("")) {
-            throw new EmptyTitle();
-        }
-
         this.value = value;
     }
 
