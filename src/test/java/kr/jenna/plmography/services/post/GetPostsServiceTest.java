@@ -2,10 +2,10 @@ package kr.jenna.plmography.services.post;
 
 import kr.jenna.plmography.dtos.post.PostsDto;
 import kr.jenna.plmography.models.Post;
-import kr.jenna.plmography.models.ReviewComment;
+import kr.jenna.plmography.models.PostComment;
 import kr.jenna.plmography.models.User;
+import kr.jenna.plmography.repositories.PostCommentRepository;
 import kr.jenna.plmography.repositories.PostRepository;
-import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,16 +24,16 @@ import static org.mockito.Mockito.mock;
 class GetPostsServiceTest {
     private PostRepository postRepository;
     private UserRepository userRepository;
-    private ReviewCommentRepository reviewCommentRepository;
+    private PostCommentRepository postCommentRepository;
     private GetPostsService getPostsService;
 
     @BeforeEach
     void setup() {
         postRepository = mock(PostRepository.class);
         userRepository = mock(UserRepository.class);
-        reviewCommentRepository = mock(ReviewCommentRepository.class);
+        postCommentRepository = mock(PostCommentRepository.class);
         getPostsService = new GetPostsService(
-                postRepository, reviewCommentRepository, userRepository);
+                postRepository, postCommentRepository, userRepository);
     }
 
     @Test
@@ -43,7 +43,7 @@ class GetPostsServiceTest {
 
         given(userRepository.findById(any())).willReturn(Optional.of(User.fake()));
 
-        given(reviewCommentRepository.findAllByPostId(any())).willReturn(List.of(ReviewComment.fake()));
+        given(postCommentRepository.findAllByPostId(any())).willReturn(List.of(PostComment.fake()));
 
         Integer page = 1;
         Integer size = 3;

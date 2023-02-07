@@ -7,14 +7,9 @@ import kr.jenna.plmography.dtos.post.PostModificationRequestDto;
 import kr.jenna.plmography.dtos.post.PostModificationResponseDto;
 import kr.jenna.plmography.dtos.post.PostRegistrationDto;
 import kr.jenna.plmography.dtos.post.PostsDto;
-import kr.jenna.plmography.dtos.post.SelectedPostsDto;
-import kr.jenna.plmography.dtos.post.UpdateHitPostResponseDto;
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Post;
-import kr.jenna.plmography.models.vo.Image;
-import kr.jenna.plmography.models.vo.PostBody;
-import kr.jenna.plmography.models.vo.Title;
 import kr.jenna.plmography.services.post.CreatePostService;
 import kr.jenna.plmography.services.post.DeletePostService;
 import kr.jenna.plmography.services.post.GetPostService;
@@ -43,7 +38,7 @@ import java.io.IOException;
 @RequestMapping("/posts")
 @CrossOrigin
 public class PostController {
-    private final S3Uploader s3Uploader;
+    private S3Uploader s3Uploader;
     private CreatePostService createPostService;
     private GetPostsService getPostsService;
     private GetPostService getPostService;
@@ -75,8 +70,8 @@ public class PostController {
         return post.toPostCreationDto();
     }
 
-    @GetMapping("/topHit")
-    public PostsDto top3Hit() {
+    @GetMapping("/top-rank")
+    public PostsDto top6Hit() {
         return getPostsService.top6Hit();
     }
 
@@ -99,22 +94,13 @@ public class PostController {
         return getPostService.detail(postId);
     }
 
-    @PatchMapping("/{postId}/updateHit")
-    public UpdateHitPostResponseDto updateHit(@PathVariable Long postId) {
-        return patchPostService.updateHit(postId);
-    }
-
-    @PatchMapping("/{postId}/modify")
+    @PatchMapping("/{postId}")
     public PostModificationResponseDto modify(
             @RequestAttribute Long userId,
+            @PathVariable Long postId,
             @RequestBody PostModificationRequestDto postModificationRequestDto
     ) {
-        Long postId = postModificationRequestDto.getPostId();
-        Title title = new Title(postModificationRequestDto.getTitle());
-        PostBody postBody = new PostBody(postModificationRequestDto.getPostBody());
-        Image image = new Image(postModificationRequestDto.getImage());
-
-        return patchPostService.modify(userId, postId, title, postBody, image);
+        return patchPostService.modify(userId, postId, postModificationRequestDto);
     }
 
     @DeleteMapping("/{postId}")
@@ -124,12 +110,6 @@ public class PostController {
             @PathVariable Long postId
     ) {
         deletePostService.delete(userId, postId);
-    }
-
-    @DeleteMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePosts(@RequestBody SelectedPostsDto selectedPostsDto) {
-        deletePostService.deletePosts(selectedPostsDto);
     }
 
     @PostMapping("/upload")

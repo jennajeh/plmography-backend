@@ -8,6 +8,7 @@ import kr.jenna.plmography.dtos.postComment.PostCommentRegistrationDto;
 import kr.jenna.plmography.dtos.postComment.PostCommentsDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.PostComment;
+import kr.jenna.plmography.models.vo.PostCommentBody;
 import kr.jenna.plmography.services.postComment.CreatePostCommentService;
 import kr.jenna.plmography.services.postComment.DeletePostCommentService;
 import kr.jenna.plmography.services.postComment.GetPostCommentsService;
@@ -73,19 +74,23 @@ public class PostCommentController {
             @RequestAttribute Long userId,
             @RequestBody PostCommentModificationRequestDto postCommentModificationRequestDto
     ) {
+        Long commentId = postCommentModificationRequestDto.getId();
+        PostCommentBody postCommentBody = new PostCommentBody(
+                postCommentModificationRequestDto.getPostCommentBody());
+
         PostComment postComment =
-                patchPostCommentService.modify(userId, postCommentModificationRequestDto);
+                patchPostCommentService.modify(userId, commentId, postCommentBody);
 
         return postComment.toModificationDto();
     }
 
     @DeleteMapping("/postComments/{commentId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteComment(
+    public void delete(
             @RequestAttribute Long userId,
             @PathVariable Long commentId
     ) {
-        deletePostCommentService.deleteComment(userId, commentId);
+        deletePostCommentService.delete(userId, commentId);
     }
 
     @ExceptionHandler(UserNotFound.class)

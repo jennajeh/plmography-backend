@@ -29,7 +29,7 @@ public class CreatePostCommentService {
                 .orElseThrow(() -> new UserNotFound(userId));
 
         PostComment postComment = new PostComment(
-                new UserId(postCommentRegistrationDto.getUserId()),
+                new UserId(user.getId()),
                 new PostId(postCommentRegistrationDto.getPostId()),
                 new PostCommentBody(postCommentRegistrationDto.getPostCommentBody()));
 

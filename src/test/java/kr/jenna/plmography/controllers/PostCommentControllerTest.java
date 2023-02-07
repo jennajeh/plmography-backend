@@ -105,7 +105,7 @@ class PostCommentControllerTest {
 
     @Test
     void modify() throws Exception {
-        given(patchPostCommentService.modify(any(), any()))
+        given(patchPostCommentService.modify(any(), any(), any()))
                 .willReturn(PostComment.fake());
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/postComments/1")

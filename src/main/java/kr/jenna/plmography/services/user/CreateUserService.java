@@ -5,9 +5,7 @@ import kr.jenna.plmography.exceptions.EmailAlreadyExist;
 import kr.jenna.plmography.exceptions.NicknameAlreadyExist;
 import kr.jenna.plmography.exceptions.PasswordNotMatch;
 import kr.jenna.plmography.models.User;
-import kr.jenna.plmography.models.vo.BirthYear;
 import kr.jenna.plmography.models.vo.Email;
-import kr.jenna.plmography.models.vo.Gender;
 import kr.jenna.plmography.models.vo.Nickname;
 import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.repositories.UserRepository;
@@ -31,8 +29,6 @@ public class CreateUserService {
         Password password = new Password(userRegistrationDto.getPassword());
         Password passwordCheck = new Password(userRegistrationDto.getPasswordCheck());
         Nickname nickname = new Nickname(userRegistrationDto.getNickname());
-        Gender gender = new Gender(userRegistrationDto.getGender());
-        BirthYear birthYear = new BirthYear(userRegistrationDto.getBirthYear());
 
         if (userRepository.existsByEmail(email)) {
             throw new EmailAlreadyExist(email);
@@ -46,7 +42,7 @@ public class CreateUserService {
             throw new PasswordNotMatch();
         }
 
-        User user = new User(email, password, nickname, gender, birthYear);
+        User user = new User(email, password, nickname);
 
         user.encodePassword(password, passwordEncoder);
 

@@ -2,7 +2,7 @@ package kr.jenna.plmography.services.post;
 
 import kr.jenna.plmography.dtos.post.MyPostsDto;
 import kr.jenna.plmography.dtos.post.PostDto;
-import kr.jenna.plmography.dtos.reviewComment.ReviewCommentDto;
+import kr.jenna.plmography.dtos.postComment.PostCommentDto;
 import kr.jenna.plmography.dtos.user.WriterDto;
 import kr.jenna.plmography.exceptions.PostNotFound;
 import kr.jenna.plmography.exceptions.UserNotFound;
@@ -10,8 +10,8 @@ import kr.jenna.plmography.models.Post;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.vo.PostId;
 import kr.jenna.plmography.models.vo.UserId;
+import kr.jenna.plmography.repositories.PostCommentRepository;
 import kr.jenna.plmography.repositories.PostRepository;
-import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,14 +23,14 @@ import java.util.stream.Collectors;
 @Transactional
 public class GetPostService {
     private final PostRepository postRepository;
-    private final ReviewCommentRepository reviewCommentRepository;
+    private final PostCommentRepository postCommentRepository;
     private final UserRepository userRepository;
 
     public GetPostService(PostRepository postRepository,
-                          ReviewCommentRepository reviewCommentRepository,
+                          PostCommentRepository postCommentRepository,
                           UserRepository userRepository) {
         this.postRepository = postRepository;
-        this.reviewCommentRepository = reviewCommentRepository;
+        this.postCommentRepository = postCommentRepository;
         this.userRepository = userRepository;
     }
 
@@ -42,13 +42,17 @@ public class GetPostService {
                     User user = userRepository.findById(post.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(post.getUserId().getValue()));
 
+                    List<PostCommentDto> comments = findComments(post);
+
                     return new PostDto(
                             post.getId(),
                             new WriterDto(
                                     user.getId(),
                                     user.getNickname().getValue(),
                                     user.getProfileImage().getValue()),
+                            comments,
                             post.getTitle().getValue(),
+                            post.getPostBody().getValue(),
                             post.getHit().getValue(),
                             post.getImage().getValue(),
                             post.getDeleted(),
@@ -66,7 +70,9 @@ public class GetPostService {
         User user = userRepository.findById(post.getUserId().getValue())
                 .orElseThrow(() -> new UserNotFound(post.getUserId().getValue()));
 
-        List<ReviewCommentDto> comments = findComments(post);
+        List<PostCommentDto> comments = findComments(post);
+
+        post.updateHit(post.getHit().getValue());
 
         return new PostDto(
                 post.getId(),
@@ -84,21 +90,21 @@ public class GetPostService {
                 post.getUpdatedAt());
     }
 
-    private List<ReviewCommentDto> findComments(Post post) {
-        return reviewCommentRepository.findAllByPostId(new PostId(post.getId()))
+    private List<PostCommentDto> findComments(Post post) {
+        return postCommentRepository.findAllByPostId(new PostId(post.getId()))
                 .stream()
                 .map(comment -> {
                     User user = userRepository.findById(comment.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
 
-                    return new ReviewCommentDto(
+                    return new PostCommentDto(
                             comment.getId(),
                             new WriterDto(
                                     user.getId(),
                                     user.getNickname().getValue(),
                                     user.getProfileImage().getValue()),
                             comment.getPostId().getValue(),
-                            comment.getReviewCommentBody().getValue(),
+                            comment.getPostCommentBody().getValue(),
                             comment.isDeleted(),
                             comment.getCreatedAt(),
                             comment.getUpdatedAt());

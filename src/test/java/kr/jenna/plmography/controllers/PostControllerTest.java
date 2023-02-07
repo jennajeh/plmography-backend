@@ -4,7 +4,6 @@ import kr.jenna.plmography.dtos.page.PagesDto;
 import kr.jenna.plmography.dtos.post.PostDto;
 import kr.jenna.plmography.dtos.post.PostModificationResponseDto;
 import kr.jenna.plmography.dtos.post.PostsDto;
-import kr.jenna.plmography.dtos.post.UpdateHitPostResponseDto;
 import kr.jenna.plmography.models.Post;
 import kr.jenna.plmography.services.post.CreatePostService;
 import kr.jenna.plmography.services.post.DeletePostService;
@@ -122,20 +121,11 @@ class PostControllerTest {
     }
 
     @Test
-    void updateHit() throws Exception {
-        given(patchPostService.updateHit(any()))
-                .willReturn(new UpdateHitPostResponseDto(1L));
-
-        mockMvc.perform(MockMvcRequestBuilders.patch("/posts/1/updateHit"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     void modify() throws Exception {
-        given(patchPostService.modify(any(), any(), any(), any(), any()))
+        given(patchPostService.modify(any(), any(), any()))
                 .willReturn(new PostModificationResponseDto(1L));
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/posts/1/modify")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/posts/1")
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{"
@@ -150,16 +140,6 @@ class PostControllerTest {
     void delete() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/posts/1")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    void deleteSelectedPosts() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/posts")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{" +
-                                "\"postIds\": [1, 2]" +
-                                "}"))
                 .andExpect(status().isNoContent());
     }
 }

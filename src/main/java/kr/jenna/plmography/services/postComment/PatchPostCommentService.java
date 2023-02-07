@@ -1,6 +1,5 @@
 package kr.jenna.plmography.services.postComment;
 
-import kr.jenna.plmography.dtos.postComment.PostCommentModificationRequestDto;
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.models.PostComment;
 import kr.jenna.plmography.models.vo.PostCommentBody;
@@ -17,12 +16,7 @@ public class PatchPostCommentService {
         this.postCommentRepository = postCommentRepository;
     }
 
-    public PostComment modify(Long userId,
-                              PostCommentModificationRequestDto postCommentModificationRequestDto) {
-        Long commentId = postCommentModificationRequestDto.getId();
-        PostCommentBody postCommentBody = new PostCommentBody(
-                postCommentModificationRequestDto.getPostCommentBody());
-
+    public PostComment modify(Long userId, Long commentId, PostCommentBody postCommentBody) {
         PostComment postComment = postCommentRepository.getReferenceById(commentId);
 
         if (!postComment.isWriter(userId)) {

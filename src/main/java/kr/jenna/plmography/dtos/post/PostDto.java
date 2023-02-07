@@ -1,6 +1,6 @@
 package kr.jenna.plmography.dtos.post;
 
-import kr.jenna.plmography.dtos.reviewComment.ReviewCommentDto;
+import kr.jenna.plmography.dtos.postComment.PostCommentDto;
 import kr.jenna.plmography.dtos.user.WriterDto;
 
 import java.time.LocalDateTime;
@@ -9,7 +9,7 @@ import java.util.List;
 public class PostDto {
     private Long id;
     private WriterDto writer;
-    private List<ReviewCommentDto> comments;
+    private List<PostCommentDto> comments;
     private String title;
     private String postBody;
     private Long hit;
@@ -25,6 +25,7 @@ public class PostDto {
             Long id,
             WriterDto writer,
             String title,
+            String postBody,
             Long hit,
             String image,
             boolean isDeleted,
@@ -44,7 +45,7 @@ public class PostDto {
     public PostDto(
             Long id,
             WriterDto writer,
-            List<ReviewCommentDto> comments,
+            List<PostCommentDto> comments,
             String title,
             String postBody,
             Long hit,
@@ -71,7 +72,7 @@ public class PostDto {
         return writer;
     }
 
-    public List<ReviewCommentDto> getComments() {
+    public List<PostCommentDto> getComments() {
         return comments;
     }
 
@@ -107,7 +108,7 @@ public class PostDto {
         return new PostDto(
                 1L,
                 new WriterDto(1L, "jenna", "image"),
-                List.of(ReviewCommentDto.fake()),
+                List.of(PostCommentDto.fake()),
                 "title",
                 "body",
                 1L,

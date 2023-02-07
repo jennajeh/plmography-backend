@@ -1,7 +1,7 @@
 package kr.jenna.plmography.services.post;
 
+import kr.jenna.plmography.dtos.post.PostModificationRequestDto;
 import kr.jenna.plmography.dtos.post.PostModificationResponseDto;
-import kr.jenna.plmography.dtos.post.UpdateHitPostResponseDto;
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.models.Post;
 import kr.jenna.plmography.models.vo.Image;
@@ -20,17 +20,14 @@ public class PatchPostService {
         this.postRepository = postRepository;
     }
 
-    public UpdateHitPostResponseDto updateHit(Long postId) {
-        Post post = postRepository.getReferenceById(postId);
-
-        post.updateHit(post.getHit().getValue());
-
-        return new UpdateHitPostResponseDto(post.getId());
-    }
-
     public PostModificationResponseDto modify(
-            Long userId, Long postId, Title title, PostBody postBody, Image image) {
+            Long userId, Long postId, PostModificationRequestDto postModificationRequestDto) {
+        Title title = new Title(postModificationRequestDto.getTitle());
+        PostBody postBody = new PostBody(postModificationRequestDto.getPostBody());
+        Image image = new Image(postModificationRequestDto.getImage());
+
         Post post = postRepository.getReferenceById(postId);
+
 
         if (!post.isWriter(userId)) {
             throw new InvalidUser();

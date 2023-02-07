@@ -3,14 +3,14 @@ package kr.jenna.plmography.services.post;
 import kr.jenna.plmography.dtos.page.PagesDto;
 import kr.jenna.plmography.dtos.post.PostDto;
 import kr.jenna.plmography.dtos.post.PostsDto;
-import kr.jenna.plmography.dtos.reviewComment.ReviewCommentDto;
+import kr.jenna.plmography.dtos.postComment.PostCommentDto;
 import kr.jenna.plmography.dtos.user.WriterDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Post;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.vo.PostId;
+import kr.jenna.plmography.repositories.PostCommentRepository;
 import kr.jenna.plmography.repositories.PostRepository;
-import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import kr.jenna.plmography.specification.PostSpecification;
 import org.springframework.data.domain.Page;
@@ -28,14 +28,14 @@ import java.util.stream.Collectors;
 @Transactional
 public class GetPostsService {
     private final PostRepository postRepository;
-    private final ReviewCommentRepository reviewCommentRepository;
+    private final PostCommentRepository postCommentRepository;
     private final UserRepository userRepository;
 
     public GetPostsService(PostRepository postRepository,
-                           ReviewCommentRepository reviewCommentRepository,
+                           PostCommentRepository postCommentRepository,
                            UserRepository userRepository) {
         this.postRepository = postRepository;
-        this.reviewCommentRepository = reviewCommentRepository;
+        this.postCommentRepository = postCommentRepository;
         this.userRepository = userRepository;
     }
 
@@ -57,7 +57,7 @@ public class GetPostsService {
                     User user = userRepository.findById(post.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(post.getUserId().getValue()));
 
-                    List<ReviewCommentDto> comments = findComments(post);
+                    List<PostCommentDto> comments = findComments(post);
 
                     return new PostDto(
                             post.getId(),
@@ -88,7 +88,7 @@ public class GetPostsService {
                     User user = userRepository.findById(post.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(post.getUserId().getValue()));
 
-                    List<ReviewCommentDto> comments = findComments(post);
+                    List<PostCommentDto> comments = findComments(post);
 
                     return new PostDto(
                             post.getId(),
@@ -109,21 +109,20 @@ public class GetPostsService {
         return new PostsDto(postDtos);
     }
 
-    private List<ReviewCommentDto> findComments(Post post) {
-        return reviewCommentRepository.findAllByPostId(new PostId(post.getId()))
-                .stream()
-                .map(comment -> {
+    private List<PostCommentDto> findComments(Post post) {
+        return postCommentRepository.findAllByPostId(new PostId(post.getId()))
+                .stream().map(comment -> {
                     User user = userRepository.findById(comment.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
 
-                    return new ReviewCommentDto(
+                    return new PostCommentDto(
                             comment.getId(),
                             new WriterDto(
                                     user.getId(),
                                     user.getNickname().getValue(),
                                     user.getProfileImage().getValue()),
                             comment.getPostId().getValue(),
-                            comment.getReviewCommentBody().getValue(),
+                            comment.getPostCommentBody().getValue(),
                             comment.isDeleted(),
                             comment.getCreatedAt(),
                             comment.getUpdatedAt());

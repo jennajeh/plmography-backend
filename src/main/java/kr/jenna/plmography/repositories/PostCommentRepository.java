@@ -1,6 +1,7 @@
 package kr.jenna.plmography.repositories;
 
 import kr.jenna.plmography.models.PostComment;
+import kr.jenna.plmography.models.vo.PostId;
 import kr.jenna.plmography.models.vo.UserId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,4 +13,8 @@ public interface PostCommentRepository extends JpaRepository<PostComment, Long> 
     Page<PostComment> findAllByPostId(Long postId, Pageable pageable);
 
     List<PostComment> findAllByUserId(UserId userId);
+
+    List<PostComment> findAllByPostId(PostId postId);
+
+    boolean existsByPostId(PostId postId);
 }

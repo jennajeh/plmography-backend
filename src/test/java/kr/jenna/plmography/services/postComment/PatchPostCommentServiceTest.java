@@ -1,8 +1,8 @@
 package kr.jenna.plmography.services.postComment;
 
 import kr.jenna.plmography.dtos.postComment.PostCommentDto;
-import kr.jenna.plmography.dtos.postComment.PostCommentModificationRequestDto;
 import kr.jenna.plmography.models.PostComment;
+import kr.jenna.plmography.models.vo.PostCommentBody;
 import kr.jenna.plmography.repositories.PostCommentRepository;
 import org.junit.jupiter.api.Test;
 
@@ -23,13 +23,13 @@ class PatchPostCommentServiceTest {
                 .willReturn(PostComment.fake());
 
         Long userId = 1L;
-        PostCommentModificationRequestDto postCommentModificationRequestDto =
-                new PostCommentModificationRequestDto(1L, "수정합니다");
+        Long commentId = 1L;
+        PostCommentBody postBody = new PostCommentBody("수정합니다");
 
         PostCommentDto postCommentDto = PostCommentDto.fake();
 
         PostComment postComment =
-                patchPostCommentService.modify(userId, postCommentModificationRequestDto);
+                patchPostCommentService.modify(userId, commentId, postBody);
 
         assertThat(PostComment.fake().getPostCommentBody().getValue())
                 .isNotEqualTo(postCommentDto.getPostCommentBody());

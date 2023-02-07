@@ -15,7 +15,7 @@ public class DeletePostCommentService {
         this.postCommentRepository = postCommentRepository;
     }
 
-    public void deleteComment(Long userId, Long commentId) {
+    public void delete(Long userId, Long commentId) {
         PostComment postComment = postCommentRepository.getReferenceById(commentId);
 
         if (!postComment.isWriter(userId)) {

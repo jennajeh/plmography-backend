@@ -12,8 +12,6 @@ public class UserDto {
     private Long id;
     private String email;
     private String nickname;
-    private String gender;
-    private Integer birthYear;
     private String profileImage;
     private Set<Long> wishContentIds;
     private Set<Long> watchedContentIds;
@@ -25,8 +23,6 @@ public class UserDto {
     public UserDto(Long id,
                    String email,
                    String nickname,
-                   String gender,
-                   Integer birthYear,
                    String profileImage,
                    Set<WishContentId> wishContentIds,
                    Set<WatchedContentId> watchedContentIds,
@@ -34,8 +30,6 @@ public class UserDto {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
-        this.gender = gender;
-        this.birthYear = birthYear;
         this.profileImage = profileImage;
         setWishContentIds(wishContentIds);
         setWatchedContentIds(watchedContentIds);
@@ -72,14 +66,6 @@ public class UserDto {
 
     public String getNickname() {
         return nickname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public Integer getBirthYear() {
-        return birthYear;
     }
 
     public String getProfileImage() {
@@ -122,8 +108,6 @@ public class UserDto {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", gender='" + gender + '\'' +
-                ", birthYear=" + birthYear +
                 ", profileImage='" + profileImage + '\'' +
                 ", wishContentIds='" + wishContentIds + '\'' +
                 ", watchedContentIds=" + watchedContentIds +
@@ -137,8 +121,6 @@ public class UserDto {
         return Objects.equals(id, userDto.id)
                 && Objects.equals(email, userDto.email)
                 && Objects.equals(nickname, userDto.nickname)
-                && Objects.equals(gender, userDto.gender)
-                && Objects.equals(birthYear, userDto.birthYear)
                 && Objects.equals(profileImage, userDto.profileImage)
                 && Objects.equals(wishContentIds, userDto.wishContentIds)
                 && Objects.equals(watchedContentIds, userDto.watchedContentIds)

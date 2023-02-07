@@ -5,8 +5,8 @@ import kr.jenna.plmography.dtos.post.PostDto;
 import kr.jenna.plmography.models.Post;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.vo.UserId;
+import kr.jenna.plmography.repositories.PostCommentRepository;
 import kr.jenna.plmography.repositories.PostRepository;
-import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,15 +22,15 @@ import static org.mockito.Mockito.mock;
 class GetPostServiceTest {
     private PostRepository postRepository;
     private UserRepository userRepository;
-    private ReviewCommentRepository reviewCommentRepository;
+    private PostCommentRepository postCommentRepository;
     private GetPostService getPostService;
 
     @BeforeEach
     void setUp() {
         postRepository = mock(PostRepository.class);
-        reviewCommentRepository = mock(ReviewCommentRepository.class);
+        postCommentRepository = mock(PostCommentRepository.class);
         userRepository = mock(UserRepository.class);
-        getPostService = new GetPostService(postRepository, reviewCommentRepository, userRepository);
+        getPostService = new GetPostService(postRepository, postCommentRepository, userRepository);
     }
 
     @Test

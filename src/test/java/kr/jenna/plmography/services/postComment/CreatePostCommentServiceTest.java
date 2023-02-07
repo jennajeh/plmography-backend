@@ -29,7 +29,7 @@ class CreatePostCommentServiceTest {
         given(userRepository.findById(any())).willReturn(Optional.of(user));
 
         PostCommentRegistrationDto postCommentRegistrationDto =
-                new PostCommentRegistrationDto(1L, 1L, "동의합니다~");
+                new PostCommentRegistrationDto(1L, "동의합니다~");
 
         PostComment postComment = createPostCommentService.create(1L, postCommentRegistrationDto);
 
