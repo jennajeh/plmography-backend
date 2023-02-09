@@ -77,7 +77,7 @@ class ThemeControllerTest {
         given(getThemesService.top3Hit())
                 .willReturn(new ThemesDto(List.of(Theme.fake().toThemeDto())));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/themes/topHit"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/themes/top-rank"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"themes\":[")

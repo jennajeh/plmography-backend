@@ -54,7 +54,7 @@ public class DeletePostService {
     private void deleteComments(Long postId) {
         if (postCommentRepository.existsByPostId(new PostId(postId))) {
             List<PostComment> postComments =
-                    postCommentRepository.findAllByPostId(new PostId(postId));
+                    postCommentRepository.findAllByPostIdAndIsDeleted(new PostId(postId));
 
             for (PostComment postComment : postComments) {
                 postComment.delete();

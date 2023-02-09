@@ -108,7 +108,7 @@ class PostCommentControllerTest {
         given(patchPostCommentService.modify(any(), any(), any()))
                 .willReturn(PostComment.fake());
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/postComments/1")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/postComments?&commentId=1&postCommentBody=dd")
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{"

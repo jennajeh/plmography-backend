@@ -37,7 +37,7 @@ class GetPostCommentsServiceTest {
         given(userRepository.findById(any()))
                 .willReturn(Optional.of(User.fake()));
 
-        given(postCommentRepository.findAllByPostId(any(), any()))
+        given(postCommentRepository.findAllByPostIdAndIsDeleted(any(), any()))
                 .willReturn(new PageImpl<>(List.of(PostComment.fake())));
 
         Long postId = 1L;
@@ -53,7 +53,7 @@ class GetPostCommentsServiceTest {
 
     @Test
     void myReview() {
-        given(postCommentRepository.findAllByUserId(new UserId(1L)))
+        given(postCommentRepository.findAllByUserIdAndIsDeleted(new UserId(1L)))
                 .willReturn(List.of(PostComment.fake()));
 
         given(userRepository.findById(1L)).willReturn(Optional.of(User.fake()));

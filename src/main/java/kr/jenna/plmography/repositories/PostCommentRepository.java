@@ -18,7 +18,8 @@ public interface PostCommentRepository extends JpaRepository<PostComment, Long> 
     @Query("select p from PostComment p where p.userId = :userId and p.isDeleted = false")
     List<PostComment> findAllByUserIdAndIsDeleted(@Param("userId") UserId userId);
 
-    List<PostComment> findAllByPostId(PostId postId);
+    @Query("select p from PostComment p where p.postId = :postId and p.isDeleted = false")
+    List<PostComment> findAllByPostIdAndIsDeleted(@Param("postId") PostId postId);
 
     boolean existsByPostId(PostId postId);
 }

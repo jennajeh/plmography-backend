@@ -35,7 +35,7 @@ class GetPostServiceTest {
 
     @Test
     void myPost() {
-        given(postRepository.findAllByUserId(new UserId(1L))).willReturn(List.of(Post.fake()));
+        given(postRepository.findAllByUserIdAndIsDeleted(new UserId(1L))).willReturn(List.of(Post.fake()));
         given(userRepository.findById(1L)).willReturn(Optional.of(User.fake()));
 
         MyPostsDto postsDto = getPostService.myPost(1L);

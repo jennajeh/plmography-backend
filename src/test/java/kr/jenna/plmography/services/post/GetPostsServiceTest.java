@@ -38,12 +38,12 @@ class GetPostsServiceTest {
 
     @Test
     void list() {
-        given(postRepository.findAll(any(Specification.class), any(Pageable.class)))
+        given(postRepository.findAllByIsDeleted(any(Specification.class), any(Pageable.class)))
                 .willReturn(new PageImpl<>(List.of(Post.fake())));
 
         given(userRepository.findById(any())).willReturn(Optional.of(User.fake()));
 
-        given(postCommentRepository.findAllByPostId(any())).willReturn(List.of(PostComment.fake()));
+        given(postCommentRepository.findAllByPostIdAndIsDeleted(any())).willReturn(List.of(PostComment.fake()));
 
         Integer page = 1;
         Integer size = 3;

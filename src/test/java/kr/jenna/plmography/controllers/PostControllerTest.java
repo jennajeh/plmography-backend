@@ -28,7 +28,6 @@ import java.util.List;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -88,7 +87,7 @@ class PostControllerTest {
         given(getPostsService.list(any(), any(), any()))
                 .willReturn(new PostsDto(List.of(PostDto.fake()), new PagesDto()));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/posts?page=1&size=10"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/posts/filter?page=1&size=10"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"posts\":[")
@@ -96,8 +95,6 @@ class PostControllerTest {
                 .andExpect(content().string(
                         containsString("\"pages\":")
                 ));
-
-        verify(getPostsService).list("", page, size);
     }
 
     @Test

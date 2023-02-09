@@ -118,7 +118,7 @@ public class GetPostsService {
     }
 
     private List<PostCommentDto> findComments(Post post) {
-        return postCommentRepository.findAllByPostId(new PostId(post.getId()))
+        return postCommentRepository.findAllByPostIdAndIsDeleted(new PostId(post.getId()))
                 .stream().map(comment -> {
                     User user = userRepository.findById(comment.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(comment.getUserId().getValue()));
