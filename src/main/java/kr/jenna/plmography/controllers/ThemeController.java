@@ -2,14 +2,11 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.dtos.content.ContentsDto;
 import kr.jenna.plmography.dtos.theme.ThemesDto;
-import kr.jenna.plmography.dtos.theme.UpdateHitResponseDto;
 import kr.jenna.plmography.exceptions.ThemeNotFound;
 import kr.jenna.plmography.services.theme.GetThemesService;
-import kr.jenna.plmography.services.theme.PatchThemeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,12 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/themes")
 public class ThemeController {
     private GetThemesService getThemesService;
-    private PatchThemeService patchThemeService;
 
-    public ThemeController(GetThemesService getThemesService,
-                           PatchThemeService patchThemeService) {
+    public ThemeController(GetThemesService getThemesService) {
         this.getThemesService = getThemesService;
-        this.patchThemeService = patchThemeService;
     }
 
     @GetMapping
@@ -46,12 +40,7 @@ public class ThemeController {
         return getThemesService.themeList(themeId, platform, page, size);
     }
 
-    @PatchMapping("/{themeId}")
-    public UpdateHitResponseDto updateHit(@PathVariable Long themeId) {
-        return patchThemeService.updateHit(themeId);
-    }
-
-    @GetMapping("/topHit")
+    @GetMapping("/top-rank")
     public ThemesDto top3Hit() {
         return getThemesService.top3Hit();
     }

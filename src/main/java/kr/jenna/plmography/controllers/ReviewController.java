@@ -9,7 +9,6 @@ import kr.jenna.plmography.dtos.review.ReviewsDto;
 import kr.jenna.plmography.exceptions.InvalidUser;
 import kr.jenna.plmography.exceptions.ReviewNotFound;
 import kr.jenna.plmography.exceptions.UnmatchedPostId;
-import kr.jenna.plmography.exceptions.UnmodifiableReview;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.vo.ReviewBody;
@@ -128,12 +127,6 @@ public class ReviewController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String reviewNotFound() {
         return "Review not found!";
-    }
-
-    @ExceptionHandler(UnmodifiableReview.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String unmodifiableReview() {
-        return "Unmodifiable review!";
     }
 
     @ExceptionHandler(UnmatchedPostId.class)

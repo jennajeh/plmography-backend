@@ -52,7 +52,7 @@ public class GetReviewService {
                             review.getDeleted(),
                             review.getCreatedAt(),
                             review.getUpdatedAt());
-                }).toList();
+                }).collect(Collectors.toList());
 
         return new MyReviewsDto(reviewDtos);
     }

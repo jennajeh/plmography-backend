@@ -1,10 +1,8 @@
 package kr.jenna.plmography.models;
 
 import kr.jenna.plmography.exceptions.InvalidPassword;
-import kr.jenna.plmography.models.vo.BirthYear;
 import kr.jenna.plmography.models.vo.Email;
 import kr.jenna.plmography.models.vo.FavoriteContentId;
-import kr.jenna.plmography.models.vo.Gender;
 import kr.jenna.plmography.models.vo.Nickname;
 import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.models.vo.ProfileImage;
@@ -21,12 +19,12 @@ class UserTest {
 
     @Test
     void creation() {
-        User user = new User(new Email("jenna@gmail.com"), new Password("Test123!"),
-                new Nickname("전제나"), new Gender("여성"), new BirthYear(1994));
+        User user = new User(new Email("jenna@gmail.com"),
+                new Password("Test123!"),
+                new Nickname("전제나"));
 
         assertThat(user.getEmail()).isEqualTo(new Email("jenna@gmail.com"));
         assertThat(user.getNickname()).isEqualTo(new Nickname("전제나"));
-        assertThat(user.getBirthYear()).isEqualTo(new BirthYear(1994));
     }
 
     @Test

@@ -3,11 +3,9 @@ package kr.jenna.plmography.services.review;
 import kr.jenna.plmography.dtos.review.ReviewDto;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.vo.ReviewBody;
-import kr.jenna.plmography.repositories.CommentRepository;
+import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -19,10 +17,11 @@ class PatchReviewServiceTest {
     @Test
     void update() {
         ReviewRepository reviewRepository = mock(ReviewRepository.class);
-        CommentRepository commentRepository = mock(CommentRepository.class);
-        PatchReviewService patchReviewService = new PatchReviewService(reviewRepository, commentRepository);
+        ReviewCommentRepository reviewCommentRepository = mock(ReviewCommentRepository.class);
+        PatchReviewService patchReviewService = new PatchReviewService(reviewRepository, reviewCommentRepository);
 
-        given(reviewRepository.findById(any(Long.class))).willReturn(Optional.of(Review.fake()));
+        given(reviewRepository.getReferenceById(any(Long.class)))
+                .willReturn(Review.fake());
 
         ReviewDto reviewDto = ReviewDto.fake();
 

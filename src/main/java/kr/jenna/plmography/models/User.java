@@ -9,10 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import kr.jenna.plmography.dtos.user.UserCreationDto;
 import kr.jenna.plmography.dtos.user.UserDto;
-import kr.jenna.plmography.models.vo.BirthYear;
 import kr.jenna.plmography.models.vo.Email;
 import kr.jenna.plmography.models.vo.FavoriteContentId;
-import kr.jenna.plmography.models.vo.Gender;
 import kr.jenna.plmography.models.vo.Nickname;
 import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.models.vo.ProfileImage;
@@ -21,6 +19,7 @@ import kr.jenna.plmography.models.vo.WishContentId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
@@ -48,12 +47,6 @@ public class User {
     private Nickname nickname;
 
     @Embedded
-    private Gender gender;
-
-    @Embedded
-    private BirthYear birthYear;
-
-    @Embedded
     private ProfileImage profileImage;
 
     @ElementCollection
@@ -68,27 +61,21 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public User(Long id, Email email, Password password,
-                Nickname nickname, Gender gender, BirthYear birthYear) {
+    public User(Long id, Email email, Password password, Nickname nickname) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.gender = gender;
-        this.birthYear = birthYear;
         this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/nickname=" + nickname.getValue());
     }
 
-    public User(Email email, Password password,
-                Nickname nickname, Gender gender, BirthYear birthYear) {
+    public User(Email email, Password password, Nickname nickname) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.gender = gender;
-        this.birthYear = birthYear;
         this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=" + nickname.getValue());
     }
 
@@ -96,9 +83,7 @@ public class User {
         return new User(
                 new Email("jenna@gmail.com"),
                 new Password("Test123!"),
-                new Nickname("전제나"),
-                new Gender("여성"),
-                new BirthYear(1994));
+                new Nickname("전제나"));
     }
 
     public static User fake(long id) {
@@ -106,9 +91,7 @@ public class User {
                 id,
                 new Email("jenna@gmail.com"),
                 new Password("Test123!"),
-                new Nickname("전제나" + id),
-                new Gender("여성"),
-                new BirthYear(1994));
+                new Nickname("전제나" + id));
     }
 
     public static List<User> fakes(long count) {
@@ -146,8 +129,6 @@ public class User {
                 id,
                 email.getValue(),
                 nickname.getValue(),
-                gender.getValue(),
-                birthYear.getValue(),
                 profileImage.getValue(),
                 wishContentIds,
                 watchedContentIds,

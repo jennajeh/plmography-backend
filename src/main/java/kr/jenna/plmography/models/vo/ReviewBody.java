@@ -2,20 +2,28 @@ package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import kr.jenna.plmography.exceptions.EmptyContent;
 
 import java.util.Objects;
 
 @Embeddable
-@Getter
-@NoArgsConstructor
 public class ReviewBody {
     @Column(name = "review_body")
     private String value;
 
+    public ReviewBody() {
+    }
+
     public ReviewBody(String value) {
+        if (value == null || value.equals("")) {
+            throw new EmptyContent();
+        }
+
         this.value = value;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override

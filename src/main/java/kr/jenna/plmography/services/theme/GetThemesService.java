@@ -71,6 +71,8 @@ public class GetThemesService {
             Theme theme = themeRepository.findById(themeId)
                     .orElseThrow(() -> new ThemeNotFound());
 
+            theme.updateHit(theme.getHit().getValue());
+
             spec = spec.and(ContentSpecification.equalThemeId(theme.getId()));
         }
 

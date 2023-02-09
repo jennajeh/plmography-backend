@@ -1,12 +1,10 @@
 package kr.jenna.plmography.services.review;
 
 import kr.jenna.plmography.models.Review;
-import kr.jenna.plmography.repositories.CommentRepository;
+import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -16,22 +14,21 @@ import static org.mockito.Mockito.mock;
 
 class DeleteReviewServiceTest {
     private ReviewRepository reviewRepository;
-    private CommentRepository commentRepository;
+    private ReviewCommentRepository reviewCommentRepository;
     private DeleteReviewService deleteReviewService;
 
     @BeforeEach
     void setup() {
         reviewRepository = mock(ReviewRepository.class);
-        commentRepository = mock(CommentRepository.class);
-        deleteReviewService = new DeleteReviewService(reviewRepository, commentRepository);
+        reviewCommentRepository = mock(ReviewCommentRepository.class);
+        deleteReviewService = new DeleteReviewService(reviewRepository, reviewCommentRepository);
     }
 
     @Test
     void delete() {
         Review review = Review.fake();
 
-        given(reviewRepository.findById(any()))
-                .willReturn(Optional.of(review));
+        given(reviewRepository.getReferenceById(any())).willReturn(review);
 
         Long userId = 1L;
         Long reviewId = 1L;

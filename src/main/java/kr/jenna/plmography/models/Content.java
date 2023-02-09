@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.content.ContentDto;
 import lombok.Builder;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +20,7 @@ public class Content {
     private Long tmdbId;
 
     private String tmdbGenreId;
-    
+
     private Long themeId;
 
     private String imageUrl;
@@ -39,6 +40,7 @@ public class Content {
     @Column(length = 4000)
     private String description;
 
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     public Content() {
