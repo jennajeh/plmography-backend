@@ -2,7 +2,6 @@ package kr.jenna.plmography.controllers;
 
 import kr.jenna.plmography.dtos.postComment.MyPostCommentsDto;
 import kr.jenna.plmography.dtos.postComment.PostCommentCreationDto;
-import kr.jenna.plmography.dtos.postComment.PostCommentModificationRequestDto;
 import kr.jenna.plmography.dtos.postComment.PostCommentModificationResponseDto;
 import kr.jenna.plmography.dtos.postComment.PostCommentRegistrationDto;
 import kr.jenna.plmography.dtos.postComment.PostCommentsDto;
@@ -69,17 +68,16 @@ public class PostCommentController {
         return getPostCommentsService.myComments(userId);
     }
 
-    @PatchMapping("/postComments/{commentId}")
+    @PatchMapping("/postComments")
     public PostCommentModificationResponseDto modify(
             @RequestAttribute Long userId,
-            @RequestBody PostCommentModificationRequestDto postCommentModificationRequestDto
+            @RequestParam Long commentId,
+            @RequestParam String postCommentBody
     ) {
-        Long commentId = postCommentModificationRequestDto.getId();
-        PostCommentBody postCommentBody = new PostCommentBody(
-                postCommentModificationRequestDto.getPostCommentBody());
+        PostCommentBody commentBody = new PostCommentBody(postCommentBody);
 
         PostComment postComment =
-                patchPostCommentService.modify(userId, commentId, postCommentBody);
+                patchPostCommentService.modify(userId, commentId, commentBody);
 
         return postComment.toModificationDto();
     }

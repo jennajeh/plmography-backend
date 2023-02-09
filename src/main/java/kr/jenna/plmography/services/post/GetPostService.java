@@ -35,7 +35,7 @@ public class GetPostService {
     }
 
     public MyPostsDto myPost(Long userId) {
-        List<Post> posts = postRepository.findAllByUserId(new UserId(userId));
+        List<Post> posts = postRepository.findAllByUserIdAndIsDeleted(new UserId(userId));
 
         List<PostDto> postDtos = posts.stream()
                 .map(post -> {
@@ -43,8 +43,6 @@ public class GetPostService {
                             .orElseThrow(() -> new UserNotFound(post.getUserId().getValue()));
 
                     List<PostCommentDto> comments = findComments(post);
-
-                    System.out.println("여기@@@@@@@@@@@@@@@@" + post.getPostBody().getValue());
 
                     return new PostDto(
                             post.getId(),

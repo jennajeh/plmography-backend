@@ -57,17 +57,16 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM review_like_user_ids");
         jdbcTemplate.execute("DELETE FROM review");
         jdbcTemplate.execute("DELETE FROM review_comment");
-        jdbcTemplate.execute("DELETE FROM recomment");
         jdbcTemplate.execute("DELETE FROM article");
         jdbcTemplate.execute("DELETE FROM theme");
-//        jdbcTemplate.execute("DELETE FROM likes");
-//        jdbcTemplate.execute("DELETE FROM post");
-//        jdbcTemplate.execute("DELETE FROM post_comment");
+        jdbcTemplate.execute("DELETE FROM likes");
+        jdbcTemplate.execute("DELETE FROM post");
+        jdbcTemplate.execute("DELETE FROM post_comment");
 
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +
                         "  gender, birth_year, profile_image, created_at, updated_at)" +
-                        " VALUES(1, 'jenna@gmail.com', ?, '전제나', '여성', 1990, "
+                        " VALUES(1, 'jenna@gmail.com', ?, 'jenna', '여성', 1990, "
                         + "'https://source.boringavatars.com/beam/120/nickname=jenna', ?, ?)",
                 passwordEncoder.encode("Test123!"), now, now
         );
@@ -75,7 +74,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +
                         "  gender, birth_year, profile_image, created_at, updated_at)" +
-                        " VALUES(2, 'boni@gmail.com', ?, '강보니', '여성', 1990, "
+                        " VALUES(2, 'boni@gmail.com', ?, 'boni', '여성', 1990, "
                         + "'https://source.boringavatars.com/beam/120/nickname=boni', ?, ?)",
                 passwordEncoder.encode("Test123!"), now, now
         );
@@ -83,7 +82,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +
                         "  gender, birth_year, profile_image, created_at, updated_at)" +
-                        " VALUES(3, 'zzezze@gmail.com', ?, '최재원', '여성', 1990, "
+                        " VALUES(3, 'zzezze@gmail.com', ?, 'zzezze', '여성', 1990, "
                         + "'https://source.boringavatars.com/beam/120/nickname=zzezze', ?, ?)",
                 passwordEncoder.encode("Test123!"), now, now
         );
@@ -91,7 +90,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +
                         "  gender, birth_year, profile_image, created_at, updated_at)" +
-                        " VALUES(4, 'inu@gmail.com', ?, '황인우', '여성', 1990, "
+                        " VALUES(4, 'inu@gmail.com', ?, 'Kimdduru', '여성', 1990, "
                         + "'https://source.boringavatars.com/beam/120/nickname=inu', ?, ?)",
                 passwordEncoder.encode("Test123!"), now, now
         );
@@ -99,7 +98,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO users(" +
                         "  id, email, password, nickname," +
                         "  gender, birth_year, profile_image, created_at, updated_at)" +
-                        " VALUES(5, 'jo@gmail.com', ?, '조성환', '여성', 1990, "
+                        " VALUES(5, 'jo@gmail.com', ?, 'cutejiwoo', '여성', 1990, "
                         + "'https://source.boringavatars.com/beam/120/nickname=jo', ?, ?)",
                 passwordEncoder.encode("Test123!"), now, now
         );
@@ -369,7 +368,7 @@ public class BackdoorController {
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(4, 1, '앤트맨3 외신 첫반응, \"창의적이고 훌륭한 액션 가득, 쿠키영상 2개도 좋다\"', "
+                " VALUES(4, 2, '앤트맨3 외신 첫반응, \"창의적이고 훌륭한 액션 가득, 쿠키영상 2개도 좋다\"', "
                 + "60, 'https://file.kinolights.com/l/post_detail/202302/07/7090dbe1-e611-4d7b-bd2c-959683da3df7.webp', "
                 + "?, ?, ?)", false, now.minusMinutes(1), now
         );
@@ -383,47 +382,47 @@ public class BackdoorController {
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(6, 1, '타이타닉 용산 아이맥스관 상영 스펙 정보.jpg', '4k가 아닌게 좀 아쉽네요', "
+                " VALUES(6, 5, '타이타닉 용산 아이맥스관 상영 스펙 정보.jpg', '4k가 아닌게 좀 아쉽네요', "
                 + "35, 'https://file.kinolights.com/l/post_detail/202302/07/233307a4-62f8-4a95-bf06-86cd80e94c3c.webp', "
                 + "?, ?, ?)", false, now.minusMinutes(10), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(7, 1, '이병헌, 박서준 \"콘크리트 유토피아\" 해외 공식 포스터', "
+                " VALUES(7, 4, '이병헌, 박서준 \"콘크리트 유토피아\" 해외 공식 포스터', "
                 + "2, 'https://file.kinolights.com/l/post_detail/202302/07/70fb0a36-d411-4411-ae75-b31ee8195b07.webp', "
                 + "?, ?, ?)", false, now.minusSeconds(10), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(8, 1, '\"화이트 리버\" 로테르담 영화제 초청, 호평 릴레이', "
+                " VALUES(8, 2, '\"화이트 리버\" 로테르담 영화제 초청, 호평 릴레이', "
                 + "4, 'https://file.kinolights.com/l/post_detail/202302/07/8cd93270-8296-4604-93ec-bd6dff4f1acb.webp', "
                 + "?, ?, ?)", false, now.minusHours(1), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(9, 1, '점심 메뉴 추천좀', '추천해주시면 3대가 행복함', "
+                " VALUES(9, 3, '점심 메뉴 추천좀', '추천해주시면 3대가 행복함', "
                 + "2, 'https://file.kinolights.com/l/post_detail/202302/07/8cd93270-8296-4604-93ec-bd6dff4f1acb.webp', "
                 + "?, ?, ?)", false, now.minusHours(2), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(10, 1, '존윅4, 4월 국내 개봉 확정', '영화 \"존 윅 4\"(감독 체드 스타헬스키)가 4월 국내 개봉을 확정했다.', "
+                " VALUES(10, 5, '존윅4, 4월 국내 개봉 확정', '영화 \"존 윅 4\"(감독 체드 스타헬스키)가 4월 국내 개봉을 확정했다.', "
                 + "5, 'https://file.kinolights.com/l/post_detail/202302/07/0f9226f4-c38e-4838-a5f2-e191658350a0.webp', "
                 + "?, ?, ?)", false, now.minusDays(2), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, is_deleted, created_at, updated_at)" +
-                " VALUES(11, 1, '‼️ 뭐 볼지 랜덤하게 추천해 드립니다! ‼️', "
+                " VALUES(11, 3, '‼️ 뭐 볼지 랜덤하게 추천해 드립니다! ‼️', "
                 + "'요즘 넷플 들어가도 홈에서 수많은 작품들 보기만 하고\n"
                 + "고르기 귀찮아서 끄신 적 없으신가요? \n"
                 + "좋은 친구들이 있다면 고민할게 없겠지만 전 아싸 개발자라 추천해 줄 친구도 없어 랜덤하게 뽑는 페이지를 만들어 봤습니다. \n"
                 + "저 같은 아싸 횐님들에게 도움되기를 바라며 🙏🏻 댓글 남겨주시면 링크 드립니다~', "
-                + "40, ?, ?, ?)", false, now.minusMinutes(12), now
+                + "40, ?, ?, ?)", false, now.minusDays(2), now
         );
 
         jdbcTemplate.update("INSERT INTO likes(" +
@@ -473,17 +472,22 @@ public class BackdoorController {
 
         jdbcTemplate.update("INSERT INTO post_comment(" +
                 "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(1, 1, 11, '저요~~', ?, ?, ?)", false, now, now
+                " VALUES(1, 1, 11, '본문에 링크로 남기시면 되잖아요;;', ?, ?, ?)", false, now, now
         );
 
         jdbcTemplate.update("INSERT INTO post_comment(" +
                 "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(2, 2, 11, '와 대단하시네요', ?, ?, ?)", false, now.minusMinutes(1), now
+                " VALUES(2, 2, 11, '와 대단하시네요', ?, ?, ?)", false, now.minusHours(5), now
         );
 
         jdbcTemplate.update("INSERT INTO post_comment(" +
                 "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(3, 1, 4, '완죤 기대됨', ?, ?, ?)", false, now, now
+                " VALUES(3, 5, 11, '저 링크 주세요!', ?, ?, ?)", false, now.minusHours(5), now
+        );
+
+        jdbcTemplate.update("INSERT INTO post_comment(" +
+                "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
+                " VALUES(4, 4, 4, '완죤 기대됨', ?, ?, ?)", false, now, now
         );
 
         return "Setup database completed!";

@@ -50,7 +50,7 @@ public class GetPostsService {
             spec = spec.and(PostSpecification.likeTitleOrBody(keyword));
         }
 
-        Page<Post> posts = postRepository.findAll(spec, pageable);
+        Page<Post> posts = postRepository.findAllByIsDeleted(spec, pageable);
 
         List<PostDto> postDtos = posts.stream()
                 .map(post -> {

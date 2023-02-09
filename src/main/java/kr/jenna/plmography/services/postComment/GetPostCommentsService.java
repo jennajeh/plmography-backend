@@ -8,6 +8,7 @@ import kr.jenna.plmography.dtos.user.WriterDto;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.PostComment;
 import kr.jenna.plmography.models.User;
+import kr.jenna.plmography.models.vo.PostId;
 import kr.jenna.plmography.models.vo.UserId;
 import kr.jenna.plmography.repositories.PostCommentRepository;
 import kr.jenna.plmography.repositories.UserRepository;
@@ -38,7 +39,7 @@ public class GetPostCommentsService {
 
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 
-        Page<PostComment> postComments = postCommentRepository.findAllByPostId(postId, pageable);
+        Page<PostComment> postComments = postCommentRepository.findAllByPostIdAndIsDeleted(new PostId(postId), pageable);
 
         List<PostCommentDto> postCommentDtos = postComments.stream()
                 .map(comment -> {
@@ -64,7 +65,7 @@ public class GetPostCommentsService {
     }
 
     public MyPostCommentsDto myComments(Long userId) {
-        List<PostComment> comments = postCommentRepository.findAllByUserId(new UserId(userId));
+        List<PostComment> comments = postCommentRepository.findAllByUserIdAndIsDeleted(new UserId(userId));
 
         List<PostCommentDto> postComments = comments.stream()
                 .map(comment -> {

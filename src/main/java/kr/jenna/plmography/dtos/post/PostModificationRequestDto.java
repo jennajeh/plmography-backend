@@ -1,8 +1,12 @@
 package kr.jenna.plmography.dtos.post;
 
+import com.sun.istack.Nullable;
+
 public class PostModificationRequestDto {
     private String title;
     private String postBody;
+
+    @Nullable
     private String image;
 
     public PostModificationRequestDto() {

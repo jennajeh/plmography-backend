@@ -31,7 +31,8 @@ public class CreatePostCommentService {
         PostComment postComment = new PostComment(
                 new UserId(user.getId()),
                 new PostId(postCommentRegistrationDto.getPostId()),
-                new PostCommentBody(postCommentRegistrationDto.getPostCommentBody()));
+                new PostCommentBody(postCommentRegistrationDto.getPostCommentBody())
+        );
 
         postCommentRepository.save(postComment);
 

@@ -77,7 +77,16 @@ public class PostController {
 
     @GetMapping
     public PostsDto list(
-            @RequestParam(required = false, defaultValue = "") String keyword,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size
+    ) {
+        return getPostsService.list(keyword, page, size);
+    }
+
+    @GetMapping("/filter")
+    public PostsDto listWithFilter(
+            @RequestParam(required = false) String keyword,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size
     ) {

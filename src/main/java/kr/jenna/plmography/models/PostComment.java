@@ -3,7 +3,6 @@ package kr.jenna.plmography.models;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import kr.jenna.plmography.dtos.postComment.PostCommentCreationDto;
 import kr.jenna.plmography.dtos.postComment.PostCommentModificationResponseDto;
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 public class PostComment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Embedded
