@@ -3,8 +3,6 @@ package kr.jenna.plmography.models.vo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import kr.jenna.plmography.exceptions.InvalidPassword;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Objects;
@@ -12,11 +10,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Embeddable
-@NoArgsConstructor
-@Getter
 public class Password {
     @Column(name = "password")
     private String value;
+
+    public Password() {
+    }
 
     public Password(String value) {
         Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
@@ -31,6 +30,10 @@ public class Password {
 
     public Password(Password password, PasswordEncoder passwordEncoder) {
         this.value = passwordEncoder.encode(password.value);
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override
