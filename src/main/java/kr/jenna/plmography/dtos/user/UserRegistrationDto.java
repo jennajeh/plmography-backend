@@ -2,23 +2,21 @@ package kr.jenna.plmography.dtos.user;
 
 public class UserRegistrationDto {
     private String email;
+    private String nickname;
     private String password;
     private String passwordCheck;
-    private String nickname;
-    private String gender;
-    private Integer birthYear;
 
     public UserRegistrationDto() {
     }
 
-    public UserRegistrationDto(String email, String password,
-                               String passwordCheck, String nickname, String gender, Integer birthYear) {
+    public UserRegistrationDto(String email,
+                               String nickname,
+                               String password,
+                               String passwordCheck) {
         this.email = email;
+        this.nickname = nickname;
         this.password = password;
         this.passwordCheck = passwordCheck;
-        this.nickname = nickname;
-        this.gender = gender;
-        this.birthYear = birthYear;
     }
 
     public String getEmail() {
@@ -35,13 +33,5 @@ public class UserRegistrationDto {
 
     public String getNickname() {
         return nickname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public Integer getBirthYear() {
-        return birthYear;
     }
 }

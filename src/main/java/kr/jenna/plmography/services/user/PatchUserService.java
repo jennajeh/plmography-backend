@@ -26,7 +26,8 @@ public class PatchUserService {
         Nickname nickname = new Nickname(userProfileRequestDto.getNickname());
         ProfileImage profileImage = new ProfileImage(userProfileRequestDto.getProfileImage());
 
-        if (userRepository.existsByNickname(nickname)) {
+        if (!nickname.getValue().equals(user.getNickname().getValue())
+                && userRepository.existsByNickname(nickname)) {
             throw new NicknameAlreadyExist();
         }
 

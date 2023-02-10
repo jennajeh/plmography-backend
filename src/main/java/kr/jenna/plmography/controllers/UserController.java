@@ -1,5 +1,6 @@
 package kr.jenna.plmography.controllers;
 
+import jakarta.validation.Valid;
 import kr.jenna.plmography.dtos.user.UserCountDto;
 import kr.jenna.plmography.dtos.user.UserCreationDto;
 import kr.jenna.plmography.dtos.user.UserDto;
@@ -7,7 +8,6 @@ import kr.jenna.plmography.dtos.user.UserProfileRequestDto;
 import kr.jenna.plmography.dtos.user.UserRegistrationDto;
 import kr.jenna.plmography.dtos.user.UsersDto;
 import kr.jenna.plmography.exceptions.NicknameAlreadyExist;
-import kr.jenna.plmography.exceptions.SignupFailed;
 import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.vo.Email;
@@ -58,7 +58,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserCreationDto signup(
-            @RequestBody UserRegistrationDto userRegistrationDto) {
+            @Valid @RequestBody UserRegistrationDto userRegistrationDto) {
 
         User user = createUserService.create(userRegistrationDto);
 
@@ -89,7 +89,11 @@ public class UserController {
     }
 
     @GetMapping("/checkDuplicate")
-    public UserCountDto count(@RequestParam boolean countOnly, String email, String nickname) {
+    public UserCountDto count(
+            @RequestParam boolean countOnly,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String nickname) {
+
         if (countOnly) {
             return getUserService.count(new Email(email), new Nickname(nickname));
         }
@@ -116,12 +120,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String nicknameAlreadyExist() {
         return "Nickname already exist!";
-    }
-
-    @ExceptionHandler(SignupFailed.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String signUpFailed() {
-        return "Sign up failed!";
     }
 
     @ExceptionHandler(UserNotFound.class)

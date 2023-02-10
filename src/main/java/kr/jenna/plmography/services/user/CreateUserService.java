@@ -27,7 +27,6 @@ public class CreateUserService {
     public User create(UserRegistrationDto userRegistrationDto) {
         Email email = new Email(userRegistrationDto.getEmail());
         Password password = new Password(userRegistrationDto.getPassword());
-        Password passwordCheck = new Password(userRegistrationDto.getPasswordCheck());
         Nickname nickname = new Nickname(userRegistrationDto.getNickname());
 
         if (userRepository.existsByEmail(email)) {
@@ -38,7 +37,7 @@ public class CreateUserService {
             throw new NicknameAlreadyExist();
         }
 
-        if (!password.getValue().equals(passwordCheck.getValue())) {
+        if (!password.getValue().equals(userRegistrationDto.getPasswordCheck())) {
             throw new PasswordNotMatch();
         }
 

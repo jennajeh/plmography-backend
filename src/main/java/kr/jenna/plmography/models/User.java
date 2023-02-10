@@ -4,7 +4,6 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import kr.jenna.plmography.dtos.user.UserCreationDto;
@@ -16,8 +15,6 @@ import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.models.vo.ProfileImage;
 import kr.jenna.plmography.models.vo.WatchedContentId;
 import kr.jenna.plmography.models.vo.WishContentId;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,12 +26,10 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter
-@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Embedded
@@ -64,19 +59,22 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public User() {
+    }
+
     public User(Long id, Email email, Password password, Nickname nickname) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/nickname=" + nickname.getValue());
+        this.profileImage = new ProfileImage("https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg");
     }
 
     public User(Email email, Password password, Nickname nickname) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.profileImage = new ProfileImage("https://source.boringavatars.com/beam/120/?nickname=" + nickname.getValue());
+        this.profileImage = new ProfileImage("https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg");
     }
 
     public static User fake() {
@@ -106,6 +104,46 @@ public class User {
         return users;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
+
+    public Nickname getNickname() {
+        return nickname;
+    }
+
+    public ProfileImage getProfileImage() {
+        return profileImage;
+    }
+
+    public Set<WishContentId> getWishContentIds() {
+        return wishContentIds;
+    }
+
+    public Set<WatchedContentId> getWatchedContentIds() {
+        return watchedContentIds;
+    }
+
+    public Set<FavoriteContentId> getFavoriteContentIds() {
+        return favoriteContentIds;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     public void encodePassword(Password password, PasswordEncoder passwordEncoder) {
         this.password = new Password(password, passwordEncoder);
     }
@@ -116,6 +154,15 @@ public class User {
 
     public void changeProfile(Nickname nickname, ProfileImage profileImage) {
         this.nickname = nickname;
+
+        if (profileImage.getValue().equals("")
+                || profileImage.getValue() == null) {
+            this.profileImage =
+                    new ProfileImage("https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg");
+
+            return;
+        }
+
         this.profileImage = profileImage;
     }
 
