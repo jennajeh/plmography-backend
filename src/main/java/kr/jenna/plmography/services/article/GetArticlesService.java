@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -49,5 +50,22 @@ public class GetArticlesService {
         PagesDto pagesDto = new PagesDto(articles.getTotalPages());
 
         return new ArticlesDto(articleDtos, pagesDto);
+    }
+
+    public ArticlesDto sortByCreatedAt() {
+        List<Article> articles = articleRepository.findTop4ByOrderByCreatedAtDesc();
+
+        List<ArticleDto> articleDtos = articles.stream()
+                .map(article -> {
+                    return new ArticleDto(
+                            article.getId(),
+                            article.getContentId().getValue(),
+                            article.getTitle().getValue(),
+                            article.getImage().getValue(),
+                            article.getArticleBody().getValue(),
+                            article.getCreatedAt());
+                }).collect(Collectors.toList());
+
+        return new ArticlesDto(articleDtos);
     }
 }

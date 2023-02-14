@@ -4,6 +4,7 @@ import kr.jenna.plmography.dtos.review.MyReviewsDto;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.vo.UserId;
+import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,8 @@ class GetReviewServiceTest {
     void myReview() {
         ReviewRepository reviewRepository = mock(ReviewRepository.class);
         UserRepository userRepository = mock(UserRepository.class);
-        GetReviewService getReviewService = new GetReviewService(reviewRepository, userRepository);
+        ReviewCommentRepository reviewCommentRepository = mock(ReviewCommentRepository.class);
+        GetReviewService getReviewService = new GetReviewService(reviewRepository, reviewCommentRepository, userRepository);
 
         given(reviewRepository.findByUserId(new UserId(1L))).willReturn(Optional.of(Review.fake()));
         given(userRepository.findById(1L)).willReturn(Optional.of(User.fake()));

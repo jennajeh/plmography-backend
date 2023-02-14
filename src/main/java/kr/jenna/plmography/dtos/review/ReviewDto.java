@@ -9,6 +9,7 @@ import java.util.Set;
 public class ReviewDto {
     private Long id;
     private WriterDto writer;
+    private Long commentNumber;
     private Long contentId;
     private Long starRate;
     private String reviewBody;
@@ -21,11 +22,12 @@ public class ReviewDto {
     }
 
     public ReviewDto(Long id, WriterDto writer,
-                     Long contentId, Long starRate,
+                     Long commentNumber, Long contentId, Long starRate,
                      String reviewBody, Set<LikeUserIdDto> likeUserIds,
                      boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.writer = writer;
+        this.commentNumber = commentNumber;
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
@@ -41,6 +43,10 @@ public class ReviewDto {
 
     public WriterDto getWriter() {
         return writer;
+    }
+
+    public Long getCommentNumber() {
+        return commentNumber;
     }
 
     public Long getContentId() {
@@ -75,7 +81,7 @@ public class ReviewDto {
         return new ReviewDto(
                 1L,
                 new WriterDto(1L, "jenna", "https://source.boringavatars.com/beam/120/?nickname=jenna"),
-                1L, 3L, "강추!", Set.of(new LikeUserIdDto(2L)),
+                1L, 1L, 3L, "강추!", Set.of(new LikeUserIdDto(2L)),
                 false, LocalDateTime.now(), LocalDateTime.now());
     }
 }

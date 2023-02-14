@@ -40,7 +40,9 @@ public class GetReviewCommentsService {
                                     user.getId(),
                                     user.getNickname().getValue(),
                                     user.getProfileImage().getValue()),
-                            comment.getPostId().getValue(),
+                            comment.getPostId() == null
+                                    ? 0
+                                    : comment.getPostId().getValue(),
                             comment.getReviewCommentBody().getValue(),
                             comment.isDeleted(),
                             comment.getCreatedAt(),

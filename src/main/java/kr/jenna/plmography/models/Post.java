@@ -120,6 +120,14 @@ public class Post {
                 new Image("image"));
     }
 
+    public static Post fake2() {
+        return new Post(
+                new UserId(1L),
+                new Title("아바타"),
+                new PostBody("아바타 물의 길"),
+                new Image("image"));
+    }
+
     public PostCreationDto toPostCreationDto() {
         return new PostCreationDto(id, isDeleted);
     }

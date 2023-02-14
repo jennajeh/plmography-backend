@@ -55,6 +55,24 @@ class GetPostsServiceTest {
     }
 
     @Test
+    void listWithKeyword() {
+        given(postRepository.findAllByIsDeleted(any(Specification.class), any(Pageable.class)))
+                .willReturn(new PageImpl<>(List.of(Post.fake2())));
+
+        given(userRepository.findById(any())).willReturn(Optional.of(User.fake()));
+
+        given(postCommentRepository.findAllByPostIdAndIsDeleted(any())).willReturn(List.of(PostComment.fake()));
+
+        Integer page = 1;
+        Integer size = 3;
+
+        PostsDto postsDto = getPostsService.list("아바타", page, size);
+
+        assertThat(postsDto).isNotNull();
+        assertThat(postsDto.getPosts().get(0).getPostBody()).isEqualTo("아바타 물의 길");
+    }
+
+    @Test
     void top3Hit() {
         given(postRepository.findTop6ByOrderByHitDesc()).willReturn(List.of(Post.fake()));
         given(userRepository.findById(any())).willReturn(Optional.of(User.fake()));

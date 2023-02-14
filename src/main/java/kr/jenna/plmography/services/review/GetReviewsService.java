@@ -8,7 +8,9 @@ import kr.jenna.plmography.exceptions.UserNotFound;
 import kr.jenna.plmography.models.Review;
 import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.vo.LikeUserId;
+import kr.jenna.plmography.models.vo.PostId;
 import kr.jenna.plmography.models.vo.UserId;
+import kr.jenna.plmography.repositories.ReviewCommentRepository;
 import kr.jenna.plmography.repositories.ReviewRepository;
 import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.data.domain.Page;
@@ -25,12 +27,15 @@ import java.util.stream.Collectors;
 @Transactional
 public class GetReviewsService {
     private final ReviewRepository reviewRepository;
+    private final ReviewCommentRepository reviewCommentRepository;
     private final UserRepository userRepository;
 
 
     public GetReviewsService(ReviewRepository reviewRepository,
+                             ReviewCommentRepository reviewCommentRepository,
                              UserRepository userRepository) {
         this.reviewRepository = reviewRepository;
+        this.reviewCommentRepository = reviewCommentRepository;
         this.userRepository = userRepository;
     }
 
@@ -46,12 +51,15 @@ public class GetReviewsService {
                     User user = userRepository.findById(review.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(review.getUserId().getValue()));
 
+                    Long commentNumber = reviewCommentRepository.countByPostIdAndIsNotDeleted(new PostId(review.getId()));
+
                     return new ReviewDto(
                             review.getId(),
                             new WriterDto(
                                     user.getId(),
                                     user.getNickname().getValue(),
                                     user.getProfileImage().getValue()),
+                            commentNumber,
                             review.getContentId().getValue(),
                             review.getStarRate(),
                             review.getReviewBody().getValue(),
@@ -81,12 +89,15 @@ public class GetReviewsService {
                     User user = userRepository.findById(review.getUserId().getValue())
                             .orElseThrow(() -> new UserNotFound(review.getUserId().getValue()));
 
+                    Long commentNumber = reviewCommentRepository.countByPostIdAndIsNotDeleted(new PostId(review.getId()));
+
                     return new ReviewDto(
                             review.getId(),
                             new WriterDto(
                                     user.getId(),
                                     user.getNickname().getValue(),
                                     user.getProfileImage().getValue()),
+                            commentNumber,
                             review.getContentId().getValue(),
                             review.getStarRate(),
                             review.getReviewBody().getValue(),

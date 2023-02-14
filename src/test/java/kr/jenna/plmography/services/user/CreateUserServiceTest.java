@@ -31,7 +31,7 @@ class CreateUserServiceTest {
     @Test
     void create() {
         UserRegistrationDto userRegistrationDto = new UserRegistrationDto(
-                "jenna@gmail.com", "Test123!", "Test123!", "전제나", "여성", 1994);
+                "jenna@gmail.com", "Test123!", "Test123!", "전제나");
 
         User user = createUserService.create(userRegistrationDto);
 
@@ -43,7 +43,7 @@ class CreateUserServiceTest {
     @Test
     void createWithExistedEmail() {
         UserRegistrationDto userRegistrationDto = new UserRegistrationDto(
-                "jenna@gmail.com", "Test123!", "Test123!", "전제나", "여성", 1994);
+                "jenna@gmail.com", "Test123!", "Test123!", "전제나");
 
         given(userRepository.existsByEmail(new Email("jenna@gmail.com")))
                 .willReturn(true);

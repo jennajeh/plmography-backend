@@ -36,6 +36,11 @@ public class ArticleController {
         return getArticlesService.list(page, size);
     }
 
+    @GetMapping("/sortByCreatedAt")
+    public ArticlesDto sortByCreatedAt() {
+        return getArticlesService.sortByCreatedAt();
+    }
+
     @GetMapping("/{contentId}")
     public ArticleDto detail(
             @PathVariable Long contentId) {
