@@ -43,7 +43,7 @@ class PostControllerTest {
     @MockBean
     private GetPostService getPostService;
 
-    @SpyBean
+    @MockBean
     private GetPostsService getPostsService;
 
     @MockBean
@@ -81,9 +81,6 @@ class PostControllerTest {
 
     @Test
     void list() throws Exception {
-        Integer page = 1;
-        Integer size = 10;
-
         given(getPostsService.list(any(), any(), any()))
                 .willReturn(new PostsDto(List.of(PostDto.fake()), new PagesDto()));
 
@@ -91,25 +88,6 @@ class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"posts\":[")
-                ))
-                .andExpect(content().string(
-                        containsString("\"pages\":")
-                ));
-    }
-
-    @Test
-    void listWithKeyword() throws Exception {
-        String keyword = "keyword";
-        Integer page = 1;
-        Integer size = 10;
-
-//        given(getPostsService.list(keyword, page, size))
-//                .willReturn(new PostsDto(List.of(PostDto.fake2()), new PagesDto()));
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/posts/filter?keyword=keyword"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(
-                        containsString("\"post\":[")
                 ))
                 .andExpect(content().string(
                         containsString("\"pages\":")

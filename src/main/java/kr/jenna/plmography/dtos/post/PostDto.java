@@ -131,18 +131,4 @@ public class PostDto {
                 LocalDateTime.now().minusHours(1),
                 LocalDateTime.now());
     }
-
-    public static PostDto fake2() {
-        return new PostDto(
-                1L,
-                new WriterDto(2L, "jenna", "image"),
-                List.of(PostCommentDto.fake()),
-                "keyword-title",
-                "body",
-                1L,
-                "image",
-                false,
-                LocalDateTime.now().minusHours(1),
-                LocalDateTime.now());
-    }
 }
