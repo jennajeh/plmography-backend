@@ -15,6 +15,7 @@ public class PostSpecification {
             public Predicate toPredicate(Root<Post> root,
                                          CriteriaQuery<?> query,
                                          CriteriaBuilder criteriaBuilder) {
+
                 return criteriaBuilder.or(
                         criteriaBuilder.like(criteriaBuilder.upper(root.get("postBody").get("value")), "%" + keyword.toUpperCase() + "%"),
                         criteriaBuilder.like(criteriaBuilder.upper(root.get("title").get("value")), "%" + keyword.toUpperCase() + "%"));

@@ -81,9 +81,6 @@ class PostControllerTest {
 
     @Test
     void list() throws Exception {
-        Integer page = 1;
-        Integer size = 10;
-
         given(getPostsService.list(any(), any(), any()))
                 .willReturn(new PostsDto(List.of(PostDto.fake()), new PagesDto()));
 

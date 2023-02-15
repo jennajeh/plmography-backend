@@ -521,24 +521,24 @@ public class BackdoorController {
     @GetMapping("/setup-content-data")
     public String setupPlatformAndType() throws IOException {
         // 플랫폼 설정
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney, apple' WHERE id <= 25");
-        jdbcTemplate.update("UPDATE content SET platform='apple, wavve, tving' WHERE id <= 50");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 50 AND id <= 75");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus, tv.apple' WHERE id <= 25");
+        jdbcTemplate.update("UPDATE content SET platform='tv.apple, wavve, tving' WHERE id <= 50");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, tv.apple' WHERE id > 50 AND id <= 75");
         jdbcTemplate.update("UPDATE content SET platform='wavve, watcha' WHERE id > 76 AND id <= 100");
-        jdbcTemplate.update("UPDATE content SET platform='apple, disney' WHERE id > 100 AND id <= 125");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney, apple' WHERE id > 125 AND id <= 150");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 150 AND id <= 175");
+        jdbcTemplate.update("UPDATE content SET platform='tv.apple, disneyplus' WHERE id > 100 AND id <= 125");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus, tv.apple' WHERE id > 125 AND id <= 150");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, tv.apple' WHERE id > 150 AND id <= 175");
         jdbcTemplate.update("UPDATE content SET platform='wavve, tving' WHERE id > 175 AND id <= 200");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id > 200 AND id <= 225");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus' WHERE id > 200 AND id <= 225");
 
         // 플랫폼 설정
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 225 AND id <= 250");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, tv.apple' WHERE id > 225 AND id <= 250");
         jdbcTemplate.update("UPDATE content SET platform='wavve, watcha' WHERE id > 250 AND id <= 275");
-        jdbcTemplate.update("UPDATE content SET platform='apple, disney' WHERE id > 275 AND id <= 300");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney, apple' WHERE id > 300 AND id <= 325");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, apple' WHERE id > 325 AND id <= 350");
+        jdbcTemplate.update("UPDATE content SET platform='tv.apple, disneyplus' WHERE id > 275 AND id <= 300");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus, tv.apple' WHERE id > 300 AND id <= 325");
+        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, tv.apple' WHERE id > 325 AND id <= 350");
         jdbcTemplate.update("UPDATE content SET platform='wavve, tving' WHERE id > 350 AND id <= 375");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disney' WHERE id > 375");
+        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus' WHERE id > 375");
 
         // 타입 설정
         jdbcTemplate.update("UPDATE content SET type='movie' WHERE id <= 200");

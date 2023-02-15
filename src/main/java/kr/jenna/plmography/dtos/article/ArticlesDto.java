@@ -11,6 +11,10 @@ public class ArticlesDto {
     public ArticlesDto() {
     }
 
+    public ArticlesDto(List<ArticleDto> articles) {
+        this.articles = articles;
+    }
+
     public ArticlesDto(List<ArticleDto> articles, PagesDto pages) {
         this.articles = articles;
         this.pages = pages;
