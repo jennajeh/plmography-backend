@@ -8,7 +8,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +25,8 @@ import java.util.Map;
 @Transactional
 public class BackdoorController {
     private final RestTemplate restTemplate;
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
     private final ContentRepository contentRepository;
-    private PasswordEncoder passwordEncoder;
 
     @Value("${tmdb.api-key}")
     private String apiKey;
@@ -38,11 +36,11 @@ public class BackdoorController {
     private HttpEntity<?> entity = new HttpEntity<>(headers);
 
     public BackdoorController(RestTemplate restTemplate,
-                              JdbcTemplate jdbcTemplate, ContentRepository contentRepository, PasswordEncoder passwordEncoder) {
+                              JdbcTemplate jdbcTemplate,
+                              ContentRepository contentRepository) {
         this.restTemplate = restTemplate;
         this.jdbcTemplate = jdbcTemplate;
         this.contentRepository = contentRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/setup-database")
@@ -52,7 +50,7 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM user_favorite_content_ids");
         jdbcTemplate.execute("DELETE FROM user_watched_content_ids");
         jdbcTemplate.execute("DELETE FROM user_wish_content_ids");
-//        jdbcTemplate.execute("DELETE FROM users");
+        jdbcTemplate.execute("DELETE FROM users");
         jdbcTemplate.execute("DELETE FROM subscribe");
         jdbcTemplate.execute("DELETE FROM review_like_user_ids");
         jdbcTemplate.execute("DELETE FROM review");
