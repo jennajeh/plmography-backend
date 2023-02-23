@@ -5,6 +5,7 @@ import kr.jenna.plmography.models.User;
 import kr.jenna.plmography.models.vo.Email;
 import kr.jenna.plmography.models.vo.Password;
 import kr.jenna.plmography.repositories.UserRepository;
+import kr.jenna.plmography.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -21,12 +22,13 @@ class LoginServiceTest {
     private LoginService loginService;
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private JwtUtil jwtUtil;
 
     @BeforeEach
     void setup() {
         userRepository = mock(UserRepository.class);
         passwordEncoder = new Argon2PasswordEncoder(16, 32, 1, 1 << 14, 2);
-        loginService = new LoginService(userRepository, passwordEncoder);
+        loginService = new LoginService(userRepository, passwordEncoder, jwtUtil);
     }
 
     @Test

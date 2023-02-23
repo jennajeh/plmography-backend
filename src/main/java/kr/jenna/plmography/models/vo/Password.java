@@ -2,7 +2,6 @@ package kr.jenna.plmography.models.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import kr.jenna.plmography.exceptions.InvalidPassword;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Objects;
@@ -20,10 +19,6 @@ public class Password {
     public Password(String value) {
         Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
         Matcher matcher = pattern.matcher(value);
-
-        if (!matcher.find()) {
-            throw new InvalidPassword();
-        }
 
         this.value = value;
     }
