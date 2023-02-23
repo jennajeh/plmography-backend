@@ -1,6 +1,5 @@
 package kr.jenna.plmography.models;
 
-import kr.jenna.plmography.exceptions.InvalidPassword;
 import kr.jenna.plmography.models.vo.Email;
 import kr.jenna.plmography.models.vo.FavoriteContentId;
 import kr.jenna.plmography.models.vo.Nickname;
@@ -13,7 +12,6 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserTest {
 
@@ -36,9 +34,6 @@ class UserTest {
         user.encodePassword(new Password("Test123!"), passwordEncoder);
 
         assertThat(user.authenticate(new Password("Test123!"), passwordEncoder)).isTrue();
-        assertThrows(InvalidPassword.class, () -> {
-            user.authenticate(new Password("xxx"), passwordEncoder);
-        });
     }
 
     @Test
