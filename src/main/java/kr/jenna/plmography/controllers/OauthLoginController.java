@@ -21,7 +21,7 @@ public class OauthLoginController {
         this.loginService = loginService;
     }
 
-    @GetMapping("kakao")
+    @GetMapping("/kakao")
     public LoginResultDto login(@RequestParam String code) {
         SocialLoginResultDto kakaoDto = kakaoAuthUtil.process(code);
 
