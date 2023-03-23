@@ -61,76 +61,66 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM post");
         jdbcTemplate.execute("DELETE FROM post_comment");
 
-        jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, friend_id)" +
-                " VALUES(1, 102, 103)"
+        jdbcTemplate.update("INSERT INTO users("
+                + "  id, email, password, nickname, profile_image)"
+                + " VALUES(1, jenna@gmail.com, Test123!, jenna, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
         );
 
-        jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, friend_id)" +
-                " VALUES(2, 102, 104)"
+        jdbcTemplate.update("INSERT INTO users("
+                + "  id, email, password, nickname, profile_image)"
+                + " VALUES(2, boni@gmail.com, Test123!, boni, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
         );
 
-        jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, friend_id)" +
-                " VALUES(3, 102, 105)"
+        jdbcTemplate.update("INSERT INTO users("
+                + "  id, email, password, nickname, profile_image)"
+                + " VALUES(3, hello@gmail.com, Test123!, hello, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
         );
 
-        jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, friend_id)" +
-                " VALUES(4, 102, 206)"
+        jdbcTemplate.update("INSERT INTO users("
+                + "  id, email, password, nickname, profile_image)"
+                + " VALUES(4, zzezze@gmail.com, Test123!, zzezze, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
         );
 
-        jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, friend_id)" +
-                " VALUES(5, 103, 102)"
-        );
-
-        jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, friend_id)" +
-                " VALUES(6, 103, 104)"
-        );
-
-        jdbcTemplate.update("INSERT INTO subscribe(" +
-                "  id, user_id, friend_id)" +
-                " VALUES(7, 103, 106)"
+        jdbcTemplate.update("INSERT INTO users("
+                + "  id, email, password, nickname, profile_image)"
+                + " VALUES(5, mini@gmail.com, Test123!, mini, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(1, 102, 76600, ?, '영화가 재미있어요!', 5L, ?, ?)", false, now.minusDays(1), now
+                + " VALUES(1, 1, 76600, ?, '영화가 재미있어요!', 5L, ?, ?)", false, now.minusDays(1), now
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(2, 104, 76600, ?, '재미와 감동이 두배', 4L, ?, ?)", false, now.minusHours(2), now
+                + " VALUES(2, 2, 76600, ?, '재미와 감동이 두배', 4L, ?, ?)", false, now.minusHours(2), now
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(3, 105, 76600, ?, '지금까지의 서막은 완벽함. 정주행 재생버튼 누른 이후로 쉬지 않고 다 봤음다. "
+                + " VALUES(3, 3, 76600, ?, '지금까지의 서막은 완벽함. 정주행 재생버튼 누른 이후로 쉬지 않고 다 봤음다. "
                 + "내년에 나올 속편이 관건이네요ㅋㅋㅋ용두사미일지 용두용미일지.', 4L, ?, ?)", false, now.minusMinutes(2), now
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(4, 106, 76600, ?, '영상미가 대박이예요~', 4L, ?, ?)", false, now.minusHours(1), now
+                + " VALUES(4, 4, 76600, ?, '영상미가 대박이예요~', 4L, ?, ?)", false, now.minusHours(1), now
         );
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
                 + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(5, 103, 76600, ?, '이거 안 본 사람과는 겸상하지 않겠다', 4L, ?, ?)", false, now.minusDays(3), now
+                + " VALUES(5, 5, 76600, ?, '이거 안 본 사람과는 겸상하지 않겠다', 4L, ?, ?)", false, now.minusDays(3), now
         );
 
         jdbcTemplate.update("INSERT INTO article(" +
                 "  id, user_id, content_id, image," +
                 "  title, article_body, created_at)" +
-                " VALUES(1, 104, 76600, 'https://image.tmdb.org/t/p/original/z56bVX93oRG6uDeMACR7cXCnAbh.jpg', "
+                " VALUES(1, 1, 76600, 'https://image.tmdb.org/t/p/original/z56bVX93oRG6uDeMACR7cXCnAbh.jpg', "
                 + "'<아바타: 물의 길>, 더 재미있게 볼 수 있는 길', "
                 + "'아바타: 물의 길, 2009년 전 세계를 뜨겁게 달궜던 박스오피스 1위, 제임스 카메론 감독 작품\n"
                 + "<아바타>의 속편인 <아바타: 물의 길>이 한국에서 세계 최초로 개봉했습니다.\n"
@@ -144,7 +134,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO article(" +
                 "  id, user_id, content_id, image," +
                 "  title, article_body, created_at)" +
-                " VALUES(2, 104, 315162, 'https://image.tmdb.org/t/p/original/rKgvctIuPXyuqOzCQ16VGdnHxKx.jpg', "
+                " VALUES(2, 1, 315162, 'https://image.tmdb.org/t/p/original/rKgvctIuPXyuqOzCQ16VGdnHxKx.jpg', "
                 + "'<장화신은 고양이: 끝내주는 모험> 같이 떠나보실까요?', "
                 + "'로튼토마토 관객지수 98% 끝내주는 호평 세례!\n"
                 + "<보스 베이비><드래곤 길들이기> 제작진이 완성한 끝내주는 묘생 블록버스터!\n"
@@ -160,7 +150,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO article(" +
                 "  id, user_id, content_id, image," +
                 "  title, article_body, created_at)" +
-                " VALUES(3, 104, 661374, 'https://image.tmdb.org/t/p/original/lrgmo1qluO9c2qdBduiu412fRDS.jpg', "
+                " VALUES(3, 1, 661374, 'https://image.tmdb.org/t/p/original/lrgmo1qluO9c2qdBduiu412fRDS.jpg', "
                 + "'<나이브스 아웃: 글래스 어니언> 의 게임은 시작됐다.', "
                 + "'게임은 시작됐다: ‘글래스’의 심장.\n"
                 + "브누아 블랑이 라이언 존슨 감독의 새로운 살인 추리극에서 겹겹이 쌓인 미스터리를 파헤치러 돌아옵니다. \n"
@@ -176,7 +166,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO article(" +
                 "  id, user_id, content_id, image," +
                 "  title, article_body, created_at)" +
-                " VALUES(4, 104, 338953, 'https://image.tmdb.org/t/p/original/uvQbXjMgC5weQepx4jLJJ60H3N0.jpg', "
+                " VALUES(4, 1, 338953, 'https://image.tmdb.org/t/p/original/uvQbXjMgC5weQepx4jLJJ60H3N0.jpg', "
                 + "'<신비한 동물들과 덤블도어의 비밀> 세상을 구할 전쟁이 시작된다!', "
                 + "'가장 위험한 마법에 맞선, 세상을 구할 전쟁이 시작된다! \n"
                 + "1930년대, 제2차 세계대전에 마법사들이 개입하게 되면서 \n"
@@ -192,7 +182,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO article(" +
                 "  id, user_id, content_id, image," +
                 "  title, article_body, created_at)" +
-                " VALUES(5, 104, 119051, 'https://image.tmdb.org/t/p/original/tNWCukAMubqisamYURvo5jw61As.jpg', "
+                " VALUES(5, 1, 119051, 'https://image.tmdb.org/t/p/original/tNWCukAMubqisamYURvo5jw61As.jpg', "
                 + "'<웬즈데이> 연쇄 살인 사건', "
                 + "'똑똑하고 비꼬는 것에 도가 튼 웬즈데이 아담스. \n"
                 + "암울함을 풍기는 그녀가 네버모어 아카데미에서 연쇄 살인 사건을 조사하기 시작합니다. \n"
@@ -202,7 +192,7 @@ public class BackdoorController {
         jdbcTemplate.update("INSERT INTO article(" +
                 "  id, user_id, content_id, image," +
                 "  title, article_body, created_at)" +
-                " VALUES(6, 104, 634649, 'https://image.tmdb.org/t/p/original/voddFVdjUoAtfoZZp2RUmuZILDI.jpg', "
+                " VALUES(6, 1, 634649, 'https://image.tmdb.org/t/p/original/voddFVdjUoAtfoZZp2RUmuZILDI.jpg', "
                 + "'<스파이더맨: 노 웨이 홈> 멀티버스의 세계', "
                 + "'2021년 12월, 스파이더맨의 새로운 시대가 열린다! \n"
                 + "기존 스파이더맨 세계관을 확장하는 멀티버스의 본격적인 시작! \n"
@@ -285,7 +275,7 @@ public class BackdoorController {
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(1, 102, '\"아바타 물의 길\", 타이타닉 제치고 해외시장 역대 흥행 3위', "
+                " VALUES(1, 1, '\"아바타 물의 길\", 타이타닉 제치고 해외시장 역대 흥행 3위', "
                 + "'\"아바타 물의 길\"이 해외시장 (미북미 제외) 에서 누적 흥행치 15억 3800만 달러로 타이타닉을 제치고 역대 해회시장 흥행 3위 기록했네요. \n"
                 + "여전히 1위는 아바타가 21억 달러이고 2위는 어밴저스 엔드게임이 19억 달러라네요.️', "
                 + "50, 'https://pbs.twimg.com/media/FnpyhSYXoAAHUg4?format=jpg&name=small', ?, ?, ?)", false, now, now
@@ -293,7 +283,7 @@ public class BackdoorController {
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(2, 103, 'CGV 아트하우스 2023 아카데미 기획전!', "
+                " VALUES(2, 2, 'CGV 아트하우스 2023 아카데미 기획전!', "
                 + "'CGV는 오는 11일부터 다음 달 21일까지 제95회 미국 아카데미 시상식 후보에 오른 영화 17편을 상영하는 \"2023 아카데미 기획전\"을 연다고 6일 밝혔다.', "
                 + "45, 'https://file.kinolights.com/l/post_detail/202302/06/286bf71b-9017-485c-8b3c-d80ac6185c34.webp'"
                 + ", ?, ? ,?)", false, now.minusDays(1), now
@@ -301,7 +291,7 @@ public class BackdoorController {
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(3, 104, '바빌론 보고 왔습니다 ｡° ૮₍°´ᯅ`°₎ა °｡️', "
+                " VALUES(3, 3, '바빌론 보고 왔습니다 ｡° ૮₍°´ᯅ`°₎ა °｡️', "
                 + "'아직까지 여운이 안가셔요.. 계속해서 앨범 반복재생 중입니다 😭', "
                 + "41, 'https://file.kinolights.com/l/post_detail/202302/05/1201be06-152c-44ce-a2ae-a4278f13be71.webp', "
                 + "?, ?, ?)", false, now.minusDays(2), now
@@ -309,56 +299,56 @@ public class BackdoorController {
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(4, 105, '앤트맨3 외신 첫반응, \"창의적이고 훌륭한 액션 가득, 쿠키영상 2개도 좋다\"', "
+                " VALUES(4, 4, '앤트맨3 외신 첫반응, \"창의적이고 훌륭한 액션 가득, 쿠키영상 2개도 좋다\"', "
                 + "60, 'https://file.kinolights.com/l/post_detail/202302/07/7090dbe1-e611-4d7b-bd2c-959683da3df7.webp', "
                 + "?, ?, ?)", false, now.minusMinutes(1), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(5, 106, '길복순 베를린 공식 스틸️', "
+                " VALUES(5, 5, '길복순 베를린 공식 스틸️', "
                 + "41, 'https://file.kinolights.com/l/post_detail/202302/07/157ed8c8-8754-4468-b0df-48986f4ee070.webp', "
                 + "?, ?, ?)", false, now.minusSeconds(5), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(6, 104, '타이타닉 용산 아이맥스관 상영 스펙 정보.jpg', '4k가 아닌게 좀 아쉽네요', "
+                " VALUES(6, 1, '타이타닉 용산 아이맥스관 상영 스펙 정보.jpg', '4k가 아닌게 좀 아쉽네요', "
                 + "35, 'https://file.kinolights.com/l/post_detail/202302/07/233307a4-62f8-4a95-bf06-86cd80e94c3c.webp', "
                 + "?, ?, ?)", false, now.minusMinutes(10), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(7, 102, '이병헌, 박서준 \"콘크리트 유토피아\" 해외 공식 포스터', "
+                " VALUES(7, 2, '이병헌, 박서준 \"콘크리트 유토피아\" 해외 공식 포스터', "
                 + "2, 'https://file.kinolights.com/l/post_detail/202302/07/70fb0a36-d411-4411-ae75-b31ee8195b07.webp', "
                 + "?, ?, ?)", false, now.minusSeconds(10), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(8, 105, '\"화이트 리버\" 로테르담 영화제 초청, 호평 릴레이', "
+                " VALUES(8, 3, '\"화이트 리버\" 로테르담 영화제 초청, 호평 릴레이', "
                 + "4, 'https://file.kinolights.com/l/post_detail/202302/07/8cd93270-8296-4604-93ec-bd6dff4f1acb.webp', "
                 + "?, ?, ?)", false, now.minusHours(1), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(9, 103, '점심 메뉴 추천좀', '추천해주시면 3대가 행복함', "
+                " VALUES(9, 4, '점심 메뉴 추천좀', '추천해주시면 3대가 행복함', "
                 + "2, 'https://file.kinolights.com/l/post_detail/202302/07/8cd93270-8296-4604-93ec-bd6dff4f1acb.webp', "
                 + "?, ?, ?)", false, now.minusHours(2), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
-                " VALUES(10, 106, '존윅4, 4월 국내 개봉 확정', '영화 \"존 윅 4\"(감독 체드 스타헬스키)가 4월 국내 개봉을 확정했다.', "
+                " VALUES(10, 5, '존윅4, 4월 국내 개봉 확정', '영화 \"존 윅 4\"(감독 체드 스타헬스키)가 4월 국내 개봉을 확정했다.', "
                 + "5, 'https://file.kinolights.com/l/post_detail/202302/07/0f9226f4-c38e-4838-a5f2-e191658350a0.webp', "
                 + "?, ?, ?)", false, now.minusDays(2), now
         );
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, is_deleted, created_at, updated_at)" +
-                " VALUES(11, 105, '‼️ 뭐 볼지 랜덤하게 추천해 드립니다! ‼️', "
+                " VALUES(11, 1, '‼️ 뭐 볼지 랜덤하게 추천해 드립니다! ‼️', "
                 + "'요즘 넷플 들어가도 홈에서 수많은 작품들 보기만 하고\n"
                 + "고르기 귀찮아서 끄신 적 없으신가요? \n"
                 + "좋은 친구들이 있다면 고민할게 없겠지만 전 아싸 개발자라 추천해 줄 친구도 없어 랜덤하게 뽑는 페이지를 만들어 봤습니다. \n"
@@ -368,57 +358,57 @@ public class BackdoorController {
 
         jdbcTemplate.update("INSERT INTO likes(" +
                 "  id, post_id, user_id)" +
-                " VALUES(1, 10, 103)"
+                " VALUES(1, 10, 1)"
         );
 
         jdbcTemplate.update("INSERT INTO likes(" +
                 "  id, post_id, user_id)" +
-                " VALUES(2, 10, 102)"
+                " VALUES(2, 10, 2)"
         );
 
         jdbcTemplate.update("INSERT INTO likes(" +
                 "  id, post_id, user_id)" +
-                " VALUES(3, 10, 104)"
+                " VALUES(3, 10, 3)"
         );
 
         jdbcTemplate.update("INSERT INTO likes(" +
                 "  id, post_id, user_id)" +
-                " VALUES(4, 10, 105)"
+                " VALUES(4, 10, 4)"
         );
 
         jdbcTemplate.update("INSERT INTO likes(" +
                 "  id, post_id, user_id)" +
-                " VALUES(5, 11, 106)"
+                " VALUES(5, 11, 2)"
         );
 
         jdbcTemplate.update("INSERT INTO likes(" +
                 "  id, post_id, user_id)" +
-                " VALUES(6, 11, 102)"
+                " VALUES(6, 11, 3)"
         );
 
         jdbcTemplate.update("INSERT INTO likes(" +
                 "  id, post_id, user_id)" +
-                " VALUES(7, 11, 103)"
+                " VALUES(7, 11, 4)"
         );
 
         jdbcTemplate.update("INSERT INTO likes(" +
                 "  id, post_id, user_id)" +
-                " VALUES(8, 11, 104)"
+                " VALUES(8, 11, 5)"
         );
 
         jdbcTemplate.update("INSERT INTO post_comment(" +
                 "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(1, 102, 11, '본문에 링크로 남기시면 되잖아요!', ?, ?, ?)", false, now, now
+                " VALUES(1, 2, 11, '본문에 링크로 남기시면 되잖아요!', ?, ?, ?)", false, now, now
         );
 
         jdbcTemplate.update("INSERT INTO post_comment(" +
                 "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(2, 103, 11, '와 대단하시네요', ?, ?, ?)", false, now.minusHours(5), now
+                " VALUES(2, 3, 11, '와 대단하시네요', ?, ?, ?)", false, now.minusHours(5), now
         );
 
         jdbcTemplate.update("INSERT INTO post_comment(" +
                 "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(3, 106, 11, '저 링크 주세요!', ?, ?, ?)", false, now.minusHours(5), now
+                " VALUES(3, 4, 11, '저 링크 주세요!', ?, ?, ?)", false, now.minusHours(5), now
         );
 
         return "Setup database completed!";
