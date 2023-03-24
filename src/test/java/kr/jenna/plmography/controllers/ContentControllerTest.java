@@ -48,6 +48,18 @@ class ContentControllerTest {
     }
 
     @Test
+    void expiredNetflix() throws Exception {
+        given(getContentsService.expiredNetflix(3L))
+                .willReturn(new ContentsDto(List.of(Content.fake().toContentDto())));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contents/expiredNetflix?month=3"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        containsString("\"contents\":[")
+                ));
+    }
+
+    @Test
     void filter() throws Exception {
         given(getContentsService.filter(any(), any(), any(), any(), any(), any(), any(), any()))
                 .willReturn(new ContentsDto(List.of(Content.fake().toContentDto())));

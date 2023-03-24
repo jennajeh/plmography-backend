@@ -47,6 +47,17 @@ class GetContentsServiceTest {
     }
 
     @Test
+    void expiredNetflix() {
+        Content content = Content.fake();
+
+        given(contentRepository
+                .findAllByexpiredDateOnNetflix(any(Long.class)))
+                .willReturn(List.of(content));
+
+        assertThat(getContentsService.expiredNetflix(3L).getContents()).isNotNull();
+    }
+
+    @Test
     void filterWithKeyword() {
         Page<Content> pages = new PageImpl<>(List.of(Content.fake()));
 

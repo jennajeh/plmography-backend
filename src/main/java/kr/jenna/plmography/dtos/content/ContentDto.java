@@ -14,12 +14,13 @@ public class ContentDto {
     private String platform;
     private String type;
     private Long themeId;
+    private Long expiredDateOnNetflix;
     private String description;
 
     public ContentDto(Long id, Long tmdbId, String tmdbGenreId,
                       String imageUrl, String korTitle, String engTitle,
                       int releaseDate, double popularity, String platform,
-                      String type, Long themeId, String description) {
+                      String type, Long themeId, Long expiredDateOnNetflix, String description) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.tmdbGenreId = tmdbGenreId;
@@ -31,6 +32,7 @@ public class ContentDto {
         this.platform = platform;
         this.type = type;
         this.themeId = themeId;
+        this.expiredDateOnNetflix = expiredDateOnNetflix;
         this.description = description;
     }
 
@@ -92,6 +94,10 @@ public class ContentDto {
 
     public Long getThemeId() {
         return themeId;
+    }
+
+    public Long getExpiredDateOnNetflix() {
+        return expiredDateOnNetflix;
     }
 
     public String getDescription() {

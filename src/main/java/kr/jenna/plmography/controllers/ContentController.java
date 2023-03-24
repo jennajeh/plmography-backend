@@ -33,6 +33,15 @@ public class ContentController {
         return getContentsService.topRated();
     }
 
+    @GetMapping("/expiredNetflix")
+    public ContentsDto expiredNetflix(
+            @RequestParam Long month,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "8") Integer size
+    ) {
+        return getContentsService.expiredNetflix(month, page, size);
+    }
+
     @GetMapping("/filter")
     public ContentsDto filter(
             @RequestParam(required = false) String platform,

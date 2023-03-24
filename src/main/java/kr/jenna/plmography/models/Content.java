@@ -35,6 +35,8 @@ public class Content {
 
     private String type;
 
+    private Long expiredDateOnNetflix;
+
     private String platform;
 
     @Column(length = 4000)
@@ -50,7 +52,7 @@ public class Content {
                    String imageUrl, String korTitle, String engTitle,
                    int releaseDate, double popularity, String type,
                    String platform, String description, Long themeId,
-                   LocalDateTime createdAt) {
+                   Long expiredDateOnNetflix, LocalDateTime createdAt) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.tmdbGenreId = tmdbGenreId;
@@ -63,6 +65,7 @@ public class Content {
         this.platform = platform;
         this.description = description;
         this.themeId = themeId;
+        this.expiredDateOnNetflix = expiredDateOnNetflix;
         this.createdAt = createdAt;
     }
 
@@ -87,7 +90,7 @@ public class Content {
 
     public static Content fake() {
         return new Content(1L, 1L, "1", "imageUrl", "아바타", "Avatar", 2022,
-                3000, "movie", "netflix", "판타지 영화", 1L, LocalDateTime.now());
+                3000, "movie", "netflix", "판타지 영화", 1L, 3L, LocalDateTime.now());
     }
 
     public Long getId() {
@@ -138,12 +141,16 @@ public class Content {
         return themeId;
     }
 
+    public Long getExpiredDateOnNetflix() {
+        return expiredDateOnNetflix;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public ContentDto toContentDto() {
         return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
-                engTitle, releaseDate, popularity, platform, type, themeId, description);
+                engTitle, releaseDate, popularity, platform, type, themeId, expiredDateOnNetflix, description);
     }
 }

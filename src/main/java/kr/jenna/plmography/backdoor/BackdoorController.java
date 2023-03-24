@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class BackdoorController {
     private final RestTemplate restTemplate;
     private final JdbcTemplate jdbcTemplate;
     private final ContentRepository contentRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${tmdb.api-key}")
     private String apiKey;
@@ -37,10 +39,12 @@ public class BackdoorController {
 
     public BackdoorController(RestTemplate restTemplate,
                               JdbcTemplate jdbcTemplate,
-                              ContentRepository contentRepository) {
+                              ContentRepository contentRepository,
+                              PasswordEncoder passwordEncoder) {
         this.restTemplate = restTemplate;
         this.jdbcTemplate = jdbcTemplate;
         this.contentRepository = contentRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/setup-database")
@@ -62,28 +66,38 @@ public class BackdoorController {
         jdbcTemplate.execute("DELETE FROM post_comment");
 
         jdbcTemplate.update("INSERT INTO users("
-                + "  id, email, password, nickname, profile_image)"
-                + " VALUES(1, jenna@gmail.com, Test123!, jenna, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(1, 'jenna@gmail.com', ?, 'jenna', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
         );
 
         jdbcTemplate.update("INSERT INTO users("
-                + "  id, email, password, nickname, profile_image)"
-                + " VALUES(2, boni@gmail.com, Test123!, boni, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(2, 'boni@gmail.com', ?, 'boni', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
         );
 
         jdbcTemplate.update("INSERT INTO users("
-                + "  id, email, password, nickname, profile_image)"
-                + " VALUES(3, hello@gmail.com, Test123!, hello, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(3, 'hello@gmail.com', ?, 'hello', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
         );
 
         jdbcTemplate.update("INSERT INTO users("
-                + "  id, email, password, nickname, profile_image)"
-                + " VALUES(4, zzezze@gmail.com, Test123!, zzezze, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(4, 'zzezze@gmail.com', ?, 'zzezze', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
         );
 
         jdbcTemplate.update("INSERT INTO users("
-                + "  id, email, password, nickname, profile_image)"
-                + " VALUES(5, mini@gmail.com, Test123!, mini, 'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg')"
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(5, 'mini@gmail.com', ?, 'mini', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
         );
 
         jdbcTemplate.update("INSERT INTO review("
@@ -420,10 +434,9 @@ public class BackdoorController {
 
         jdbcTemplate.execute("CREATE TABLE content ("
                 + "id BIGINT AUTO_INCREMENT, tmdb_id VARCHAR, tmdb_genre_id VARCHAR,"
-                + "image_url VARCHAR, kor_title VARCHAR, eng_title VARCHAR,"
-                + "release_date VARCHAR, popularity VARCHAR, type VARCHAR,"
-                + "platform VARCHAR, description VARCHAR(4000), "
-                + "created_at VARCHAR);");
+                + "theme_id VARCHAR, image_url VARCHAR, kor_title VARCHAR, eng_title VARCHAR,"
+                + "release_date VARCHAR, popularity VARCHAR, type VARCHAR, expired_date_on_netflix VARCHAR,"
+                + "platform VARCHAR, description VARCHAR(4000), created_at VARCHAR);");
 
         return "Reset completed!";
     }
@@ -601,6 +614,18 @@ public class BackdoorController {
         jdbcTemplate.update("UPDATE content SET theme_id=10 WHERE tmdb_id = 112888");
         jdbcTemplate.update("UPDATE content SET theme_id=10 WHERE tmdb_id = 135157");
         jdbcTemplate.update("UPDATE content SET theme_id=10 WHERE tmdb_id = 112836");
+
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 804150");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 315162");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 943822");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 505642");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 850871");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 594767");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 677179");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 1026563");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 980078");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=3 WHERE tmdb_id = 1058949");
+        jdbcTemplate.update("UPDATE content SET expired_date_on_netflix=4 WHERE tmdb_id = 603692");
 
         return "Platform completely saved!";
     }
