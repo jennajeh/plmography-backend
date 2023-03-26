@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 public class CreateUserService {
@@ -41,7 +43,7 @@ public class CreateUserService {
             throw new PasswordNotMatch();
         }
 
-        User user = new User(email, password, nickname);
+        User user = new User(email, password, nickname, LocalDateTime.now(), LocalDateTime.now());
 
         user.encodePassword(password, passwordEncoder);
 

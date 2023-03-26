@@ -62,26 +62,43 @@ public class User {
     public User() {
     }
 
-    public User(Long id, Email email, Password password, Nickname nickname) {
+    public User(
+            Long id,
+            Email email,
+            Password password,
+            Nickname nickname,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.profileImage = new ProfileImage("https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg");
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public User(Email email, Password password, Nickname nickname) {
+    public User(
+            Email email,
+            Password password,
+            Nickname nickname,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.profileImage = new ProfileImage("https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg");
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public static User fake() {
         return new User(
                 new Email("jenna@gmail.com"),
                 new Password("Test123!"),
-                new Nickname("전제나"));
+                new Nickname("전제나"),
+                LocalDateTime.now(),
+                LocalDateTime.now());
     }
 
     public static User fake(long id) {
@@ -89,7 +106,9 @@ public class User {
                 id,
                 new Email("jenna@gmail.com"),
                 new Password("Test123!"),
-                new Nickname("전제나" + id));
+                new Nickname("전제나" + id),
+                LocalDateTime.now(),
+                LocalDateTime.now());
     }
 
     public static List<User> fakes(long count) {

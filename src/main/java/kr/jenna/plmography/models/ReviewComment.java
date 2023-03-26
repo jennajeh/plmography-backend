@@ -43,21 +43,29 @@ public class ReviewComment {
     public ReviewComment(Long id,
                          UserId userId,
                          PostId postId,
-                         ReviewCommentBody reviewCommentBody) {
+                         ReviewCommentBody reviewCommentBody,
+                         LocalDateTime createdAt,
+                         LocalDateTime updatedAt) {
         this.id = id;
         this.userId = userId;
         this.postId = postId;
         this.reviewCommentBody = reviewCommentBody;
         this.isDeleted = false;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public ReviewComment(UserId userId,
                          PostId postId,
-                         ReviewCommentBody reviewCommentBody) {
+                         ReviewCommentBody reviewCommentBody,
+                         LocalDateTime createdAt,
+                         LocalDateTime updatedAt) {
         this.userId = userId;
         this.postId = postId;
         this.reviewCommentBody = reviewCommentBody;
         this.isDeleted = false;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -89,7 +97,13 @@ public class ReviewComment {
     }
 
     public static ReviewComment fake() {
-        return new ReviewComment(1L, new UserId(1L), new PostId(1L), new ReviewCommentBody("reply"));
+        return new ReviewComment(
+                1L,
+                new UserId(1L),
+                new PostId(1L),
+                new ReviewCommentBody("reply"),
+                LocalDateTime.now(),
+                LocalDateTime.now());
     }
 
     public void modify(ReviewCommentBody reviewCommentBody) {

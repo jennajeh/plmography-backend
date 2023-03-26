@@ -60,22 +60,32 @@ public class Review {
                   UserId userId,
                   ContentId contentId,
                   Long starRate,
-                  ReviewBody reviewBody) {
+                  ReviewBody reviewBody,
+                  LocalDateTime createdAt,
+                  LocalDateTime updatedAt) {
         this.id = id;
         this.userId = userId;
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
         this.isDeleted = false;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public Review(UserId userId, ContentId contentId,
-                  Long starRate, ReviewBody reviewBody) {
+    public Review(UserId userId,
+                  ContentId contentId,
+                  Long starRate,
+                  ReviewBody reviewBody,
+                  LocalDateTime createdAt,
+                  LocalDateTime updatedAt) {
         this.userId = userId;
         this.contentId = contentId;
         this.starRate = starRate;
         this.reviewBody = reviewBody;
         this.isDeleted = false;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -115,13 +125,25 @@ public class Review {
     }
 
     public static Review fake() {
-        return new Review(1L, new UserId(1L), new ContentId(1L),
-                4L, new ReviewBody("영화가 재미있어요"));
+        return new Review(
+                1L,
+                new UserId(1L),
+                new ContentId(1L),
+                4L, new ReviewBody("영화가 재미있어요"),
+                LocalDateTime.now(),
+                LocalDateTime.now());
     }
 
     public static Review fake(long id) {
-        return new Review(id, new UserId(id), new ContentId(1L),
-                4L, new ReviewBody("영화가 재미있어요 " + id));
+        return new Review(
+                id,
+                new UserId(id),
+                new ContentId(1L),
+                4L,
+                new ReviewBody("영화가 재미있어요 " + id),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
     }
 
     public static List<Review> fakes(long count) {

@@ -12,6 +12,7 @@ import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -42,7 +43,7 @@ public class CreateReviewService {
         Long starRate = reviewRegistrationDto.getStarRate();
         ReviewBody reviewBody = new ReviewBody(reviewRegistrationDto.getReviewBody());
 
-        Review review = new Review(userId, contentId, starRate, reviewBody);
+        Review review = new Review(userId, contentId, starRate, reviewBody, LocalDateTime.now(), LocalDateTime.now());
 
         reviewRepository.save(review);
 
