@@ -38,13 +38,29 @@ public class GetContentsService {
 
     public ContentsDto topRated() {
         List<Content> contents = contentRepository
-                .findAllByPopularityGreaterThanOrderByPopularityDesc(2400);
+                .findAllByPopularityGreaterThanOrderByPopularityDesc(1000);
 
         List<ContentDto> contentsDtos = contents.stream()
                 .map(content -> content.toContentDto())
                 .collect(Collectors.toList());
 
         return new ContentsDto(contentsDtos);
+    }
+
+    public ContentsDto expiredNetflix(Long month, Integer page, Integer size) {
+        Sort sortBy = Sort.by("createdAt").descending();
+
+        Pageable pageable = PageRequest.of(page - 1, size, sortBy);
+
+        Page<Content> contents = contentRepository.findAllByExpiredDateOnNetflix(month, pageable);
+
+        List<ContentDto> contentDtos = contents.stream()
+                .map(content -> content.toContentDto())
+                .collect(Collectors.toList());
+
+        PagesDto pagesDto = new PagesDto(contents.getTotalPages());
+
+        return new ContentsDto(contentDtos, pagesDto);
     }
 
     public ContentsDto filter(String platform, String type, String genreId,

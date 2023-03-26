@@ -47,6 +47,17 @@ class GetContentsServiceTest {
     }
 
     @Test
+    void expiredNetflix() {
+        Page<Content> pages = new PageImpl<>(List.of(Content.fake()));
+
+        given(contentRepository
+                .findAllByExpiredDateOnNetflix(any(Long.class), any(Pageable.class)))
+                .willReturn(pages);
+
+        assertThat(getContentsService.expiredNetflix(3L, 1, 8).getContents()).isNotNull();
+    }
+
+    @Test
     void filterWithKeyword() {
         Page<Content> pages = new PageImpl<>(List.of(Content.fake()));
 

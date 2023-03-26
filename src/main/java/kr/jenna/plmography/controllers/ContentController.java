@@ -23,7 +23,8 @@ public class ContentController {
     private GetContentService getContentService;
     private GetContentsService getContentsService;
 
-    public ContentController(GetContentService getContentService, GetContentsService getContentsService) {
+    public ContentController(GetContentService getContentService,
+                             GetContentsService getContentsService) {
         this.getContentService = getContentService;
         this.getContentsService = getContentsService;
     }
@@ -31,6 +32,15 @@ public class ContentController {
     @GetMapping("/topRated")
     public ContentsDto topRated() {
         return getContentsService.topRated();
+    }
+
+    @GetMapping("/expiredNetflix")
+    public ContentsDto expiredNetflix(
+            @RequestParam Long month,
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "8") Integer size
+    ) {
+        return getContentsService.expiredNetflix(month, page, size);
     }
 
     @GetMapping("/filter")
