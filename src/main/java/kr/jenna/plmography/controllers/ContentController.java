@@ -23,7 +23,8 @@ public class ContentController {
     private GetContentService getContentService;
     private GetContentsService getContentsService;
 
-    public ContentController(GetContentService getContentService, GetContentsService getContentsService) {
+    public ContentController(GetContentService getContentService,
+                             GetContentsService getContentsService) {
         this.getContentService = getContentService;
         this.getContentsService = getContentsService;
     }

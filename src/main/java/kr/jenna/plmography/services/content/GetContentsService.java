@@ -38,7 +38,7 @@ public class GetContentsService {
 
     public ContentsDto topRated() {
         List<Content> contents = contentRepository
-                .findAllByPopularityGreaterThanOrderByPopularityDesc(2400);
+                .findAllByPopularityGreaterThanOrderByPopularityDesc(1000);
 
         List<ContentDto> contentsDtos = contents.stream()
                 .map(content -> content.toContentDto())

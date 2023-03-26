@@ -24,6 +24,6 @@ class ContentTest {
 
         assertThat(contentDto).isEqualTo(new ContentDto(
                 1L, 1L, "1", "imageUrl", "아바타", "Avatar", 2022,
-                3000.0, "netflix", "movie", 1L, 3L, "판타지 영화"));
+                3000.0, "netflix", "movie", 1L, 3L, 60, 6.1, "판타지 영화"));
     }
 }

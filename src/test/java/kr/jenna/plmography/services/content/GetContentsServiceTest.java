@@ -48,13 +48,13 @@ class GetContentsServiceTest {
 
     @Test
     void expiredNetflix() {
-        Content content = Content.fake();
+        Page<Content> pages = new PageImpl<>(List.of(Content.fake()));
 
         given(contentRepository
-                .findAllByexpiredDateOnNetflix(any(Long.class)))
-                .willReturn(List.of(content));
+                .findAllByExpiredDateOnNetflix(any(Long.class), any(Pageable.class)))
+                .willReturn(pages);
 
-        assertThat(getContentsService.expiredNetflix(3L).getContents()).isNotNull();
+        assertThat(getContentsService.expiredNetflix(3L, 1, 8).getContents()).isNotNull();
     }
 
     @Test

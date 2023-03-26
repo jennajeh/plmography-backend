@@ -37,6 +37,10 @@ public class Content {
 
     private Long expiredDateOnNetflix;
 
+    private Integer rottenTomatoScore;
+
+    private Double imdbScore;
+
     private String platform;
 
     @Column(length = 4000)
@@ -52,7 +56,8 @@ public class Content {
                    String imageUrl, String korTitle, String engTitle,
                    int releaseDate, double popularity, String type,
                    String platform, String description, Long themeId,
-                   Long expiredDateOnNetflix, LocalDateTime createdAt) {
+                   Long expiredDateOnNetflix, int rottenTomatoScore,
+                   double imdbScore, LocalDateTime createdAt) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.tmdbGenreId = tmdbGenreId;
@@ -66,6 +71,8 @@ public class Content {
         this.description = description;
         this.themeId = themeId;
         this.expiredDateOnNetflix = expiredDateOnNetflix;
+        this.rottenTomatoScore = rottenTomatoScore;
+        this.imdbScore = imdbScore;
         this.createdAt = createdAt;
     }
 
@@ -90,7 +97,7 @@ public class Content {
 
     public static Content fake() {
         return new Content(1L, 1L, "1", "imageUrl", "아바타", "Avatar", 2022,
-                3000, "movie", "netflix", "판타지 영화", 1L, 3L, LocalDateTime.now());
+                3000, "movie", "netflix", "판타지 영화", 1L, 3L, 60, 6.1, LocalDateTime.now());
     }
 
     public Long getId() {
@@ -149,8 +156,19 @@ public class Content {
         return createdAt;
     }
 
+    public Integer getRottenTomatoScore() {
+        return rottenTomatoScore;
+    }
+
+    public Double getImdbScore() {
+        return imdbScore;
+    }
+
     public ContentDto toContentDto() {
-        return new ContentDto(id, tmdbId, tmdbGenreId, imageUrl, korTitle,
-                engTitle, releaseDate, popularity, platform, type, themeId, expiredDateOnNetflix, description);
+        return new ContentDto(
+                id, tmdbId, tmdbGenreId, imageUrl, korTitle,
+                engTitle, releaseDate, popularity, platform,
+                type, themeId, expiredDateOnNetflix, rottenTomatoScore,
+                imdbScore, description);
     }
 }

@@ -15,12 +15,15 @@ public class ContentDto {
     private String type;
     private Long themeId;
     private Long expiredDateOnNetflix;
+    private Integer rottenTomatoScore;
+    private Double imdbScore;
     private String description;
 
     public ContentDto(Long id, Long tmdbId, String tmdbGenreId,
                       String imageUrl, String korTitle, String engTitle,
                       int releaseDate, double popularity, String platform,
-                      String type, Long themeId, Long expiredDateOnNetflix, String description) {
+                      String type, Long themeId, Long expiredDateOnNetflix,
+                      Integer rottenTomatoScore, Double imdbScore, String description) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.tmdbGenreId = tmdbGenreId;
@@ -33,22 +36,8 @@ public class ContentDto {
         this.type = type;
         this.themeId = themeId;
         this.expiredDateOnNetflix = expiredDateOnNetflix;
-        this.description = description;
-    }
-
-    public ContentDto(Long id, Long tmdbId, String tmdbGenreId,
-                      String imageUrl, String korTitle, String engTitle,
-                      int releaseDate, double popularity, String platform, String type, String description) {
-        this.id = id;
-        this.tmdbId = tmdbId;
-        this.tmdbGenreId = tmdbGenreId;
-        this.imageUrl = imageUrl;
-        this.korTitle = korTitle;
-        this.engTitle = engTitle;
-        this.releaseDate = releaseDate;
-        this.popularity = popularity;
-        this.platform = platform;
-        this.type = type;
+        this.rottenTomatoScore = rottenTomatoScore;
+        this.imdbScore = imdbScore;
         this.description = description;
     }
 
@@ -98,6 +87,14 @@ public class ContentDto {
 
     public Long getExpiredDateOnNetflix() {
         return expiredDateOnNetflix;
+    }
+
+    public Integer getRottenTomatoScore() {
+        return rottenTomatoScore;
+    }
+
+    public Double getImdbScore() {
+        return imdbScore;
     }
 
     public String getDescription() {
