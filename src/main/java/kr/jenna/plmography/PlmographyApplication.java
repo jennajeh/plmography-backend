@@ -31,8 +31,6 @@ public class PlmographyApplication {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
-//            @Autowired
-//            private HandlerInterceptor backdoorControlInterceptor;
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
@@ -42,7 +40,6 @@ public class PlmographyApplication {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(authenticationInterceptor());
-//                registry.addInterceptor(backdoorControlInterceptor);
             }
         };
     }
