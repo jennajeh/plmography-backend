@@ -2,7 +2,6 @@ package kr.jenna.plmography;
 
 import kr.jenna.plmography.interceptors.AuthenticationInterceptor;
 import kr.jenna.plmography.utils.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,8 +31,8 @@ public class PlmographyApplication {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
-            @Autowired
-            private HandlerInterceptor backdoorControlInterceptor;
+//            @Autowired
+//            private HandlerInterceptor backdoorControlInterceptor;
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
@@ -43,7 +42,7 @@ public class PlmographyApplication {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(authenticationInterceptor());
-                registry.addInterceptor(backdoorControlInterceptor);
+//                registry.addInterceptor(backdoorControlInterceptor);
             }
         };
     }

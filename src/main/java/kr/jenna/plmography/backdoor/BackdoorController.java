@@ -435,8 +435,9 @@ public class BackdoorController {
         jdbcTemplate.execute("CREATE TABLE content ("
                 + "id BIGINT AUTO_INCREMENT, tmdb_id VARCHAR, tmdb_genre_id VARCHAR,"
                 + "theme_id VARCHAR, image_url VARCHAR, kor_title VARCHAR, eng_title VARCHAR,"
-                + "release_date VARCHAR, popularity VARCHAR, type VARCHAR, expired_date_on_netflix VARCHAR,"
-                + "platform VARCHAR, description VARCHAR(4000), created_at VARCHAR);");
+                + "release_date VARCHAR, popularity VARCHAR, type VARCHAR, expired_date_on_netflix VARCHAR, "
+                + "rotten_tomato_score VARCHAR, imdb_score VARCHAR, platform VARCHAR,"
+                + "description VARCHAR(4000), created_at VARCHAR);");
 
         return "Reset completed!";
     }
