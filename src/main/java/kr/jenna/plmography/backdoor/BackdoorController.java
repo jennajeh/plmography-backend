@@ -47,58 +47,19 @@ public class BackdoorController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/setup-database")
-    public String setupDatabase() {
+    @GetMapping("/setup-others")
+    public String setupOthers() {
         LocalDateTime now = LocalDateTime.now();
 
-//        jdbcTemplate.execute("DELETE FROM user_favorite_content_ids");
-//        jdbcTemplate.execute("DELETE FROM user_watched_content_ids");
-//        jdbcTemplate.execute("DELETE FROM user_wish_content_ids");
-//        jdbcTemplate.execute("DELETE FROM users");
-//        jdbcTemplate.execute("DELETE FROM subscribe");
-//        jdbcTemplate.execute("DELETE FROM review_like_user_ids");
-//        jdbcTemplate.execute("DELETE FROM review");
-//        jdbcTemplate.execute("DELETE FROM review_comment");
-//        jdbcTemplate.execute("DELETE FROM article");
-//        jdbcTemplate.execute("DELETE FROM theme");
-//        jdbcTemplate.execute("DELETE FROM likes");
-//        jdbcTemplate.execute("DELETE FROM post");
-//        jdbcTemplate.execute("DELETE FROM post_comment");
-
-        jdbcTemplate.update("INSERT INTO users("
-                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
-                        + " VALUES(1, 'jenna@gmail.com', ?, 'jenna', "
-                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
-                passwordEncoder.encode("Test123!"), now, now
-        );
-
-        jdbcTemplate.update("INSERT INTO users("
-                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
-                        + " VALUES(2, 'boni@gmail.com', ?, 'boni', "
-                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
-                passwordEncoder.encode("Test123!"), now, now
-        );
-
-        jdbcTemplate.update("INSERT INTO users("
-                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
-                        + " VALUES(3, 'hello@gmail.com', ?, 'hello', "
-                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
-                passwordEncoder.encode("Test123!"), now, now
-        );
-
-        jdbcTemplate.update("INSERT INTO users("
-                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
-                        + " VALUES(4, 'zzezze@gmail.com', ?, 'zzezze', "
-                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
-                passwordEncoder.encode("Test123!"), now, now
-        );
-
-        jdbcTemplate.update("INSERT INTO users("
-                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
-                        + " VALUES(5, 'mini@gmail.com', ?, 'mini', "
-                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
-                passwordEncoder.encode("Test123!"), now, now
-        );
+        jdbcTemplate.execute("DELETE FROM subscribe");
+        jdbcTemplate.execute("DELETE FROM review_like_user_ids");
+        jdbcTemplate.execute("DELETE FROM review");
+        jdbcTemplate.execute("DELETE FROM review_comment");
+        jdbcTemplate.execute("DELETE FROM article");
+        jdbcTemplate.execute("DELETE FROM theme");
+        jdbcTemplate.execute("DELETE FROM likes");
+        jdbcTemplate.execute("DELETE FROM post");
+        jdbcTemplate.execute("DELETE FROM post_comment");
 
         jdbcTemplate.update("INSERT INTO review("
                 + "  id, user_id, content_id, is_deleted,"
@@ -425,7 +386,54 @@ public class BackdoorController {
                 " VALUES(3, 4, 11, '저 링크 주세요!', ?, ?, ?)", false, now.minusHours(5), now
         );
 
-        return "Setup database completed!";
+        return "setup others completed!";
+    }
+
+    @GetMapping("/setup-user")
+    public String setupUser() {
+        LocalDateTime now = LocalDateTime.now();
+
+        jdbcTemplate.execute("DELETE FROM user_favorite_content_ids");
+        jdbcTemplate.execute("DELETE FROM user_watched_content_ids");
+        jdbcTemplate.execute("DELETE FROM user_wish_content_ids");
+        jdbcTemplate.execute("DELETE FROM users");
+
+        jdbcTemplate.update("INSERT INTO users("
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(1, 'jenna@gmail.com', ?, 'jenna', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
+        );
+
+        jdbcTemplate.update("INSERT INTO users("
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(2, 'boni@gmail.com', ?, 'boni', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
+        );
+
+        jdbcTemplate.update("INSERT INTO users("
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(3, 'hello@gmail.com', ?, 'hello', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
+        );
+
+        jdbcTemplate.update("INSERT INTO users("
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(4, 'zzezze@gmail.com', ?, 'zzezze', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
+        );
+
+        jdbcTemplate.update("INSERT INTO users("
+                        + "  id, email, password, nickname, profile_image, created_at, updated_at)"
+                        + " VALUES(5, 'mini@gmail.com', ?, 'mini', "
+                        + "'https://plmographybucket.s3.ap-northeast-2.amazonaws.com/base_profile.svg', ?, ?)",
+                passwordEncoder.encode("Test123!"), now, now
+        );
+
+        return "Setup user completed!";
     }
 
     @GetMapping("/setup-content")
