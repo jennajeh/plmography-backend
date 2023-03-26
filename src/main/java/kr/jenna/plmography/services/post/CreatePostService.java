@@ -13,6 +13,8 @@ import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 public class CreatePostService {
@@ -34,7 +36,7 @@ public class CreatePostService {
         PostBody postBody = new PostBody(postRegistrationDto.getPostBody());
         Image image = new Image(postRegistrationDto.getImage());
 
-        Post post = new Post(userId, title, postBody, image);
+        Post post = new Post(userId, title, postBody, image, LocalDateTime.now(), LocalDateTime.now());
 
         postRepository.save(post);
 

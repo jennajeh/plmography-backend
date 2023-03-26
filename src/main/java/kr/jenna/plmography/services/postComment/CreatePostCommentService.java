@@ -12,6 +12,8 @@ import kr.jenna.plmography.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 public class CreatePostCommentService {
@@ -31,7 +33,9 @@ public class CreatePostCommentService {
         PostComment postComment = new PostComment(
                 new UserId(user.getId()),
                 new PostId(postCommentRegistrationDto.getPostId()),
-                new PostCommentBody(postCommentRegistrationDto.getPostCommentBody())
+                new PostCommentBody(postCommentRegistrationDto.getPostCommentBody()),
+                LocalDateTime.now(),
+                LocalDateTime.now()
         );
 
         postCommentRepository.save(postComment);

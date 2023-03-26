@@ -49,13 +49,20 @@ public class Post {
     public Post() {
     }
 
-    public Post(UserId userId, Title title, PostBody postBody, Image image) {
+    public Post(UserId userId,
+                Title title,
+                PostBody postBody,
+                Image image,
+                LocalDateTime createdAt,
+                LocalDateTime updatedAt) {
         this.userId = userId;
         this.title = title;
         this.postBody = postBody;
         this.image = image;
         this.hit = new Hit(0L);
         this.isDeleted = false;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -117,7 +124,9 @@ public class Post {
                 new UserId(1L),
                 new Title("제목"),
                 new PostBody("첫 글 작성"),
-                new Image("image"));
+                new Image("image"),
+                LocalDateTime.now(),
+                LocalDateTime.now());
     }
 
     public static Post fake2() {
@@ -125,7 +134,9 @@ public class Post {
                 new UserId(1L),
                 new Title("아바타"),
                 new PostBody("아바타 물의 길"),
-                new Image("image"));
+                new Image("image"),
+                LocalDateTime.now(),
+                LocalDateTime.now());
     }
 
     public PostCreationDto toPostCreationDto() {

@@ -43,21 +43,29 @@ public class PostComment {
     public PostComment(Long id,
                        UserId userId,
                        PostId postId,
-                       PostCommentBody postCommentBody) {
+                       PostCommentBody postCommentBody,
+                       LocalDateTime createdAt,
+                       LocalDateTime updatedAt) {
         this.id = id;
         this.userId = userId;
         this.postId = postId;
         this.postCommentBody = postCommentBody;
         this.isDeleted = false;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public PostComment(UserId userId,
                        PostId postId,
-                       PostCommentBody postCommentBody) {
+                       PostCommentBody postCommentBody,
+                       LocalDateTime createdAt,
+                       LocalDateTime updatedAt) {
         this.userId = userId;
         this.postId = postId;
         this.postCommentBody = postCommentBody;
         this.isDeleted = false;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -90,7 +98,12 @@ public class PostComment {
 
     public static PostComment fake() {
         return new PostComment(
-                1L, new UserId(1L), new PostId(1L), new PostCommentBody("reply"));
+                1L,
+                new UserId(1L),
+                new PostId(1L),
+                new PostCommentBody("reply"),
+                LocalDateTime.now(),
+                LocalDateTime.now());
     }
 
     public void modify(PostCommentBody postCommentBody) {

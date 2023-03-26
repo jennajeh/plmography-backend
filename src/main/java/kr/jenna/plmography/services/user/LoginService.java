@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 public class LoginService {
@@ -54,7 +56,9 @@ public class LoginService {
             User user = new User(
                     new Email(email),
                     new Password(passwordForSocialLogin),
-                    new Nickname(nickname));
+                    new Nickname(nickname),
+                    LocalDateTime.now(),
+                    LocalDateTime.now());
 
             user.encodePassword(new Password(passwordForSocialLogin), passwordEncoder);
 
