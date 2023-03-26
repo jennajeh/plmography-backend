@@ -47,50 +47,11 @@ public class BackdoorController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/setup-others")
-    public String setupOthers() {
+    @GetMapping("/setup-article")
+    public String setupArticle() {
         LocalDateTime now = LocalDateTime.now();
 
-        jdbcTemplate.execute("DELETE FROM subscribe");
-        jdbcTemplate.execute("DELETE FROM review_like_user_ids");
-        jdbcTemplate.execute("DELETE FROM review");
-        jdbcTemplate.execute("DELETE FROM review_comment");
         jdbcTemplate.execute("DELETE FROM article");
-        jdbcTemplate.execute("DELETE FROM theme");
-        jdbcTemplate.execute("DELETE FROM likes");
-        jdbcTemplate.execute("DELETE FROM post");
-        jdbcTemplate.execute("DELETE FROM post_comment");
-
-        jdbcTemplate.update("INSERT INTO review("
-                + "  id, user_id, content_id, is_deleted,"
-                + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(1, 1, 76600, ?, '영화가 재미있어요!', 5L, ?, ?)", false, now.minusDays(1), now
-        );
-
-        jdbcTemplate.update("INSERT INTO review("
-                + "  id, user_id, content_id, is_deleted,"
-                + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(2, 2, 76600, ?, '재미와 감동이 두배', 4L, ?, ?)", false, now.minusHours(2), now
-        );
-
-        jdbcTemplate.update("INSERT INTO review("
-                + "  id, user_id, content_id, is_deleted,"
-                + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(3, 3, 76600, ?, '지금까지의 서막은 완벽함. 정주행 재생버튼 누른 이후로 쉬지 않고 다 봤음다. "
-                + "내년에 나올 속편이 관건이네요ㅋㅋㅋ용두사미일지 용두용미일지.', 4L, ?, ?)", false, now.minusMinutes(2), now
-        );
-
-        jdbcTemplate.update("INSERT INTO review("
-                + "  id, user_id, content_id, is_deleted,"
-                + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(4, 4, 76600, ?, '영상미가 대박이예요~', 4L, ?, ?)", false, now.minusHours(1), now
-        );
-
-        jdbcTemplate.update("INSERT INTO review("
-                + "  id, user_id, content_id, is_deleted,"
-                + "  review_body, star_rate, created_at, updated_at)"
-                + " VALUES(5, 5, 76600, ?, '이거 안 본 사람과는 겸상하지 않겠다', 4L, ?, ?)", false, now.minusDays(3), now
-        );
 
         jdbcTemplate.update("INSERT INTO article(" +
                 "  id, user_id, content_id, image," +
@@ -179,6 +140,15 @@ public class BackdoorController {
                 + "‘피터 파커’는 사상 최악의 위기를 맞게 되는데…', ?)", now.minusDays(6)
         );
 
+        return "setup article completed!";
+    }
+
+    @GetMapping("/setup-theme")
+    public String setupTheme() {
+        LocalDateTime now = LocalDateTime.now();
+
+        jdbcTemplate.execute("DELETE FROM theme");
+
         jdbcTemplate.update("INSERT INTO theme(" +
                 "  id, hit, image, title)" +
                 " VALUES(1, 10, "
@@ -247,6 +217,15 @@ public class BackdoorController {
                 + "'https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/theme_images/226/8fc7bffc-4019-4e77-a264-331df8182e04.jpg', "
                 + "'제 58회 백상예술대상 후보작️')"
         );
+
+        return "setup theme completed!";
+    }
+
+    @GetMapping("/setup-post")
+    public String setupPost() {
+        LocalDateTime now = LocalDateTime.now();
+
+        jdbcTemplate.execute("DELETE FROM post");
 
         jdbcTemplate.update("INSERT INTO post(" +
                 "  id, user_id, title, post_body, hit, image, is_deleted, created_at, updated_at)" +
@@ -331,62 +310,7 @@ public class BackdoorController {
                 + "40, ?, ?, ?)", false, now.minusDays(2), now
         );
 
-        jdbcTemplate.update("INSERT INTO likes(" +
-                "  id, post_id, user_id)" +
-                " VALUES(1, 10, 1)"
-        );
-
-        jdbcTemplate.update("INSERT INTO likes(" +
-                "  id, post_id, user_id)" +
-                " VALUES(2, 10, 2)"
-        );
-
-        jdbcTemplate.update("INSERT INTO likes(" +
-                "  id, post_id, user_id)" +
-                " VALUES(3, 10, 3)"
-        );
-
-        jdbcTemplate.update("INSERT INTO likes(" +
-                "  id, post_id, user_id)" +
-                " VALUES(4, 10, 4)"
-        );
-
-        jdbcTemplate.update("INSERT INTO likes(" +
-                "  id, post_id, user_id)" +
-                " VALUES(5, 11, 2)"
-        );
-
-        jdbcTemplate.update("INSERT INTO likes(" +
-                "  id, post_id, user_id)" +
-                " VALUES(6, 11, 3)"
-        );
-
-        jdbcTemplate.update("INSERT INTO likes(" +
-                "  id, post_id, user_id)" +
-                " VALUES(7, 11, 4)"
-        );
-
-        jdbcTemplate.update("INSERT INTO likes(" +
-                "  id, post_id, user_id)" +
-                " VALUES(8, 11, 5)"
-        );
-
-        jdbcTemplate.update("INSERT INTO post_comment(" +
-                "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(1, 2, 11, '본문에 링크로 남기시면 되잖아요!', ?, ?, ?)", false, now, now
-        );
-
-        jdbcTemplate.update("INSERT INTO post_comment(" +
-                "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(2, 3, 11, '와 대단하시네요', ?, ?, ?)", false, now.minusHours(5), now
-        );
-
-        jdbcTemplate.update("INSERT INTO post_comment(" +
-                "  id, user_id, post_id, post_comment_body, is_deleted, created_at, updated_at)" +
-                " VALUES(3, 4, 11, '저 링크 주세요!', ?, ?, ?)", false, now.minusHours(5), now
-        );
-
-        return "setup others completed!";
+        return "setup post completed!";
     }
 
     @GetMapping("/setup-user")
@@ -530,30 +454,6 @@ public class BackdoorController {
 
     @GetMapping("/setup-content-data")
     public String setupPlatformAndType() throws IOException {
-        // 플랫폼 설정
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus, tv.apple' WHERE id <= 25");
-        jdbcTemplate.update("UPDATE content SET platform='tv.apple, wavve, tving' WHERE id <= 50");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, tv.apple' WHERE id > 50 AND id <= 75");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, watcha' WHERE id > 76 AND id <= 100");
-        jdbcTemplate.update("UPDATE content SET platform='tv.apple, disneyplus' WHERE id > 100 AND id <= 125");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus, tv.apple' WHERE id > 125 AND id <= 150");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, tv.apple' WHERE id > 150 AND id <= 175");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving' WHERE id > 175 AND id <= 200");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus' WHERE id > 200 AND id <= 225");
-
-        // 플랫폼 설정
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, tv.apple' WHERE id > 225 AND id <= 250");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, watcha' WHERE id > 250 AND id <= 275");
-        jdbcTemplate.update("UPDATE content SET platform='tv.apple, disneyplus' WHERE id > 275 AND id <= 300");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus, tv.apple' WHERE id > 300 AND id <= 325");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving, tv.apple' WHERE id > 325 AND id <= 350");
-        jdbcTemplate.update("UPDATE content SET platform='wavve, tving' WHERE id > 350 AND id <= 375");
-        jdbcTemplate.update("UPDATE content SET platform='netflix, wavve, watcha, disneyplus' WHERE id > 375");
-
-        // 타입 설정
-        jdbcTemplate.update("UPDATE content SET type='movie' WHERE id <= 200");
-        jdbcTemplate.update("UPDATE content SET type='drama' WHERE id > 200");
-
         // 테마 설정
         jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 315162");
         jdbcTemplate.update("UPDATE content SET theme_id=1 WHERE tmdb_id = 76600");
