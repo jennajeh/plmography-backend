@@ -51,19 +51,19 @@ public class BackdoorController {
     public String setupDatabase() {
         LocalDateTime now = LocalDateTime.now();
 
-        jdbcTemplate.execute("DELETE FROM user_favorite_content_ids");
-        jdbcTemplate.execute("DELETE FROM user_watched_content_ids");
-        jdbcTemplate.execute("DELETE FROM user_wish_content_ids");
-        jdbcTemplate.execute("DELETE FROM users");
-        jdbcTemplate.execute("DELETE FROM subscribe");
-        jdbcTemplate.execute("DELETE FROM review_like_user_ids");
-        jdbcTemplate.execute("DELETE FROM review");
-        jdbcTemplate.execute("DELETE FROM review_comment");
-        jdbcTemplate.execute("DELETE FROM article");
-        jdbcTemplate.execute("DELETE FROM theme");
-        jdbcTemplate.execute("DELETE FROM likes");
-        jdbcTemplate.execute("DELETE FROM post");
-        jdbcTemplate.execute("DELETE FROM post_comment");
+//        jdbcTemplate.execute("DELETE FROM user_favorite_content_ids");
+//        jdbcTemplate.execute("DELETE FROM user_watched_content_ids");
+//        jdbcTemplate.execute("DELETE FROM user_wish_content_ids");
+//        jdbcTemplate.execute("DELETE FROM users");
+//        jdbcTemplate.execute("DELETE FROM subscribe");
+//        jdbcTemplate.execute("DELETE FROM review_like_user_ids");
+//        jdbcTemplate.execute("DELETE FROM review");
+//        jdbcTemplate.execute("DELETE FROM review_comment");
+//        jdbcTemplate.execute("DELETE FROM article");
+//        jdbcTemplate.execute("DELETE FROM theme");
+//        jdbcTemplate.execute("DELETE FROM likes");
+//        jdbcTemplate.execute("DELETE FROM post");
+//        jdbcTemplate.execute("DELETE FROM post_comment");
 
         jdbcTemplate.update("INSERT INTO users("
                         + "  id, email, password, nickname, profile_image, created_at, updated_at)"
