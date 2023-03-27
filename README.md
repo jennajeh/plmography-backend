@@ -21,7 +21,7 @@
 ![image](https://user-images.githubusercontent.com/110010435/227908603-19318a90-77a4-4de9-8a05-98f63914f809.png)
 
 ## 📆 작업 기간
-- 2022.12/12 ~ 2023.02.13
+- 2022.12.12 ~ 2023.02.13
 
 ## 👣 프로젝트 설계
 🔗 [설계 문서](https://wirehaired-trick-c7d.notion.site/Plmography-1e498e701b1e4c379c1de1a6e0cecdec)
