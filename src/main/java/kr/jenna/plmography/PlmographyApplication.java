@@ -1,5 +1,6 @@
 package kr.jenna.plmography;
 
+import jakarta.annotation.PostConstruct;
 import kr.jenna.plmography.interceptors.AuthenticationInterceptor;
 import kr.jenna.plmography.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.TimeZone;
+
 @SpringBootApplication
 public class PlmographyApplication {
     @Value("${jwt.secret}")
@@ -21,6 +24,11 @@ public class PlmographyApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PlmographyApplication.class, args);
+    }
+
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
     }
 
     @Bean
