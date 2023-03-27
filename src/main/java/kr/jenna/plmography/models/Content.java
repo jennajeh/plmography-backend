@@ -56,8 +56,8 @@ public class Content {
                    String imageUrl, String korTitle, String engTitle,
                    int releaseDate, double popularity, String type,
                    String platform, String description, Long themeId,
-                   Long expiredDateOnNetflix, int rottenTomatoScore,
-                   double imdbScore, LocalDateTime createdAt) {
+                   Long expiredDateOnNetflix, Integer rottenTomatoScore,
+                   Double imdbScore, LocalDateTime createdAt) {
         this.id = id;
         this.tmdbId = tmdbId;
         this.tmdbGenreId = tmdbGenreId;
